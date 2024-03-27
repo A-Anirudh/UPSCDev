@@ -1,0 +1,317 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer base {
+    :root {
+      --text-25:#000000;
+      --text-50: #e5e5ff;
+      --text-100: #ccccff;
+      --text-200: #9999ff;
+      --text-300: #6666ff;
+      --text-400: #3333ff;
+      --text-500: #0000ff;
+      --text-600: #0000cc;
+      --text-700: #000099;
+      --text-800: #000066;
+      --text-900: #000033;
+      --text-950: #00001a;
+      --text-150:#7c7c7c;
+
+      
+      --background-25: #ffffff;
+      --background-50: #ffffff;
+      --background-100: #e6e6e6;
+      --background-200: #cccccc;
+      --background-300: #b3b3b3;
+      --background-400: #999999;
+      --background-500: #808080;
+      --background-600: #666666;
+      --background-700: #4d4d4d;
+      --background-800: #333333;
+      --background-900: #1a1a1a;
+      --background-950: #0d0d0d;
+      
+      --primary-50: #e7e8fd;
+      --primary-100: #d0d0fb;
+      --primary-200: #a0a2f8;
+      --primary-300: #7173f4;
+      --primary-400: #4144f1;
+      --primary-500: #1216ed;
+      --primary-600: #0e11be;
+      --primary-700: #0b0d8e;
+      --primary-800: #07095f;
+      --primary-900: #04042f;
+      --primary-950: #020218;
+      
+      --secondary-50: #e6e6fe;
+      --secondary-100: #cdcefe;
+      --secondary-200: #9b9dfd;
+      --secondary-300: #696cfc;
+      --secondary-400: #373afb;
+      --secondary-500: #0509fa;
+      --secondary-600: #0407c8;
+      --secondary-700: #030696;
+      --secondary-800: #020464;
+      --secondary-900: #010232;
+      --secondary-950: #010119;
+      
+      --accent-50: #e6edfe;
+      --accent-100: #cddbfe;
+      --accent-200: #9cb7fc;
+      --accent-300: #6a93fb;
+      --accent-400: #386ffa;
+      --accent-500: #064bf9;
+      --accent-600: #053cc7;
+      --accent-700: #042d95;
+      --accent-800: #031e63;
+      --accent-900: #010f32;
+      --accent-950: #010819;
+
+      --card-1000:#ffffff;
+      
+    }
+    .dark {
+      --card-1000:#161616;
+
+
+      --text-25:#ffffff;
+      --text-50: #00001a;
+      --text-100: #000033;
+      --text-200: #000066;
+      --text-300: #000099;
+      --text-400: #0000cc;
+      --text-500: #0000ff;
+      --text-600: #3333ff;
+      --text-700: #6666ff;
+      --text-800: #9999ff;
+      --text-900: #ccccff;
+      --text-950: #e5e5ff;
+      --text-1000:#e4e4e4;
+      --text-150:#636363;
+
+      --background-25: #cddbfe;
+      --background-50: #0d0d0d;
+      --background-100: #1a1a1a;
+      --background-200: #333333;
+      --background-300: #4d4d4d;
+      --background-400: #666666;
+      --background-500: #808080;
+      --background-600: #999999;
+      --background-700: #b3b3b3;
+      --background-800: #cccccc;
+      --background-900: #e6e6e6;
+      --background-950: #f2f2f2;
+      
+      --primary-50: #020218;
+      --primary-100: #04042f;
+      --primary-200: #07095f;
+      --primary-300: #0b0d8e;
+      --primary-400: #0e11be;
+      --primary-500: #1216ed;
+      --primary-600: #4144f1;
+      --primary-700: #7173f4;
+      --primary-800: #a0a2f8;
+      --primary-900: #d0d0fb;
+      --primary-950: #e7e8fd;
+      
+      --secondary-50: #010119;
+      --secondary-100: #010232;
+      --secondary-200: #020464;
+      --secondary-300: #030696;
+      --secondary-400: #0407c8;
+      --secondary-500: #0509fa;
+      --secondary-600: #373afb;
+      --secondary-700: #696cfc;
+      --secondary-800: #9b9dfd;
+      --secondary-900: #cdcefe;
+      --secondary-950: #e6e6fe;
+      
+      --accent-50: #010819;
+      --accent-100: #010f32;
+      --accent-200: #031e63;
+      --accent-300: #042d95;
+      --accent-400: #053cc7;
+      --accent-500: #064bf9;
+      --accent-600: #030303;
+      --accent-700: #6a93fb;
+      --accent-800: #9cb7fc;
+      --accent-900: #cddbfe;
+      --accent-950: #e6edfe;
+
+      
+    }
+  }
+
+  .removeScroll::-webkit-scrollbar {
+    display: none;
+  }
+  .header-shadow {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #adadad;
+    border-radius: 20px;
+    /* border: 4px solid #ffffff; */
+  }
+
+
+  .sidebar::-webkit-scrollbar {
+    display: none;
+  }
+
+
+  input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+ol,
+ul {
+  list-style: disc;
+  margin: 0;
+  padding: 0;
+}
+
+  a {
+    @apply  text-blue-600 hover:text-blue-800
+ }
+ h1 {
+  display: block;
+  font-size: 2em;
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+h2 {
+  display: block;
+  font-size: 1.5em;
+  margin-top: 0.83em;
+  margin-bottom: 0.83em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+h3 {
+  display: block;
+  font-size: 1.17em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+h4 {
+  display: block;
+  margin-top: 1.33em;
+  margin-bottom: 1.33em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+h5 {
+  display: block;
+  font-size: 0.83em;
+  margin-top: 1.67em;
+  margin-bottom: 1.67em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+h6 {
+  display: block;
+  font-size: 0.67em;
+  margin-top: 2.33em;
+  margin-bottom: 2.33em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+
+/* Assuming your accordion-content has a class named "accordion-content" */
+
+
+
+#loadingScreen {
+  display: none;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200%;
+  }
+  100% {
+    background-position: -200%;
+  }
+}
+
+.loader {
+  display: inline-block;
+  /* width: 100%; */
+
+  background: linear-gradient(90deg, #2e2e2e 25%, #3b3b3b 50%, #2e2e2e 75%);
+  animation: loading 8s infinite linear;
+  background-size: 200% 100%;
+
+}
+
+/* Apply styles to multiple loaders in a row */
+.loader-row {
+  width: 100%;
+  margin-bottom: 16px; /* Optional: Add margin between rows of loaders */
+}
+
+.toggle__line {
+  transition: background-color  0.2s;
+}
+
+.toggle__dot {
+  transition: all  0.3s ease-in-out;
+}
+
+input:checked ~ .toggle__line {
+  background-color: var(--accent-500); /* Green background when toggled */
+}
+
+input:checked ~ .toggle__dot {
+  transform: translateX(100%);
+}
+.transparent-checkbox {
+  background-color: transparent;
+}

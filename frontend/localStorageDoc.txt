@@ -1,0 +1,5 @@
+all:stores where all affairs shoould be shown or the timeline
+first: true:show affair data else the selected event data
+affair-id:the _id of the affair
+the pid of affair is in the url
+event-id:is the selected event _id

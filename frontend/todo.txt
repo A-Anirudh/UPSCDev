@@ -1,0 +1,14 @@
+if logged in never come to landing page
+logout
+side bar
+
+^^^^
+affair-id	654e163ce01bb75abbfe0e0c	
+first	true	
+affair-pid	aec85dbc-7ed8-45d0-bd15-36972a1b3aab
+remove these on AllAffairs unmount ^^^^
+
+Added by Anirudh
+
+captcha in frontend to prevent web scraping 
+smaller images for mobile
