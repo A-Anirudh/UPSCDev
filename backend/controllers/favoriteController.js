@@ -20,7 +20,6 @@ const addFavourite = asyncHandler(async (req, res) => {
             userId: req.user._id
         });
         if(favouriteAffair){
-            nodeCache.del('allFavourites');
             res.status(201).json({
                 pid:favouriteAffair.pid,
                 affairName: favouriteAffair.affairName,
@@ -34,13 +33,7 @@ const addFavourite = asyncHandler(async (req, res) => {
 });
 
 const allMyFavourites = asyncHandler(async (req,res) => {
-    let allFavourites;
-    if(nodeCache.has('allFavourites')){
-        allFavourites = JSON.parse(nodeCache.get('allFavourites'));
-    } else{
-        allFavourites = await Favourite.find({userId:req.user._id})
-        nodeCache.set('allFavourites',JSON.stringify(allFavourites));
-    }
+    const allFavourites = await Favourite.find({userId:req.user._id})
 
     const allFavAffairs = []
 
@@ -63,7 +56,6 @@ const deleteFavourite = asyncHandler(async (req,res) => {
     const favourite = await Favourite.findOne({pid:pid})
     if(favourite){
         await Favourite.deleteOne({pid:pid})
-        nodeCache.del('allFavourites');
         res.status(201).json({
             message: "deleted successfully",
             pid

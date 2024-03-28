@@ -2,18 +2,16 @@ import asyncHandler from "express-async-handler";
 import { Playlist } from "../../models/playlist/playlistModel.js";
 import NodeCache from "node-cache";
 
+// Caches
+// !allPlaylistOfUser
+
 const nodeCache = new NodeCache();
 
 // GET REQUEST, PROTECTED ROUTE
 
 const getAllPlaylistsOfUser = asyncHandler(async(req,res) => {
-    let allPlaylist;
-    if(nodeCache.has('allPlaylistOfUser')){
-        allPlaylist = JSON.parse(nodeCache.get('allPlaylistOfUser'));
-    } else{
-        allPlaylist = await Playlist.find({userId:req.user.id});
-        nodeCache.set('allPlaylistOfUser',JSON.stringify(allPlaylist));
-    }
+
+    const allPlaylist = await Playlist.find({userId:req.user.id});
     if(allPlaylist.length >0){
         res.status(200).json({
             data:allPlaylist
@@ -40,7 +38,6 @@ const createPlaylist = asyncHandler(async (req,res) => {
             })
     
             if(newPlaylist){
-                nodeCache.del('allPlaylistOfUser');
                 res.status(200).json({
                     "message":`Playlist ${playlistName} created!`
                 })
@@ -63,7 +60,6 @@ const updatePlaylistName = asyncHandler(async (req,res) => {
         if(String(playlist.userId) === req.user.id || req.user.role==='admin'){
             playlist.playlistName = newName || playlist.playlistName
             await playlist.save();
-            nodeCache.del('allPlaylistOfUser');
 
             res.status(201).json({
                 "message":"name updated successfully!"
@@ -84,7 +80,6 @@ const deletePlaylist = asyncHandler(async(req,res) => {
     const {playlistId}= req.body;
     const result = await Playlist.deleteOne({_id:playlistId});
     if(result.deletedCount >0){
-        nodeCache.del('allPlaylistOfUser');
 
         res.status(201).json({
             message: "deleted successfully"
@@ -120,7 +115,6 @@ const addAffairToPlaylist = asyncHandler(async (req, res) => {
                 { _id: playlistId },
                 { $push: { articles: article } }
             );
-            nodeCache.del('allPlaylistOfUser');
 
             res.status(201).json({
                 message: "Article added to the playlist successfully",
@@ -158,7 +152,6 @@ const deleteArticleFromPlaylist = asyncHandler(async (req, res) => {
                 { _id: playlistId },
                 { $set: { articles: updatedArticles } }
             );
-            nodeCache.del('allPlaylistOfUser');
 
             res.status(200).json({
                 message: "Article removed from the playlist successfully",
