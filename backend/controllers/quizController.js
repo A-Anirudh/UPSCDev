@@ -3,13 +3,6 @@ import { Affair } from "../models/affairsModel.js";
 import {Question} from "../models/quizModel.js";
 
 const addQuestion = asyncHandler(async (req,res) => {
-    if(req.user.role!='admin'){
-        res.status(403).json({
-            message:'You do not have the permission to access this route'
-        })
-    } else{
-        
-
         const {questions} = req.body;
         let message = 0;
 
@@ -41,7 +34,6 @@ const addQuestion = asyncHandler(async (req,res) => {
         res.status(200).json({
             "message":`${message} number of questions added!`
         })
-    }
 })
 
 const getQuestion = asyncHandler(async (req,res) => {
@@ -73,10 +65,6 @@ const getQuestion = asyncHandler(async (req,res) => {
 
 
 const deleteQuestion = asyncHandler(async(req, res) => {
-    if (req.user.role !== 'admin') {
-        res.status(403)
-        throw new Error('Permission denied')
-    } else {
         const { questionId } = req.body;
 
         const result = await Question.deleteOne({ _id: questionId });
@@ -89,7 +77,6 @@ const deleteQuestion = asyncHandler(async(req, res) => {
             res.status(404)
             throw new Error('Question not found!')
         }
-    }
 });
 
 
@@ -112,12 +99,6 @@ const getSolutions = asyncHandler(async(req,res) => {
 
 const updateIndividualQuestion = asyncHandler(async (req, res) => {
 
-    if (req.user.role !== 'admin') {
-        res.status(403).json({
-            message: 'You do not have the permission to access this route'
-        });
-    } else {
-
         const {questionId} = req.body;
         const q = await Question.findById(questionId);
 
@@ -133,7 +114,6 @@ const updateIndividualQuestion = asyncHandler(async (req, res) => {
             res.status(404);
             throw new Error('Question not found')
         }
-    }
 });
 
 export {getQuestion,addQuestion,getSolutions,deleteQuestion,updateIndividualQuestion}

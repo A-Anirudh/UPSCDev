@@ -23,10 +23,7 @@ const addBug = asyncHandler(async (req, res) => {
 // GET request
 const allBugsForAdminPanel = asyncHandler(async (req,res) => {
 
-    if(req.user.role!='admin'){
-        res.status(400)
-        throw new Error('Access denied')
-    } else{
+
         const allBugs = await ReportBug.find({});
         if(allBugs.length>0){
             res.status(200).json({
@@ -36,17 +33,10 @@ const allBugsForAdminPanel = asyncHandler(async (req,res) => {
             res.status(404)
             throw new Error('No bugs reported yet!')        
         }
-    }
 })
 
 // PUT request with bugId as input from frontend
 const markBugAsFixed = asyncHandler(async (req,res) => {
-
-    if(req.user.role!='admin'){
-        res.status(400)
-        throw new Error('Access denied')
-    }
-    else{
         const {bugId} = req.body;
         const bug = await ReportBug.findOne({_id:bugId});
         if(bug){
@@ -60,14 +50,9 @@ const markBugAsFixed = asyncHandler(async (req,res) => {
             res.status(404)
             throw new Error('Bug not found!')
         }
-    }
 })
 
 const deleteOldBugReports = asyncHandler(async (req, res) => {
-    if (req.user.role !== 'admin') {
-        res.status(400);
-        throw new Error('Access denied');
-    } else {
         const { complaintIdArray } = req.body;
 
         // Get the current date and calculate 30 days ago
@@ -86,7 +71,6 @@ const deleteOldBugReports = asyncHandler(async (req, res) => {
         } else {
             res.status(500).json({ error: 'Failed to delete documents' });
         }
-    }
 });
 
 export {addBug,allBugsForAdminPanel,markBugAsFixed,deleteOldBugReports}

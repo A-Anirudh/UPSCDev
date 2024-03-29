@@ -6,11 +6,6 @@ import sendEmail from '../utils/sendMail.js'
 
 const sendEverydayMail = asyncHandler(async (req, res) => {
     const {html} = req.body;
-    if(req.user.role!='admin'){
-        // Only admins can send email
-        res.status(400)
-        throw new Error('Access denied')
-    } else{
         const allUsers = await User.find({})
         for(let i=0;i<allUsers.length;i++){
             if(allUsers[i].mailingList && allUsers[i].role!=='admin'){
@@ -21,7 +16,7 @@ const sendEverydayMail = asyncHandler(async (req, res) => {
         }
 
         res.status(200).json({message:"All emails sent"})
-    }
+    
 });
 
 export {sendEverydayMail}

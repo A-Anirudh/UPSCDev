@@ -9,7 +9,7 @@ router.put('/updatePreference',protect,changeMailingListPreference)
 router.get('/users/:id/verify/:token',verifyEmail );
 router.post('/', registerUser);
 router.post('/auth', authUser);
-router.post('/logout', logoutUser);
+router.post('/logout', protect,logoutUser);
 router.route('/profile').get(protect,getUserProfile).put(protect,updateUserProfile);
 router.route('/continueReading').post(protect,addArticleToContinueReading).delete(protect,deleteArticleFromContinueReading).get(protect,getContinueReading);
 

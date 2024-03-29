@@ -195,11 +195,6 @@ const getOneAffair = asyncHandler(async (req,res) => {
 
 
 const addAffair = asyncHandler(async (req, res) => {
-  const role = req.user.role;
-  if (role != "admin") {
-    res.status(403);
-    throw new Error("Permission denied!");
-  } else {
     const {
       affairName,
       summary,
@@ -254,15 +249,11 @@ const addAffair = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error("Invalid data entered!");
     }
-  }
+  
 });
 
 const updateAffair = asyncHandler(async (req, res) => {
-  const role = req.user.role;
-  if (role != "admin") {
-    res.status(403);
-    throw new Error("Permission denied!");
-  } else {
+
     const { pid } = req.body;
     const affair = await Affair.findOne({ pid: pid });
 
@@ -293,15 +284,10 @@ const updateAffair = asyncHandler(async (req, res) => {
       res.status(404);
       throw new Error("Current Affair not found");
     }
-  }
 });
 
 const deleteAffair = asyncHandler(async (req, res) => {
-  const role = req.user.role;
-  if (role != "admin") {
-    res.status(403);
-    throw new Error("Permission denied!");
-  } else {
+
     const { pid } = req.body;
 
     const affair = await Affair.findOne({ pid: pid });
@@ -320,17 +306,11 @@ const deleteAffair = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error("Current Affair not found!");
     }
-  }
 });
 
 // Events controller from here
 
 const addEvent = asyncHandler(async (req, res) => {
-  const role = req.user.role;
-  if (role != "admin") {
-    res.status(403);
-    throw new Error("Permission denied!");
-  } else {
     const { eventName, desc, affairId, startDate, endDate } = req.body;
     const event = await Event.create({
       pid: uuidv4(),
@@ -349,7 +329,6 @@ const addEvent = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error("Invalid data entered!");
     }
-  }
 });
 
 const getOneEvent = asyncHandler(async (req, res) => {
@@ -369,13 +348,7 @@ const getOneEvent = asyncHandler(async (req, res) => {
 });
 
 const deleteEvent = asyncHandler(async (req, res) => {
-  const role = req.user.role;
-  if (role != "admin") {
-    res.status(403);
-    throw new Error("Permission denied!");
-  } else {
     const { pid } = req.body;
-
     const event = await Event.findOne({ pid: pid });
     if (event) {
       await Event.deleteOne({ pid: pid });
@@ -387,15 +360,9 @@ const deleteEvent = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error("Event not found!");
     }
-  }
 });
 
 const updateEvent = asyncHandler(async (req, res) => {
-  const role = req.user.role;
-  if (role != "admin") {
-    res.status(403);
-    throw new Error("Permission denied!");
-  } else {
     const { pid } = req.body;
     const event = await Event.findOne({ pid: pid });
 
@@ -414,7 +381,6 @@ const updateEvent = asyncHandler(async (req, res) => {
       res.status(404);
       throw new Error("Event not found");
     }
-  }
 });
 
 const eventsOfOneAffair = asyncHandler(async (req, res) => {

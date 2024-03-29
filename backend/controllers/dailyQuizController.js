@@ -2,11 +2,6 @@ import asyncHandler from "express-async-handler";
 import { DailyQuiz } from "../models/dailyQuizModel.js";
 
 const addQuestion = asyncHandler(async (req,res) => {
-    if(req.user.role!='admin'){
-        res.status(403).json({
-            message:'You do not have the permission to access this route'
-        })
-    } else{
         const {question, options, solution,subject} = req.body;
         const result = await DailyQuiz.deleteMany({});
 
@@ -25,7 +20,6 @@ const addQuestion = asyncHandler(async (req,res) => {
             res.status(503)
             throw new Error('Could not add question right now, please try again later')
         }
-    }
 })
 
 const getQuestion = asyncHandler(async (req,res) => {

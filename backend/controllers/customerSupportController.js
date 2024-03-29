@@ -35,7 +35,6 @@ const addCustomerSupport = asyncHandler(async (req, res) => {
             res.status(400);
             throw new Error('Invalid data entered!')
         }
-        // send email
 });
 
 // GET request
@@ -59,12 +58,6 @@ const allSupportForAdminPanel = asyncHandler(async (req,res) => {
 
 // PUT request with bugId as input from frontend
 const markAsResolved = asyncHandler(async (req,res) => {
-
-    if(req.user.role!='admin'){
-        res.status(400)
-        throw new Error('Access denied')
-    }
-    else{
         const {complaintId} = req.body;
         const complaint = await CustomerSupport.findOne({_id:complaintId});
         if(complaint){
@@ -78,14 +71,9 @@ const markAsResolved = asyncHandler(async (req,res) => {
             res.status(404)
             throw new Error('Complaint not found!')
         }
-    }
 })
 
 const deleteOldSupportQueries = asyncHandler(async (req, res) => {
-    if (req.user.role !== 'admin') {
-        res.status(400);
-        throw new Error('Access denied');
-    } else {
         const { complaintIdArray } = req.body;
 
         // Get the current date and calculate 30 days ago
@@ -105,7 +93,6 @@ const deleteOldSupportQueries = asyncHandler(async (req, res) => {
             res.status(500)
             throw new Error('Unable to delete document!')
         }
-    }
 });
 
 export {addCustomerSupport,allSupportForAdminPanel,markAsResolved,deleteOldSupportQueries}

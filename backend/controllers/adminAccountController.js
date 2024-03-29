@@ -2,27 +2,18 @@ import asyncHandler from "express-async-handler";
 import User from '../models/userModel.js'
 
 const getAllUsers = asyncHandler(async (req,res) => {
-    if(req.user.role!='admin'){
-        res.status(403)
-        throw new Error('Forbidden route!')
-    } else{
-        const allUsers = await User.find({role:'user'}).select('username email id pid subscription')
-        if(allUsers.length >0 ){
-            return res.status(200).json({
-                data:allUsers
-            })
-        }
-        res.status(404)
-        throw new Error('No users found')
-    }
 
+    const allUsers = await User.find({role:'user'}).select('username email id pid subscription')
+    if(allUsers.length >0 ){
+        return res.status(200).json({
+            data:allUsers
+        })
+    }
+    res.status(404)
+    throw new Error('No users found')
 })
 
 const getAllUserDetails = asyncHandler(async (req,res) => {
-    if(req.user.role!='admin'){
-        res.status(403)
-        throw new Error('Forbidden route!')
-    } else{
         const userId = req.params.id;
         const user = await User.findOne({_id:userId}).select('-continueReading')
         if(user){
@@ -33,8 +24,6 @@ const getAllUserDetails = asyncHandler(async (req,res) => {
             res.status(404)
             throw new Error('User not found!')
         }
-    }
-
 })
 
 /**
@@ -44,10 +33,6 @@ const getAllUserDetails = asyncHandler(async (req,res) => {
  */
 
 const updateUserProfile = asyncHandler(async (req, res) => {
-    if(req.user.role!='admin'){
-        res.status(403)
-        throw new Error('Forbidden route!')
-    } else{
         const {userId} = req.body
         const user = await User.findById(userId)
     
@@ -80,9 +65,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         } else{
             res.status(404);
             throw new Error('User not found')
-        }
-    
-    }
+        } 
 });
 
 
