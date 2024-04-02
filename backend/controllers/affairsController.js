@@ -8,6 +8,37 @@ import TextToSpeechConvert from "../utils/tts.js";
 
 const nodeCache = new NodeCache();
 
+// Search affair
+
+const searchAffairs = asyncHandler(async (req, res) => {
+  const { searchTerm, subject } = req.query;
+
+  const query = {};
+
+  if (searchTerm) {
+    query.$or = [
+      { affairName: { $regex: searchTerm, $options: 'i' } }, // Match partial words in affairName
+      { summary: { $regex: searchTerm, $options: 'i' } },     // Match partial words in summary
+    ];
+  }
+
+  if (subject) {
+    query.subject = { $regex: subject, $options: 'i' }; // Match partial words in subject
+  }
+
+  // Execute the query
+  const results = await Affair.find(query).exec();
+
+
+  if(results.length>0){
+    res.status(200).json(results);
+  } else{
+    res.status(404)
+    throw new Error('No results!')
+  }
+});
+
+
 const allData = asyncHandler(async (req, res) => {
   const allData = await Affair.find({}).sort({ createdAt: -1 });
   if (allData.length > 0) {
@@ -423,4 +454,5 @@ export {
   currentAffairsSubjectWise,
   allDataForSubject,
   allData,
+  searchAffairs
 };

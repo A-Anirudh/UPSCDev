@@ -1,5 +1,5 @@
 import express from "express";
-import { addAffair, addEvent, deleteAffair, deleteEvent, updateAffair, updateEvent,eventsOfOneAffair, getOneAffair, getOneEvent, getLatestAffairs, subjectWiseHomePage, currentAffairsSubjectWise, allDataForSubject, allData } from "../controllers/affairsController.js";
+import { addAffair, addEvent, deleteAffair, deleteEvent, updateAffair, updateEvent,eventsOfOneAffair, getOneAffair, getOneEvent, getLatestAffairs, subjectWiseHomePage, currentAffairsSubjectWise, allDataForSubject, allData,searchAffairs } from "../controllers/affairsController.js";
 import { protect,protectPublic } from "../middleware/authMiddleware.js";
 import isAdmin from "../middleware/adminMiddleware.js";
 const affairsRoute = express.Router();
@@ -9,6 +9,7 @@ affairsRoute.get('/nonCA/subwise',protectPublic,subjectWiseHomePage);
 affairsRoute.get('/CA/latest?:number',protectPublic,getLatestAffairs);
 affairsRoute.get('/allPerSubject',protectPublic,allDataForSubject);
 affairsRoute.get('/all',protectPublic,allData);
+affairsRoute.get('/search',protect,searchAffairs);
 
 // Current affair details page
 affairsRoute.get('/CA/subwise',protectPublic, currentAffairsSubjectWise)
