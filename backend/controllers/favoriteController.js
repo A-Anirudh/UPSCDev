@@ -51,6 +51,17 @@ const allMyFavourites = asyncHandler(async (req,res) => {
     }
 })
 
+const checkIfFavourite = asyncHandler(async (req,res) => {
+    const {affairId} = req.query
+    const allFav = await Favourite.findOne({userId: req.user.id, affairId})
+
+    if(allFav){
+        res.status(200).json({message:true})
+    } else{
+        res.status(404).json({message:false})
+    }
+})
+
 const deleteFavourite = asyncHandler(async (req,res) => {
     const {pid} = req.body;
     const favourite = await Favourite.findOne({pid:pid})
@@ -67,4 +78,4 @@ const deleteFavourite = asyncHandler(async (req,res) => {
 })
 
 
-export {addFavourite,allMyFavourites,deleteFavourite}
+export {addFavourite,allMyFavourites,deleteFavourite,checkIfFavourite}
