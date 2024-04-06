@@ -11,13 +11,13 @@ const nodeCache = new NodeCache();
 // Search affair
 
 const searchAffairs = asyncHandler(async (req, res) => {
-  const { searchTerm, subject } = req.query;
+  const {  subject } = req.query;
   const query = {};
   let results = [];
-  if (searchTerm) {
+  if (subject) {
     query.$or = [
-      { affairName: { $regex: searchTerm, $options: 'i' } }, // Match partial words in affairName
-      { summary: { $regex: searchTerm, $options: 'i' } },     // Match partial words in summary
+      { affairName: { $regex: subject, $options: 'i' } }, // Match partial words in affairName
+      { summary: { $regex: subject, $options: 'i' } },     // Match partial words in summary
     ];
   }
 
