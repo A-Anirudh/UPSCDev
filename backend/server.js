@@ -18,18 +18,19 @@ import quizRoute from './routes/quizRoutes.js';
 import reportBugsRoute from './routes/reportBugsRoutes.js';
 import DailyQuizRoute from './routes/dailyQuizRoute.js';
 import customerSupportRoute from './routes/customerSupportRoutes.js';
+import userAdminRoute from './routes/userAdminRoutes.js';
+import badgeRoute from './routes/gamify/badgesRoutes.js';
+import weeklyQuestionsRoute from './routes/gamify/weeklyQuizRoutes.js';
+import PlaylistRoute from './routes/playlist/playlistRoutes.js';
+import ClipRoute from './routes/clips/clipsRoute.js';
+import roomRoute from './routes/room/roomRoutes.js';
 
 // payment
 import RazorPay from 'razorpay';
 import deleteReportBugsFromDatabase from './utils/cron/deleteBugsCron.js';
 import deleteSupportQueryFromDatabase from './utils/cron/deleteCustomerSupportCron.js';
 import deleteUserFromDatabase from './utils/cron/deleteUserCron.js';
-import userAdminRoute from './routes/userAdminRoutes.js';
-import badgeRoute from './routes/gamify/badgesRoutes.js';
-import weeklyQuestionsRoute from './routes/gamify/weeklyQuizRoutes.js';
 import deleteWeeklyQuizPrevData from './utils/cron/deleteWeeklyQuizResultsCron.js';
-import PlaylistRoute from './routes/playlist/playlistRoutes.js';
-import ClipRoute from './routes/clips/clipsRoute.js';
 
 
 
@@ -74,6 +75,7 @@ app.use('/api/gamify',badgeRoute)
 app.use('/api/gamify',weeklyQuestionsRoute)
 app.use('/api/playlist',PlaylistRoute)
 app.use('/api/clip',ClipRoute)
+app.use('/api/room',roomRoute)
 
 // Middleware
 app.use(notFound);
