@@ -27,7 +27,7 @@ const searchAffairs = asyncHandler(async (req, res) => {
   }
 
   // Execute the query
-  const results = await Affair.find(query).select('affairName id').exec();
+  const results = await Affair.find(query).select('affairName id subject').exec();
 
   if(results.length>0){
     res.status(200).json(results);
