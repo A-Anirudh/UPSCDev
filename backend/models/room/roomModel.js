@@ -21,6 +21,9 @@ const studyRoomSchema = mongoose.Schema({
     isActive:{
         type:Boolean,
         default:false
+    },
+    meetingSummary:{
+        type:String
     }
 },{
     timestamps: true
