@@ -1,25 +1,35 @@
 import asyncHandler from "express-async-handler";
-
+import { StudyRoom } from "../../models/room/roomModel.js";
 // @desc    Create a new study room
 // @route   POST /api/study-rooms/create-room
 // @access  Private
+
+const getAllStudyRooms =  asyncHandler(async(req,res) => {
+    const all = await StudyRoom.find({})
+    res.status(200).json({
+        data:all
+    })
+})
+
+
 const createRoom = asyncHandler(async (req, res) => {
 
-    const { roomId, roomOwner } = req.body;
-
+    const { roomId,roomName} = req.body;
+    const roomOwner = req.user.id
     // Checking if that owner is already in another owner of some room or not
-    const existingRoom = await StudyRoom.findOne({ roomOwner });
+    const existingRoom = await StudyRoom.findOne({ roomOwner, isActive:true });
 
     if(existingRoom){
         res.status(400).json({
             message:'Already part of a room, please quit to join another room!'
-        })
+        })  
     }
     // Create the study room
     const newRoom = await StudyRoom.create({
       roomId,
       roomOwner,
-      users: [roomOwner],
+      roomName,
+      users : [roomOwner]
     });
 
     if(newRoom){
@@ -34,11 +44,17 @@ const createRoom = asyncHandler(async (req, res) => {
 // @route   POST /api/study-rooms/join-room
 // @access  Public
 const joinRoom = asyncHandler(async (req, res) => {
-    const { roomId, userId } = req.body;
-  
+    const { roomId } = req.body;
+    const userId = req.user.id;
     // Find the room by roomId
-    const room = await StudyRoom.findOne({ roomId });
-  
+    const room = await StudyRoom.findOne({ roomId, isActive:true });
+    
+    const userRooms = await StudyRoom.find({ users: { $in: [userId] } });
+
+    if(userRooms.length>0){
+        res.status(400)
+        throw new Error('User in another room, please leave other rooms!')
+    }
     if (!room) {
       res.status(404)
       throw new Error('Room not found!')
@@ -61,8 +77,8 @@ const joinRoom = asyncHandler(async (req, res) => {
 // @route   POST /api/study-rooms/leave-room
 // @access  Public
 const leaveRoom = asyncHandler(async (req, res) => {
-    const { roomId, userId } = req.body;
-  
+    const { roomId } = req.body;
+    const userId = req.user.id;
     // Find the room by roomId
     const room = await StudyRoom.findOne({ roomId });
   
@@ -85,22 +101,26 @@ const leaveRoom = asyncHandler(async (req, res) => {
     res.status(200).json({ success: true, data: room });
   });
 
-const deleteRoom = asyncHandler(async (req, res) => {
-    const { roomId, roomOwner } = req.body;
+const endRoom = asyncHandler(async (req, res) => {
+    const { roomId } = req.body;
+
+    const roomOwner = req.user.id
 
     // Find the room by roomId and roomOwner
     const room = await StudyRoom.findOne({ roomId, roomOwner });
 
-    if (!room) {
+    if (room) {
+        room.isActive = false;
+        room.users = [];
+        await room.save()   
+        res.status(200).json({ message:'Meeting ended' });
+    } else{
+
         res.status(404)
         throw new Error('Room not found!')
     }
 
-    // Delete the room
-    await room.remove();
-
-    res.status(200).json({ success: true, data: {} });
 });
 
-export { createRoom, joinRoom,leaveRoom,deleteRoom};
+export {getAllStudyRooms, createRoom, joinRoom,leaveRoom,endRoom};
   
