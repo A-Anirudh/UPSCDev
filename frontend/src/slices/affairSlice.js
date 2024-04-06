@@ -53,6 +53,21 @@ export const affairSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+
+    search: builder.query({
+      query: (searchItem) => ({
+        url: `/${AFFAIR_URL}/search?subject=${searchItem}`,
+        method: "GET",
+      }),
+    }),
+    searchResults: builder.query({
+      query: (searchItem) => ({
+        url: `/${AFFAIR_URL}/search/all?subject=${searchItem}`,
+        method: "GET",
+      }),
+    }),
+
+    
   }),
 });
 
@@ -66,4 +81,7 @@ export const {
   useGetAllSubjectWiseQuery,
   useLazyGetAllSubjectWiseQuery,
   useGetCASubjectWiseQuery,
+  useLazySearchResultsQuery,
+  useLazySearchQuery,
+  useSearchResultsQuery
 } = affairSlice;

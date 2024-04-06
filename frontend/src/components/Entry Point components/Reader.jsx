@@ -125,7 +125,7 @@ export const Reader = () => {
 
 
   return (
-    <section className=" main-container w-full overflow-y-auto overflow-x-hidden  h-[87vh]  md:h-[92vh] lg:h-[87vh] xl:h-[90vh] 2xl:h-[92vh] sidebar">
+    <section className=" main-container w-full overflow-y-auto overflow-x-hidden  h-[87vh]  md:h-[90vh] lg:h-[85vh] xl:h-[88vh] 2xl:h-[90vh] sidebar">
     <section className="w-full   md:w-3/4 lg:w-1/2 flex flex-col   main-container  text-text-25 font-jakarta mx-auto    ">
       <div className="flex items-center w md:gap-5 px-3 md:px-5  bg-background-50 sticky top-0 z-[100] justify-between">
         <button className=" flex  p-2  items-center gap-4" onClick={handleBack}>

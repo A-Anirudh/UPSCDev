@@ -8,6 +8,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useSelector } from "react-redux";
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
 import{CloseIcon} from '../../utils/icons'
+import { SearchComponent } from "../Search/SearchComponent";
 
 export const LoggedUserBar = () => {
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ setopen(!open)
 
 
   return (
-    <nav className="w-full font-jakarta text-text-25 p-4 flex items-center  bg-background-50 justify-between z-[9999999] lg:px-10 border-b border-background-100 sticky top-0 ">
+    <nav className="w-full font-jakarta text-text-25 p-4  flex items-center  bg-background-50 justify-between z-[9999999] lg:px-10 border-b border-background-100 sticky top-0 ">
       <div className="w-full">
         <div className="flex items-center justify-between lg:hidden">
 
@@ -108,8 +109,9 @@ setopen(!open)
                 loc == '/buy-subscription' ? "text-accent-500" : ""
               }`} onClick={()=>{navigate('/buy-subscription');setopen(false)}}>Subscription</li>
           <li className="block lg:hidden font-semibold" onClick={()=>{navigate('/profile');setopen(false)}}>Profile</li>
-
+          <SearchComponent/>   
         </ul>
+        
       </div>
       <div>
         <div className=" items-center justify-center gap-5 lg:flex hidden">
