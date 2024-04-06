@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const studyRoomSchema = mongoose.Schema({
     roomId: {
-        type:Strings,
+        type:String,
         required:true,
         unique:true
     },
@@ -14,13 +14,12 @@ const studyRoomSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, ref: 'User',
         required:true
     },
-    users:{
+    users:[{
         type: mongoose.Schema.Types.ObjectId, ref: 'User',
-        required:true
-    },
+    }],
     isActive:{
         type:Boolean,
-        default:false
+        default:true
     },
     meetingSummary:{
         type:String

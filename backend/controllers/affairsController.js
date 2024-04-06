@@ -12,9 +12,8 @@ const nodeCache = new NodeCache();
 
 const searchAffairs = asyncHandler(async (req, res) => {
   const { searchTerm, subject } = req.query;
-
   const query = {};
-
+  let results = [];
   if (searchTerm) {
     query.$or = [
       { affairName: { $regex: searchTerm, $options: 'i' } }, // Match partial words in affairName
@@ -25,9 +24,10 @@ const searchAffairs = asyncHandler(async (req, res) => {
   if (subject) {
     query.subject = { $regex: subject, $options: 'i' }; // Match partial words in subject
   }
+  if(Object.keys(query).length) {
+    results = await Affair.find(query).select('affairName id subject').exec();
+  }
 
-  // Execute the query
-  const results = await Affair.find(query).select('affairName id subject').exec();
 
   if(results.length>0){
     res.status(200).json(results);
@@ -41,6 +41,7 @@ const searchAffairsAll = asyncHandler(async (req, res) => {
   const { searchTerm, subject } = req.query;
 
   const query = {};
+  let results = [];
 
   if (searchTerm) {
     query.$or = [
@@ -53,8 +54,9 @@ const searchAffairsAll = asyncHandler(async (req, res) => {
     query.subject = { $regex: subject, $options: 'i' }; // Match partial words in subject
   }
 
-  // Execute the query
-  const results = await Affair.find(query).select('affairName pid thumbnail id').exec();
+  if(Object.keys(query).length) {
+    results = await Affair.find(query).select('affairName id thumbnail pid subject').exec();
+  }
 
   if(results.length>0){
     res.status(200).json(results);
