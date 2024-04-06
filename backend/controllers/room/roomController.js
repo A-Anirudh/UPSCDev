@@ -5,7 +5,8 @@ import asyncHandler from "express-async-handler";
 // @access  Private
 const createRoom = asyncHandler(async (req, res) => {
 
-    const { roomId, roomOwner } = req.body;
+    const { roomId } = req.body;
+    const roomOwner = req.user.id
 
     // Checking if that owner is already in another owner of some room or not
     const existingRoom = await StudyRoom.findOne({ roomOwner });
@@ -34,8 +35,8 @@ const createRoom = asyncHandler(async (req, res) => {
 // @route   POST /api/study-rooms/join-room
 // @access  Public
 const joinRoom = asyncHandler(async (req, res) => {
-    const { roomId, userId } = req.body;
-  
+    const { roomId } = req.body;
+    const userId = req.user.id;
     // Find the room by roomId
     const room = await StudyRoom.findOne({ roomId });
   
@@ -61,8 +62,8 @@ const joinRoom = asyncHandler(async (req, res) => {
 // @route   POST /api/study-rooms/leave-room
 // @access  Public
 const leaveRoom = asyncHandler(async (req, res) => {
-    const { roomId, userId } = req.body;
-  
+    const { roomId } = req.body;
+    const userId = req.user.id;
     // Find the room by roomId
     const room = await StudyRoom.findOne({ roomId });
   
@@ -86,8 +87,9 @@ const leaveRoom = asyncHandler(async (req, res) => {
   });
 
 const deleteRoom = asyncHandler(async (req, res) => {
-    const { roomId, roomOwner } = req.body;
+    const { roomId } = req.body;
 
+    const roomOwner = req.user.id
     // Find the room by roomId and roomOwner
     const room = await StudyRoom.findOne({ roomId, roomOwner });
 
