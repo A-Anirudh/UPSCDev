@@ -1,5 +1,6 @@
 import express from 'express';
-import { createRoom, deleteRoom, joinRoom, leaveRoom } from '../../controllers/room/roomController';
+import { createRoom, deleteRoom, joinRoom, leaveRoom } from '../../controllers/room/roomController.js';
+import { protect } from '../../middleware/authMiddleware.js';
 
 
 const roomRoute = express.Router();
