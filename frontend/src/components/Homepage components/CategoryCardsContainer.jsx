@@ -3,7 +3,7 @@ import { AffairCardNew } from '../Affair Components/AffairCardNew';
 import { LeftIcon, RightIcon } from '../../utils/icons';
 
 
-export const CategoryCardsContainer = ({  cards,isFavourite,myFavs,handleFav }) => {
+export const CategoryCardsContainer = ({  cards }) => {
 //   console.log(cards)
 const sliderRef = useRef(null);
 const [visible, setvisible] = useState(false)
@@ -25,7 +25,7 @@ const scrollRight = () => {
         {
           cards?.map((item, idx) => {
             const { _id, pid, affairName, tags, thumbnail } = item;
-            return (myFavs &&  // Check if myFavs is truthy
+            return (  // Check if myFavs is truthy
               <AffairCardNew
                 key={_id}
                 _id={_id}
@@ -34,8 +34,6 @@ const scrollRight = () => {
                 affairName={affairName}
                 tags={tags}
                 thumbnail={thumbnail}
-                handleFav={handleFav}
-                isFavourite={isFavourite(_id)}
               />
             )
           })

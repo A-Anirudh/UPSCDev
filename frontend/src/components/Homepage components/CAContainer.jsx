@@ -4,7 +4,7 @@ import { CategoryCardsContainer } from "./CategoryCardsContainer";
 import { RightIcon } from "../../utils/icons";
 import { useNavigate } from "react-router-dom";
 
-export const CAContainer = ({ isFavourite, myFavs, handleFav }) => {
+export const CAContainer = ({}) => {
   const { data, isLoading, error, refetch } = useGetLatestCAQuery();
   const [allAffairs, setallAffairs] = useState([]);
   const navigate=useNavigate()
@@ -31,9 +31,6 @@ export const CAContainer = ({ isFavourite, myFavs, handleFav }) => {
       </div>
       <CategoryCardsContainer
         cards={allAffairs}
-        isFavourite={isFavourite}
-        myFavs={myFavs}
-        handleFav={handleFav}
       />
     </div>
   );

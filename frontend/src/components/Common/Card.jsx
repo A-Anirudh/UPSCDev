@@ -2,22 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FavoriteBorderOutlinedIcon, FavoriteIcon } from "../../utils/icons";
 
-export const Card = ({  
-  _id,
-  pid,
-  affairName,
-  tags,
-  thumbnail,
-  handleFav,
-  isFavourite,}) => {
-    const navigate = useNavigate();
-    const handleClick = () => {
-        navigate(`/affair/${_id}`);
-      };
+export const Card = ({ _id, pid, affairName, tags, thumbnail }) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/affair/${_id}`);
+  };
 
-      const [isFav, setisFav] = useState(isFavourite);
-
-    
   return (
     <div className="w-full   hover:scale-[1.01] ">
       <div className="relative flex flex-col ">
@@ -39,22 +29,7 @@ export const Card = ({
           <p className="font-jakarta font-medium text-[0.79rem] text-background-700">
             {tags.join(",")}
           </p>
-          <div className="flex items-center justify-between w-full ">
-          <div
-            className="absolute top-0  right-0  rounded-lg z-[999] "
-            style={{
-              backdropFilter: "blur(5px)",
-              backgroundColor: (0, 0, 0, 0.5),
-            }}
-          >
-            <button
-              onClick={() => handleFav(_id, isFavourite, affairName, setisFav)}
-              className="p-1  rounded-md text-red-400 flex items-center"
-            >
-              {isFav ? <FavoriteIcon /> : <FavoriteBorderOutlinedIcon />}
-            </button>
-          </div>
-        </div>
+          <div className="flex items-center justify-between w-full "></div>
         </div>
       </div>
     </div>

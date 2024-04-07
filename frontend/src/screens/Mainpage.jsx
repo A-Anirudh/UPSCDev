@@ -15,7 +15,6 @@ import { useSelector } from "react-redux";
 import {
   useAddFavMutation,
   useDeleteFavMutation,
-  useGetAllFavQuery,
 } from "../slices/favouriteSlice";
 import { MainpageSkeletion } from "../loaders";
 import { toastSuccess } from "../utils/myToast";
@@ -26,22 +25,20 @@ export const Mainpage = () => {
   const [allAffairs, setallAffairs] = useState();
   const [allAffairsCopy, setallAffairsCopy] = useState([]);
   const open = useSelector((state) => state.open.isOpen);
-  const [myFavs, setmyFavs] = useState();
+  const [myFavs, setmyFavs] = useState([]);
   const userData = useUserProfileQuery();
   const navigate = useNavigate();
   // API queries
 
-  const favData = useGetAllFavQuery({}, { refetchOnMountOrArgChange: true });
 
   const [addFav] = useAddFavMutation();
   const [delFav] = useDeleteFavMutation();
 
   // Effect to update favorites and affairs data
-  useEffect(() => {
-    if (favData?.data?.data) {
-      setmyFavs(favData.data.data);
-    }
-  }, [favData, myFavs, userData]);
+  // useEffect(() => {
+  //   if (favData?.data?.data) {
+  //     setmyFavs(favData.data.data);
+  //   }  }, [userData]);
 
   // useEffect(() => {
   //   if (data) {
@@ -54,68 +51,12 @@ export const Mainpage = () => {
   // Effect to update subscription status
 
   // Helper function to check if an affair is a favorite
-  const myFavsLookup = useMemo(() => {
-    try {
-      return myFavs.reduce((lookup, fav) => {
-        lookup[fav.affairId] = true;
-        return lookup;
-      }, {});
-    } catch (error) {}
-  }, [myFavs, favData]);
 
-  const isFavourite = (affairId) => {
-    try {
-      return !!myFavsLookup[affairId];
-    } catch (error) {}
-  };
 
   // Search handler
-  const AffairsSearch = (keyword) => {
-    const matchingAffairs = allAffairs.filter((affair) =>
-      affair.affairName.toLowerCase().includes(keyword.toLowerCase())
-    );
-    setallAffairsCopy(matchingAffairs);
-  };
-
-  const handleSearch = (e) => {
-    const { value } = e.target;
-    AffairsSearch(value);
-  };
 
   // Handle favorite action
-  const handleFav = async (_id, isFavourite, affairName, setisFav) => {
-    if (!isFavourite) {
-      try {
-        const { data, error } = await addFav({ affairId: _id });
 
-        if (data?.pid) {
-          toastSuccess("Added to favourites");
-          setisFav(true);
-        } else {
-          console.log(error);
-        }
-      } catch (error) {
-        console.log("error", error);
-      } finally {
-        await favData.refetch();
-      }
-    } else if (isFavourite) {
-      const { pid } = myFavs.find((fav) => fav.affairId === _id);
-      if (pid) {
-        try {
-          const { data, error, isLoading } = await delFav({ pid: pid });
-          if (data) {
-            toastSuccess("Removed to favourites");
-            setisFav(false);
-          }
-        } catch (error) {
-          toast.error("Failed to add");
-        } finally {
-          await favData.refetch();
-        }
-      }
-    }
-  };
 
   // if (!allAffairs) {
   //   return <MainpageSkeletion />;
@@ -156,15 +97,9 @@ export const Mainpage = () => {
             <Banner />
           </div>
           <CAContainer
-            isFavourite={isFavourite}
-            myFavs={myFavs}
-            handleFav={handleFav}
+
           />
           <NonCAContainer
-            allAffairs={allAffairs}
-            isFavourite={isFavourite}
-            myFavs={myFavs}
-            handleFav={handleFav}
           />
         </div>
       </div>

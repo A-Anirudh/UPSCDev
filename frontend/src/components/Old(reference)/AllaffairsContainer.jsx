@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Affaircard } from "..";
 import { useState } from "react";
 import { useGetAffairsQuery } from "../../slices/affairSlice";
-import { useGetAllFavQuery } from "../../slices/favouriteSlice";
+
 import { useSelector } from "react-redux";
 import { useIsSubQuery, useLazyIsSubQuery } from "../../slices/usersApiSlice";
 import { AllAffairsSkeleton } from "../../loaders";
@@ -15,10 +15,7 @@ export const AllaffairsContainer = () => {
   const [favListChanged, setFavListChanged] = useState(123);
   const open = useSelector((state) => state.open.isOpen);
 
-  const {  error, refetch } = useGetAllFavQuery(
-    {},
-    { refetchOnMountOrArgChange: true || favListChanged }
-  );
+
 
   const isSubIni = useIsSubQuery();
   const [height, setheight] = useState(window.innerHeight);
@@ -43,25 +40,10 @@ export const AllaffairsContainer = () => {
     }
   }, [isSubIni, ispro]);
 
-  const AffairsSearch = (keyword) => {
-    // Filter affairs based on the keyword in affairName
-    const matchingAffairs = allAffairs.filter((affair) =>
-      affair.affairName.toLowerCase().includes(keyword.toLowerCase())
-    );
-    setallAffairsCopy(matchingAffairs);
-  };
 
-  const handleSearch = (e) => {
-    const { value } = e.target;
-    AffairsSearch(value);
-  };
 
-  const handleDisabled = () => {
-    setShow(true);
-    setTimeout(() => {
-      setShow(false);
-    }, 800);
-  };
+
+
 
   useEffect(() => {}, [error]);
 
