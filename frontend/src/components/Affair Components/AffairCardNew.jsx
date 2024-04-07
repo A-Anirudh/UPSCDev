@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { FavoriteBorderOutlinedIcon, FavoriteIcon } from "../../utils/icons";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 export const AffairCardNew = ({
@@ -8,11 +7,9 @@ export const AffairCardNew = ({
   affairName,
   tags,
   thumbnail,
-  handleFav,
-  isFavourite,
+
 }) => {
   const navigate = useNavigate();
-  const [isFav, setisFav] = useState(isFavourite);
   const handleClick = () => {
     navigate(`/affair/${_id}`);
   };
@@ -38,23 +35,6 @@ export const AffairCardNew = ({
         <p className="font-jakarta font-medium text-[0.79rem] text-background-700">
           {tags.join(",")}
         </p>
-
-        <div className="flex items-center justify-between w-full ">
-          <div
-            className="absolute top-0  right-0  rounded-lg z-[999] "
-            style={{
-              backdropFilter: "blur(5px)",
-              backgroundColor: (0, 0, 0, 0.5),
-            }}
-          >
-            <button
-              onClick={() => handleFav(_id, isFavourite, affairName, setisFav)}
-              className="p-1  rounded-md text-red-400 flex items-center"
-            >
-              {isFav ? <FavoriteIcon /> : <FavoriteBorderOutlinedIcon />}
-            </button>
-          </div>
-        </div>
       </div></div>
     </div>
   );

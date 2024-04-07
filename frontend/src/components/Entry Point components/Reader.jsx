@@ -5,31 +5,46 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Timeline } from "../Events/Timeline";
 import { AffairReaderNew } from "../Affair Components/AffairReaderNew";
 import { EventReaderNew } from "../Events/EventReaderNew";
-import { AddIcon, ShareIcon } from "../../utils/icons";
+import { AddIcon, FavoriteBorderOutlinedIcon, FavoriteIcon, ShareIcon } from "../../utils/icons";
 import { toastSuccess } from "../../utils/myToast";
 import toast from "react-hot-toast";
 import { Modal } from "../../utils/Modal";
 import { AddCollection } from "../Collections/AddCollection";
 import { useGetAllCollectionsQuery } from "../../slices/CollectionSlice";
 import { useAddContinueReadingMutation, useGetContinueReadingQuery } from "../../slices/usersApiSlice";
+import { useAddFavMutation, useCheckFavQuery, useDeleteFavMutation, useLazyCheckFavQuery } from "../../slices/favouriteSlice";
 
 export const Reader = () => {
-  const [params, setparams] = useSearchParams({});
-  const isAffair = params.get("read-affair") === null;
-  const {  id } = useParams();
-  const user = localStorage.getItem("userInfo") ? true : false;
-  const navigate = useNavigate();
-  const [addToOpen, setaddToOpen] = useState(false);
-  const { data, error, isLoading,refetch } = useGetAllCollectionsQuery();
-  const [collectionData, setcollectionData] = useState();
-  const [addContinue] = useAddContinueReadingMutation();
-  const getContinue = useGetContinueReadingQuery(
-    {},
-    { refetchOnMountOrArgChange: true }
-  );
-  const [continueReading, setcontinueReading] = useState();
-  const [scrollPosition, setscrollPosition] = useState();
-  const scrollPositionRef = useRef();
+
+
+// State variables
+const [addToOpen, setaddToOpen] = useState(false);
+const [isFav, setisFav] = useState(false);
+const [collectionData, setcollectionData] = useState();
+const [continueReading, setcontinueReading] = useState();
+const [scrollPosition, setscrollPosition] = useState();
+
+// Ref variables
+const scrollPositionRef = useRef();
+
+// Search parameters
+const [params, setparams] = useSearchParams({});
+const isAffair = params.get("read-affair") === null;
+
+// Hooks
+const { id } = useParams();
+// console.log(id)
+const navigate = useNavigate();
+const { data, error, isLoading, refetch } = useGetAllCollectionsQuery({}, { refetchOnMountOrArgChange: true });
+const [addFav] = useAddFavMutation();
+const [delFav] = useDeleteFavMutation();
+const [check] = useLazyCheckFavQuery({}, { refetchOnMountOrArgChange: true });
+const [addContinue] = useAddContinueReadingMutation();
+const getContinue = useGetContinueReadingQuery({}, { refetchOnMountOrArgChange: true });
+const favCheck=useCheckFavQuery(id)
+
+
+
   let clipPosition=localStorage.getItem('clip')
   useEffect(() => {
     if (data) {
@@ -74,6 +89,8 @@ export const Reader = () => {
       scrollPositionRef.current = mainContainer.scrollTop;
     }
   };
+
+  
 
   useEffect(() => {
     const mainContainer = document.querySelector(".main-container");
@@ -122,10 +139,67 @@ export const Reader = () => {
     }
   };
 
+  const handleFav = async () => {
+    try {
+      if (!isFav) {
+        const { data, error, refetch } = await addFav({ affairId: id });
+
+        if (data?.pid) {
+          await favCheck.refetch()
+          setisFav(true);
+          toastSuccess("Added to favorites");
+        } else {
+          console.log(error);
+        }
+      } else {
+        const { data, error } = await delFav({ _id: id });
+
+        if (data) {
+          await favCheck.refetch()
+          setisFav(false);
+          toastSuccess("Removed from favorites");
+        } else {
+          console.log(error);
+        }
+      }
+    } catch (error) {
+      console.log("Error toggling favorite:", error);
+    }
+  };
+
+  // useEffect(() => {
+  //   const fav = async () => {
+  //     try {
+  //       const { data, error } = await check(id, { refetchOnMountOrArgChange: true });
+
+  //       if (data) {
+  //         setisFav(data.message);
+  //       } else if (error) {
+  //         setisFav(false);
+  //       }
+  //     } catch (error) {
+  //       console.log("Error checking favorite:", error);
+  //     }
+  //   };
+
+  //   fav();
+
+  //   return () => {
+  //     console.log('Reader unmounted');
+  //   };
+  // }, [,id]);
+
+  useEffect(() => {
+    console.log(favCheck)
+    if(favCheck.data){
+      setisFav(favCheck?.data?.message)
+    }
+    
+    }, [,id,favCheck,isFav])
 
 
   return (
-    <section className=" main-container w-full overflow-y-auto overflow-x-hidden  h-[87vh]  md:h-[92vh] lg:h-[87vh] xl:h-[90vh] 2xl:h-[92vh] sidebar">
+    <section className=" main-container w-full overflow-y-auto overflow-x-hidden  h-[87vh]  md:h-[90vh] lg:h-[85vh] xl:h-[88vh] 2xl:h-[90vh] sidebar">
     <section className="w-full   md:w-3/4 lg:w-1/2 flex flex-col   main-container  text-text-25 font-jakarta mx-auto    ">
       <div className="flex items-center w md:gap-5 px-3 md:px-5  bg-background-50 sticky top-0 z-[100] justify-between">
         <button className=" flex  p-2  items-center gap-4" onClick={handleBack}>
@@ -134,7 +208,7 @@ export const Reader = () => {
         </button>
 
         <div className="flex gap-2 items-center ">
-          
+          <button className="flex" onClick={handleFav}>{isFav?<FavoriteIcon/>:<FavoriteBorderOutlinedIcon/>}</button>
           <button onClick={()=>setaddToOpen(true)}><span className="p-[0.4rem] rounded-full text-text-25 flex items-center bg-background-100 hover:bg-background-200"><AddIcon/></span></button>
          <button onClick={handleCopy} 
          className="p-2 rounded-full text-text-25 flex items-center bg-background-100 hover:bg-background-200 "><ShareIcon className={'text-[1.2rem]'}/></button>

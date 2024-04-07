@@ -14,6 +14,7 @@ import {
   NotFound,
   Profile,
   Register,
+  SearchResults,
   SubscriptionSuccess,
   VerifyEmail,
   ViewContainer,
@@ -45,6 +46,7 @@ const App = () => {
           <Route path={`/users/:id/verify/:token`} element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/users/:id/reset/:token" element={<ChangePassword />} />
+
         </Route>
         {/* <Route path="/all-affairs/:pid/:id" element={<Allaffairs />} /> */}
         <Route path="/affair/:id" element={<Reader />} />
@@ -63,6 +65,9 @@ const App = () => {
           <Route path="/leaderboard" element={<LeaderBoard />} />
           <Route path="/clips" element={<AllClips />} />
           <Route path={`/affairs/all`} element={<ViewContainer />} />
+          <Route path="/search-results/:searchItem" element={<SearchResults />} />
+          <Route path="/search-results/" element={<SearchResults />} />
+
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

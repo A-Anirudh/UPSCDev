@@ -4,7 +4,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
 import {
   useDeleteFavMutation,
-  useGetAllFavQuery,
 } from "../../slices/favouriteSlice";
 import { useDispatch } from "react-redux";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -14,26 +13,23 @@ export const FavAffairCard = ({
   _id,
   pid,
   affairName,
-  setFavListChanged,
   tags,
   thumbnail,
-  fav_pid,
+  refetch,
 }) => {
   const navigate = useNavigate();
   const [delFav] = useDeleteFavMutation();
-  const { data, error, refetch } = useGetAllFavQuery();
-
+console.log('in card')
   const handleClick = () => {
     navigate(`/affair/${_id}`);
 
   };
 
   const handleDel = async () => {
-    const { data, error } = await delFav({ pid: fav_pid });
+    const { data, error } = await delFav({ _id: _id });
     if (data) {
       await refetch();
       toastSuccess("Removed");
-      setFavListChanged(Math.random());
     } else {
       toast.error(JSON.stringify(error));
     }
@@ -57,7 +53,7 @@ export const FavAffairCard = ({
           {affairName}
         </p>
         <p className="font-jakarta font-medium text-[0.79rem] text-background-700">
-          {tags.join(",")}
+          {tags?.join(",")}
         </p>
 
         {/* <div className="flex items-center justify-between w-full "> */}

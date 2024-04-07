@@ -51,3 +51,10 @@ export const AddIcon = ({ className }) => (
 );
 
 
+export const SearchIcon = ({ className }) => (
+  <span className={"material-icons-outlined " + className}>search</span>
+);
+
+
+
+

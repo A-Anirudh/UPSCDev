@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "./Card";
 import { AffairCardNew } from "../Affair Components/AffairCardNew";
 
-export const CardsContainer = ({ data,handleFav,isFavourite }) => {
+export const CardsContainer = ({ data }) => {
 
 
 
@@ -26,8 +26,6 @@ export const CardsContainer = ({ data,handleFav,isFavourite }) => {
                 affairName={affairName}
                 tags={tags}
                 thumbnail={thumbnail}
-                handleFav={handleFav}
-                isFavourite={isFavourite(_id)}
                 />
             )
         })

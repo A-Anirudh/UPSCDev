@@ -46,6 +46,9 @@ export{NonCAContainer} from "../components/Homepage components/NonCAContainer"
 export{CAContainer} from "../components/Homepage components/CAContainer"
 export{CardsContainer} from "../components/Common/CardsContainer"
 export{Card} from "../components/Common/Card"
+export{SearchComponent} from '../components/Search/SearchComponent'
+export{SuggestionCard} from '../components/Search/SuggestionCard'
+export{SearchCard} from '../components/Search/SearchCard'
 
 
 

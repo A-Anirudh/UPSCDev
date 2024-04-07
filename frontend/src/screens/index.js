@@ -18,6 +18,7 @@ export{WeeklyQuiz} from './WeeklyQuiz'
 export{AllClips} from './AllClips'
 export{ViewContainer} from './ViewContainer'
 export{NotFound} from './NotFound'
+export{SearchResults} from './SearchResults'
 
 
 

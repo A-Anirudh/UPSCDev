@@ -6,4 +6,7 @@ export const apiSlice = createApi({
     baseQuery,
     tagTypes: ['User'], // used for caching instead of fetching everytime from database
     endpoints: (builder) => ({}),
+    refetchOnMountOrArgChange:true,
+
+
 })

@@ -26,6 +26,13 @@ export const favouriteSlice = apiSlice.injectEndpoints({
 				body: data,
 			}),
 		}),
+		checkFav: builder.query({ 
+			query: (data) => ({
+				url: `${FAV_URL}/check?affairId=${data}`,
+				method: "GET",
+				
+			}),
+		}),
 
 		
 		
@@ -35,8 +42,10 @@ export const favouriteSlice = apiSlice.injectEndpoints({
 export const {
 useAddFavMutation,
 useGetAllFavQuery,
-useDeleteFavMutation
-	
+useDeleteFavMutation,
+useLazyCheckFavQuery,
+useCheckFavQuery	
+
 } = favouriteSlice;
 
 // Create our own endpoints in this file and it will inject them into the endpoints in the apiSlice file
