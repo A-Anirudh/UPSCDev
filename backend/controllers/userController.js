@@ -288,9 +288,6 @@ const resetPassword = asyncHandler(async (req,res) => {
     res.status(200).json({
         message:"password reset successfully!"
     })
-
-
-
 });
 
 /**
@@ -310,7 +307,8 @@ const getUserProfile = asyncHandler(async (req, res) => {
         gender:req.user.gender,
         avatar:req.user.avatar,
         mailingList:req.user.mailingList,
-        subscription:req.user.subscription
+        subscription:req.user.subscription,
+        streak:req.user.streak,
     }
     res.status(200).json({
         user

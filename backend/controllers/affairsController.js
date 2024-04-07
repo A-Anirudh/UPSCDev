@@ -18,12 +18,10 @@ const searchAffairs = asyncHandler(async (req, res) => {
     query.$or = [
       { affairName: { $regex: subject, $options: 'i' } }, // Match partial words in affairName
       { summary: { $regex: subject, $options: 'i' } },     // Match partial words in summary
+      { subject: { $regex: subject, $options: 'i' }}
     ];
   }
 
-  if (subject) {
-    query.subject = { $regex: subject, $options: 'i' }; // Match partial words in subject
-  }
   if(Object.keys(query).length) {
     results = await Affair.find(query).select('affairName id subject').exec();
   }
