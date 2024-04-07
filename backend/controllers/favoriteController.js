@@ -62,10 +62,10 @@ const checkIfFavourite = asyncHandler(async (req,res) => {
 })
 
 const deleteFavourite = asyncHandler(async (req,res) => {
-    const {pid} = req.body;
-    const favourite = await Favourite.findOne({pid:pid})
+    const {id} = req.body;
+    const favourite = await Favourite.findOne({affairdId:id})
     if(favourite){
-        await Favourite.deleteOne({pid:pid})
+        await Favourite.deleteOne({affairdId:id})
         res.status(201).json({
             message: "deleted successfully",
             pid
