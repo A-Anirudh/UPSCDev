@@ -44,7 +44,6 @@ const allMyFavourites = asyncHandler(async (req,res) => {
         }
         res.status(200).json({
             "data":allFavourites,
-            "affairs":allFavAffairs
         })
     } else{
         res.status(200).json({"data":"No data found"})
@@ -58,7 +57,7 @@ const checkIfFavourite = asyncHandler(async (req,res) => {
     if(allFav){
         res.status(200).json({message:true})
     } else{
-        res.status(404).json({message:false})
+        res.status(200).json({message:false})
     }
 })
 
