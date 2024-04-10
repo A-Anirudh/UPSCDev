@@ -32,23 +32,41 @@ const addFavourite = asyncHandler(async (req, res) => {
 
 });
 
-const allMyFavourites = asyncHandler(async (req,res) => {
-    const allFavourites = await Favourite.find({userId:req.user._id})
+const allMyFavourites = asyncHandler(async (req, res) => {
+    const allFavourites = await Favourite.find({ userId: req.user._id });
 
-    const allFavAffairs = []
+    if (allFavourites.length !== 0) {
+        for (let i = 0; i < allFavourites.length; i++) {
+            const favourite = allFavourites[i];
+            const aff = await Affair.findOne({ _id: favourite.affairId }).select('thumbnail affairName');
 
-    if(allFavourites.length!=0){
-        for(let i=0;i<allFavourites.length;i++){
-            const aff = await Affair.findOne({_id:allFavourites[i].affairId});
-            allFavAffairs.push(aff);
+            if (aff) {
+                favourite.thumbnail = aff.thumbnail;
+                favourite.name = aff.affairName;
+            } else {
+                res.status(404)
+                throw new Error('Unable to find articles!')
+            }
         }
+
         res.status(200).json({
-            "data":allFavourites,
-        })
-    } else{
-        res.status(200).json({"data":"No data found"})
+            "data": allFavourites.map(favourite => ({
+                _id: favourite._id,
+                pid: favourite.pid,
+                affairId: favourite.affairId,
+                userId: favourite.userId,
+                createdAt: favourite.createdAt,
+                updatedAt: favourite.updatedAt,
+                thumbnail: favourite.thumbnail,
+                name: favourite.name,
+                __v: favourite.__v
+            }))
+        });
+    } else {
+        res.status(200).json({ "data": "No data found" });
     }
-})
+});
+
 
 const checkIfFavourite = asyncHandler(async (req,res) => {
     const {affairId} = req.query
