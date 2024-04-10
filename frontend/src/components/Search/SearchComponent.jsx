@@ -49,7 +49,7 @@ const handleSubmit=(event)=>{
 }
 
   return (
-    <form className="bg -red-800 hidden md:block  w-1/2 px-5 self-end relative" onSubmit={handleSubmit} >
+    <form className="hidden md:block  w-1/2 px-5 self-end relative" onSubmit={handleSubmit} >
       <div className="flex items-center outline-none border rounded-lg border-background-200 duration-200 focus:border-background-950 relative focus-within:border-background-300 p-1">
         <SearchIcon className={" pl-4"} />
         <input

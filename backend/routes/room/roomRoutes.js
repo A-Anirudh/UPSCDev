@@ -1,5 +1,5 @@
 import express from 'express';
-import { createRoom, joinRoom, leaveRoom,getAllStudyRooms, endRoom } from '../../controllers/room/roomController.js';
+import { createRoom, joinRoom, leaveRoom,getAllStudyRooms, endRoom,getAllUsersOfARoom, allMyMeetings } from '../../controllers/room/roomController.js';
 import { protect } from '../../middleware/authMiddleware.js';
 import isAdmin from '../../middleware/adminMiddleware.js';
 
@@ -12,12 +12,18 @@ roomRoute.get('/all',protect,isAdmin,getAllStudyRooms)
 roomRoute.post('/create-room', protect, createRoom);
 
 // Route to leave a study room
-roomRoute.post('/leave-room', protect, leaveRoom);
+roomRoute.put('/leave-room', protect, leaveRoom);
 
 // Route to delete a study room
-roomRoute.delete('/delete-room', protect, endRoom);
+roomRoute.put('/delete-room', protect, endRoom);
 
 // Route to join a study room
-roomRoute.post('/join-room', protect, joinRoom);
+roomRoute.put('/join-room', protect, joinRoom);
+
+// All users of a room
+roomRoute.get('/get-all-users',protect,getAllUsersOfARoom)
+
+// Get all meetings of one user!
+roomRoute.get('/get-all-my-meetings',protect,allMyMeetings)
 
 export default roomRoute;

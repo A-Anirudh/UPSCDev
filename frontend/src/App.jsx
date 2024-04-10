@@ -19,6 +19,7 @@ import {
   VerifyEmail,
   ViewContainer,
   WeeklyQuiz,
+  Room
 } from "./screens";
 
 import { LoggedOutRoutes, PrivateRoutes } from "./utils";
@@ -67,6 +68,8 @@ const App = () => {
           <Route path={`/affairs/all`} element={<ViewContainer />} />
           <Route path="/search-results/:searchItem" element={<SearchResults />} />
           <Route path="/search-results/" element={<SearchResults />} />
+          <Route path="/room/:roomId" element={<Room />} />
+
 
         </Route>
         <Route path="*" element={<NotFound />} />

@@ -18,12 +18,10 @@ const searchAffairs = asyncHandler(async (req, res) => {
     query.$or = [
       { affairName: { $regex: subject, $options: 'i' } }, // Match partial words in affairName
       { summary: { $regex: subject, $options: 'i' } },     // Match partial words in summary
+      { subject: { $regex: subject, $options: 'i' }}
     ];
   }
 
-  if (subject) {
-    query.subject = { $regex: subject, $options: 'i' }; // Match partial words in subject
-  }
   if(Object.keys(query).length) {
     results = await Affair.find(query).select('affairName id subject').exec();
   }
@@ -38,20 +36,17 @@ const searchAffairs = asyncHandler(async (req, res) => {
 });
 
 const searchAffairsAll = asyncHandler(async (req, res) => {
-  const { searchTerm, subject } = req.query;
+  const {  subject } = req.query;
 
   const query = {};
   let results = [];
 
-  if (searchTerm) {
-    query.$or = [
-      { affairName: { $regex: searchTerm, $options: 'i' } }, // Match partial words in affairName
-      { summary: { $regex: searchTerm, $options: 'i' } },     // Match partial words in summary
-    ];
-  }
-
   if (subject) {
-    query.subject = { $regex: subject, $options: 'i' }; // Match partial words in subject
+    query.$or = [
+      { affairName: { $regex: subject, $options: 'i' } }, // Match partial words in affairName
+      { summary: { $regex: subject, $options: 'i' } },     // Match partial words in summary
+      { subject: { $regex: subject, $options: 'i' }}
+    ];
   }
 
   if(Object.keys(query).length) {

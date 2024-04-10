@@ -40,7 +40,7 @@ export const AllFavourites = () => {
 
   return (
     <div className={`xl:w-3/4 h-full mx-auto`}>
-      {/* <Collections /> */}
+      <Collections />
       {noFav ? (
         <section className="p-4 md:p-10 flex flex-col w-full text-text-950">
           <p className=" font-bold text-text-950 text-[2rem]">
