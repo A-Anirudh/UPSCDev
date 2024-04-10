@@ -97,7 +97,8 @@ export const AddCollection = ({
     }
   };
   const handleAdd = async () => {
-    if (selectedCollection.trim() !== "") {
+    try {
+          if (selectedCollection.trim() !== "") {
       const body = {
         playlistId: selectedId,
         article: {
@@ -120,6 +121,9 @@ export const AddCollection = ({
         console.log("Error", error);
       }
       setOpen(false);
+    }
+    } catch (error) {
+      toast.error('Enter colection name')
     }
     setcreateNew(false);
     setnewName("");

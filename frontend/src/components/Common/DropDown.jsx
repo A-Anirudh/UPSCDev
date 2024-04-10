@@ -32,7 +32,7 @@ export const DropDown = ({ isOpen, setIsOpen, children }) => {
         </div>
       ) : null}
       {isOpen ? (
-        <div className="absolute z-10 mt-2 rounded-md p-3 w-full origin-top-right bg-background-1000 border border-background-100">
+        <div className="absolute z-10 mt-2 rounded-md p-3 w-full origin-top-right left-0  bg-background-1000 border border-background-100">
           {isOpen && children}
         </div>
       ) : null}

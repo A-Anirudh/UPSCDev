@@ -19,7 +19,6 @@ export const FavAffairCard = ({
 }) => {
   const navigate = useNavigate();
   const [delFav] = useDeleteFavMutation();
-console.log('in card')
   const handleClick = () => {
     navigate(`/affair/${_id}`);
 

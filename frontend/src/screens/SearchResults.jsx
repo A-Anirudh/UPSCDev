@@ -14,7 +14,7 @@ export const SearchResults = () => {
 
   useEffect(() => {
     if(data){
-        console.log(data,error)
+
         setresults(data,error)
 
     }
@@ -22,7 +22,7 @@ export const SearchResults = () => {
   }, [data])
 
 
-  console.log(searchItem)
+
   return <section className="xl:w-3/4 h-full mx-auto md:p-5  bg-red -900 ">
     <p className="text-xl p-4 md:px-10 md:py-5 font-light text-background-900">Showing Results of 
     <span className="font-semibold text-text-25">{" "+searchItem}</span></p>

@@ -12,7 +12,7 @@ export const AllFavourites = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data.data);
+
       setAllFav(data.data);
       setnoFav(false)
       if (data?.data === "No data found") setnoFav(true);
@@ -23,15 +23,12 @@ export const AllFavourites = () => {
       console.log(error)
       }
     return () => {
-      console.log("unmounted fav", data);
+
       // setAllFav([])
     };
   }, [data,allFav,isLoading]);
 
-  useEffect(() => {
-    console.log('all fv',allFav)
-  }, [allFav])
-  
+
 
   if (isLoading || allFav.length == 0) {
     return <FavouritesSkeleton />;

@@ -9,5 +9,5 @@ const timeout=setTimeout(() => {
 
 return ()=> clearTimeout(timeout);
 }, [value,delay])
- return debounceValue
+ if(debounceValue.length>=3) return debounceValue
 }

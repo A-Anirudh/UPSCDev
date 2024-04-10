@@ -26,13 +26,11 @@ export const SearchComponent = () => {
           setresults(data);
         } else if (error) {
             setresults([])
-            seterror(error?.data?.message);
-            console.log(error)
+            seterror(error?.data?.message)
         }
       } catch (error) {
         setresults([])
         seterror("Error occured, try gain later");
-        console.log(error);
       }
     };
     if(searchItem)
@@ -64,7 +62,7 @@ const handleSubmit=(event)=>{
       </div>
       <DropDown isOpen={isOpen} setIsOpen={setIsOpen}>
         {results.length > 0 ? 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 bg-red-900">
             {results.map((item, index) => (
                 <SuggestionCard item={item} key={index} setIsOpen={setIsOpen} setsearchItem={setsearchItem}/>
             ))}

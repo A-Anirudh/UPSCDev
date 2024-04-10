@@ -190,7 +190,6 @@ const favCheck=useCheckFavQuery(id)
   // }, [,id]);
 
   useEffect(() => {
-    console.log(favCheck)
     if(favCheck.data){
       setisFav(favCheck?.data?.message)
     }
