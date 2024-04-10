@@ -49,6 +49,7 @@ export{Card} from "../components/Common/Card"
 export{SearchComponent} from '../components/Search/SearchComponent'
 export{SuggestionCard} from '../components/Search/SuggestionCard'
 export{SearchCard} from '../components/Search/SearchCard'
+export{MeetingDropdown} from '../components/room/MeetingDropdown'
 
 
 

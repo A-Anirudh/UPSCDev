@@ -1,9 +1,8 @@
 import asyncHandler from "express-async-handler";
 import { StudyRoom } from "../../models/room/roomModel.js";
-// @desc    Create a new study room
-// @route   POST /api/study-rooms/create-room
-// @access  Private
 
+
+// Admin only route
 const getAllStudyRooms =  asyncHandler(async(req,res) => {
     const all = await StudyRoom.find({})
     res.status(200).json({
@@ -11,7 +10,9 @@ const getAllStudyRooms =  asyncHandler(async(req,res) => {
     })
 })
 
-
+// @desc    Create a new study room
+// @route   POST /api/study-rooms/create-room
+// @access  Private
 const createRoom = asyncHandler(async (req, res) => {
 
     const { roomId,roomName} = req.body;
@@ -93,7 +94,8 @@ const leaveRoom = asyncHandler(async (req, res) => {
       res.status(400)
       throw new Error('User not in room! Cannot leave the room without joining')
     }
-  
+    // All users might leave, but never end the meeting... so we need to ensure that the meeting is ended if the owner leaves or else, some other termination condition should be used
+    
     // Remove the user from the room
     room.users.splice(userIndex, 1);
     await room.save();
@@ -101,6 +103,8 @@ const leaveRoom = asyncHandler(async (req, res) => {
     res.status(200).json({ success: true, data: room });
   });
 
+//   PUT request to change isActive to false
+// Because, we need summary of the audio too later
 const endRoom = asyncHandler(async (req, res) => {
     const { roomId } = req.body;
 
@@ -122,5 +126,37 @@ const endRoom = asyncHandler(async (req, res) => {
 
 });
 
-export {getAllStudyRooms, createRoom, joinRoom,leaveRoom,endRoom};
+const getAllUsersOfARoom = asyncHandler(async (req,res) => {
+    const {roomId} = req.query
+    const users = await StudyRoom.findById(roomId).select('roomName users roomOwner')
+    console.log(users)
+    if(users){
+        res.status(200).json({
+            data:users
+        })
+    } else{
+        res.status(400)
+        throw new Error('Could not find users')
+    }
+});
+
+const allMyMeetings = asyncHandler(async (req,res) => {
+    const allMeetings = await StudyRoom.find({roomOwner:req.user.id})
+
+    console.log(allMeetings)
+    if(allMeetings.length > 0){
+        res.status(200).json({
+            success:true,
+            data:allMeetings
+        })
+    } else{
+        res.status(200).json({
+            success:false,
+            message:'No meetings found'
+        })
+    }
+})
+
+
+export {getAllStudyRooms, createRoom, joinRoom,leaveRoom,endRoom,getAllUsersOfARoom,allMyMeetings};
   

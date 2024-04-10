@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
 import{CloseIcon} from '../../utils/icons'
 import { SearchComponent } from "../Search/SearchComponent";
+import CreateRoomButton from "../room/CreateRoomButton";
+import { MeetingDropdown } from "../room/MeetingDropdown";
 
 export const LoggedUserBar = () => {
   const navigate = useNavigate();
@@ -60,8 +62,9 @@ setopen(!open)
   return (
     <nav className="w-full font-jakarta text-text-25 p-4  flex items-center  bg-background-50 justify-between z-[9999999] lg:px-10 border-b border-background-100 sticky top-0 ">
       <div className="w-full">
+        {/* For mobile */}
         <div className="flex items-center justify-between lg:hidden">
-
+          
         {
           isActive?.status === 'active' ? 
           
@@ -109,7 +112,8 @@ setopen(!open)
                 loc == '/buy-subscription' ? "text-accent-500" : ""
               }`} onClick={()=>{navigate('/buy-subscription');setopen(false)}}>Subscription</li>
           <li className="block lg:hidden font-semibold" onClick={()=>{navigate('/profile');setopen(false)}}>Profile</li>
-          <SearchComponent/>   
+          <MeetingDropdown />
+          <SearchComponent/> 
         </ul>
         
       </div>

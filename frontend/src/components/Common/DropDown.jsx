@@ -3,10 +3,6 @@ import React, { useEffect, useRef } from "react";
 export const DropDown = ({ isOpen, setIsOpen, children }) => {
   const dropdownRef = useRef(null);
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsOpen(false);
@@ -21,7 +17,7 @@ export const DropDown = ({ isOpen, setIsOpen, children }) => {
   }, []);
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="r elative" ref={dropdownRef}>
       {isOpen ? (
         <div
           className={`fixed top-[75px] left-0 w-full h-full  bg-black/5  justify-center   ${
