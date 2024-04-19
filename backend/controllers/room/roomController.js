@@ -19,7 +19,7 @@ const app = express();
 const server = createServer(app);
 
 server.listen(8000, () =>{
-    console.log(`server is ready and running on port 8000`)
+    console.log(`socket is ready and running on port 8000`)
 })
 const io = new Server(server, {
     cors: {
@@ -55,6 +55,7 @@ io.on('connection', (socket) => {
     socket.on('create-room', async (roomName) => {
         let roomId = generateRandomString();
         const roomOwner = socket.request.user.id
+        // console.log('roomOwnerID ', roomOwner)
         while (true) {
             // Check if roomId already exists in database
             const existingRoomWithId = await StudyRoom.findOne({ roomId: roomId });
@@ -68,12 +69,13 @@ io.on('connection', (socket) => {
             }
         }
 
-        // Checking if that owner is already in another owner of some room or not
-        const existingRoom = await StudyRoom.findOne({ roomOwner, isActive:true });
+        const userRooms = await StudyRoom.find({ users: { $in: [roomOwner] }, isActive:true });
 
-        if(existingRoom){
-           return socket.emit("send-message-to-self", 'already in another room, please quit to continue');
-        } else{
+        // console.log(userRooms)
+        if(userRooms.length>0){
+                console.log('ppart of another room - create room')
+                return socket.emit("send-message-to-self", 'already in another room, please quit to continue');        
+        }
             // Create the study room
             const newRoom = await StudyRoom.create({
             roomId,
@@ -83,70 +85,68 @@ io.on('connection', (socket) => {
             });
 
             if(newRoom){
-                console.log('room was created successfully')
-
-                console.log('room id is:', roomId)
-
-                socket.join(roomId);
-
-                console.log(roomOwner,'joined', roomId, 'after creating it!')
-
+                console.log('room created and redirecting to room page!!')
                 socket.emit('redirect', roomId)
-                console.log('room redirected with ID',roomId)
                 socket.emit("send-message-to-self", newRoom);
             } else{
                 socket.emit("send-message-to-self", 'something went wrong!');
             }
-            }
+            
     })
 
     // Join room
     
-    socket.on('join-room', async (roomId, username) => {
-        
+    socket.on('join-room', async (roomId, username, callback) => {
 
-        const userId = socket.request.user.id
-
-        // Find the room by roomId
-        const room = await StudyRoom.findOne({ roomId, isActive:true });
-
-        if (!room) {
-            return socket.emit("send-message-to-self", 'room not found!');
-        }
-        
-        const userRooms = await StudyRoom.find({ users: { $in: [userId] } });
-
-
-
-        if(userRooms.length>0){
-            // console.log('userRooms: ',userRooms)
-            // console.log("first user", String(userRooms[0].users[0]))
-            // console.log("roomOwner: ", String(userRooms[0].roomOwner))
-            // console.log(String(userRooms[0].users[0]) === String(userRooms[0].roomOwner))
-            if(String(userRooms[0].users[0]) === String(userRooms[0].roomOwner)){
-                // pass
-            } else{
-                console.log('ppart of another room',username)
-                return socket.emit("send-message-to-self", 'already in another room, please quit to continue');    
+            console.log('join-room has been called by frontend')
+            socket.roomId = roomId
+            socket.username = username
+    
+            const userId = socket.request.user.id
+            console.log('before finding room!!')
+            // Find the room by roomId
+            const room = await StudyRoom.findOne({ roomId, isActive:true });
+    
+            console.log('room found successfully')
+    
+            if (!room) {
+                console.log('room not found bruh!')
+                return socket.emit("send-message-to-self", 'room not found!');
             }
-        }
-
-        // // Check if the user is already in the room
-        // if (room.users.includes(userId)) {
-        //     console.log('already part of room XD',username)
-        //     return socket.emit("send-message-to-self", 'already part of this room');
             
-        // }
-      
-        // Add the user to the room
-        room.users.push(userId);
-        await room.save();
-
-        // adding the person to room
-        socket.join(roomId)
-        console.log(username, 'joineed the room', roomId)
-        socket.to(roomId).emit('notify-everyone', {roomId, username});
-       
+            const userRooms = await StudyRoom.find({ users: { $in: [userId] }, isActive:true  });
+    
+            if(userRooms.length>0){
+                if(userRooms[0].roomId !== roomId){
+                    console.log('ppart of another room',username)
+                    socket.emit('redirect-home','already in another room!!')
+                    return socket.emit("send-message-to-self", 'already in another room, please quit to continue');    
+                }
+            }
+    
+            console.log('Checked if part of another room or not!')
+    
+    
+            const currentRoomUsers = room.users
+    
+            const index = currentRoomUsers.indexOf(userId)
+    
+            console.log('About to push and save')
+            
+            if(index == -1){
+            // Add the user to the room
+                room.users.push(userId);
+                await room.save();
+            }
+    
+            // adding the person to room
+            console.log('Before socket join.........')
+            socket.join(roomId)
+            callback()
+            console.log(username, 'joineed the room', roomId)
+            
+            socket.emit('redirect', roomId)
+            socket.to(roomId).emit('notify-everyone', {roomId, username});
     })
 
     // Send message
@@ -155,22 +155,67 @@ io.on('connection', (socket) => {
         io.to(room).emit('receive-message',{message,username})
     })
 
-    // Get all users
+    //  ! Get all users socket comes here
 
-    socket.on('all-users', async (roomId) => {
-        try {
-          const users = await StudyRoom.findOne({roomId}).select('roomName users roomOwner');
-          if (users) {
-            io.to(roomId).emit('reply-all-users', users );
-            console.log('all users are',users.users)
-          } else {
-            io.to(roomId).emit('reply-all-users', 'No users found');
-          }
-        } catch (error) {
-          console.error('Error fetching users:', error);
-          io.to(roomId).emit('error-fetching-users');
+    socket.on('get-room-details', async(roomId) => {
+        const roomDetails = await StudyRoom.findOne({roomId}).select('roomOwner users roomName')
+        if(roomDetails){
+            const usersList = await User.find({_id:{$in: roomDetails.users}}).select('username').sort({username:1})
+            console.log("room is:", roomDetails)
+            console.log("usernames are:", usersList)
+            io.to(roomId).emit('get-room-details-response', {roomDetails, usersList})
+        } else{
+            console.log('room Id not found!')
         }
-      });
+    })
+
+    socket.on('leave-room', async (roomId, username) => {
+        const userId = socket.request.user.id;
+    
+        try {
+            // Update the document directly in the database without retrieving it
+            const result = await StudyRoom.updateOne(
+                { roomId, users: userId }, // Update only if the user is in the room
+                { $pull: { users: userId } } // Pull the user from the users array
+            );
+    
+            if (result.nModified === 0) {
+                console.log('User is not in the room or room not found');
+                return socket.emit("send-message-to-self", 'User is not in the room or room not found');
+            }
+    
+            console.log('Room left successfully');
+            
+            socket.to(roomId).emit('notify-everyone-leave', {roomId, username});
+        } catch (error) {
+            console.error('An error occurred while leaving the room:', error);
+            // Handle errors
+        }
+    });
+
+    socket.on('end-meet', async(roomId, roomOwner) => {
+    // Find the room by roomId and roomOwner
+        const room = await StudyRoom.findOne({ roomId, roomOwner });
+
+        if (room) {
+            room.isActive = false;
+            room.users = [];
+            await room.save();
+            // console.log('Room ended sucessfully')
+            io.to(roomId).emit('notify-left-everyone')
+            io.to(roomId).emit('redirect-home')
+        } else{
+            io.to(roomId).emit('end-meet-error', 'room not found!')
+        }
+    })
+
+      socket.on("disconnect", () => {
+        if (socket.roomId && socket.username) {
+            console.log('disconnect!', socket.username, socket.id)
+            socket.emit('leave-room', socket.roomId, socket.username);
+            socket.emit('get-room-details', socket.roomId);
+        }
+    });   
 })
 
 // Admin only route
@@ -316,11 +361,12 @@ const endRoom = asyncHandler(async (req, res) => {
 
 const getAllUsersOfARoom = asyncHandler(async (req,res) => {
     const {roomId} = req.query
-    const users = await StudyRoom.findById(roomId).select('roomName users roomOwner')
-    console.log(users)
+    const users = await StudyRoom.findOne({roomId}).select('roomName users roomOwner')
+    const usernames = await User.find({_id:{$in: [users.users]}})
     if(users){
         res.status(200).json({
-            data:users
+            data:users,
+            usernames: usernames
         })
     } else{
         res.status(400)
@@ -346,5 +392,25 @@ const allMyMeetings = asyncHandler(async (req,res) => {
 })
 
 
-export {getAllStudyRooms, createRoom, joinRoom,leaveRoom,endRoom,getAllUsersOfARoom,allMyMeetings};
+// Check if valid room
+const validRoom = asyncHandler(async (req,res) => {
+
+    const {roomId} = req.query
+
+    // Find the room by roomId
+    const room = await StudyRoom.findOne({ roomId, isActive:true });
+
+    if (!room) {
+        console.log('room not found API call!')
+        res.status(404)
+        throw new Error('Room not found!')
+    }
+
+    res.status(200).json({
+        message:'Valid room'
+    })
+
+})
+
+export {getAllStudyRooms, createRoom, joinRoom,leaveRoom,endRoom,getAllUsersOfARoom,allMyMeetings,validRoom};
   

@@ -2,11 +2,19 @@ import React, {useEffect,useMemo,useState} from 'react'
 import {io} from 'socket.io-client'
 import { DropDown } from '../Common/DropDown'
 import { useNavigate } from "react-router-dom";
+import { useLazyValidRoomQuery } from '../../slices/roomSlice';
+import toast from "react-hot-toast";
 
+
+// !Leave room and disconnect stuff
 
 export const MeetingDropdown = () => {
-  const userInfo = JSON.parse(localStorage.getItem('userInfo'))
-  const username = userInfo.data.username
+
+  const [isOpen, setIsOpen] = useState(false)
+  const [roomName, setRoomName] = useState('Study')
+  const [roomId, setRoomId] = useState('')
+
+  const [checkValidRoom] = useLazyValidRoomQuery()
 
   const navigate = useNavigate()
 
@@ -17,24 +25,38 @@ export const MeetingDropdown = () => {
       }),
     []
   );
-    const [isOpen, setIsOpen] = useState(false)
-    const [roomName, setRoomName] = useState('Study')
-    const [roomId, setRoomId] = useState('')
+
 
     function handleCreateRoom() {
       socket.emit('create-room',roomName);
-      console.log('room created with room name',roomName)
+      // console.log('room create request was sent to backend socket, with room name',roomName)
       setRoomName("")
     }
-
-    function handleJoinRoom() {
-      navigate(`room/${roomId}`)
-      setRoomId("")
+                      
+    async function handleJoinRoom() {
+      const {data, error} = await checkValidRoom(roomId)
+      try{
+        if (data) {
+          navigate(`room/${roomId}`);
+        } else {
+          // console.log(data)
+          toast.error('Invalid room')
+          
+          // navigate('home')
+          // console.log('Invalid room',error);
+        }
+ 
+      } catch{
+        
+        toast.error('Something went wrong!')
+        // navigate('home')
+      }
     }
 
+    
     useEffect(() => {
       socket.on('send-message-to-self',(data) => {
-        console.log(data)
+        // console.log(data)
       })
 
       socket.on('redirect', (roomId)=>{

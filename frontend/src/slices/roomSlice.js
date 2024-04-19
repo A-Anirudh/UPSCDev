@@ -40,6 +40,12 @@ export const roomSlice = apiSlice.injectEndpoints({
               method: "GET",
             }),
           }),
+		  validRoom: builder.query({
+            query: (roomId) => ({
+              url: `${ROOM_URL}/valid-room?roomId=${roomId}`,
+              method: "GET",
+            }),
+          }),
 
 	}),
 });
@@ -49,5 +55,9 @@ useCreateRoomMutation,
 useJoinRoomMutation,
 useLeaveRoomMutation,
 useEndRoomMutation,
+useLazyValidRoomQuery,
+useValidRoomQuery,
+useAllUsersOfRoomQuery,
+useLazyAllUsersOfRoomQuery,
 
 } = roomSlice;
