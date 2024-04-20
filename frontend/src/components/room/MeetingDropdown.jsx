@@ -1,6 +1,10 @@
 import React, {useEffect,useMemo,useState} from 'react'
 import {io} from 'socket.io-client'
+<<<<<<< HEAD
+import { DropDown } from '../Common/DropDown'
+=======
 import { DropDown, Modal } from '../UIComponents'
+>>>>>>> c6cf66db0f7732a3482e46a270174422cfae3796
 import { Link, useNavigate } from "react-router-dom";
 import { useLazyValidRoomQuery } from '../../slices/roomSlice';
 import toast from "react-hot-toast";
@@ -86,6 +90,11 @@ const handleOpen=()=>{
             <button onClick={handleCreateRoom} className='bg-accent-500 hover:bg-accent-400 text-white px-4 py-2 rounded-md duration-200 flex items-center gap-1'>Create</button>
           </div>
 
+<<<<<<< HEAD
+            <input placeholder='roomId' type="text" name="roomName" id="roomName" onChange={(e) => setRoomId(e.target.value)} />
+            <button onClick={handleJoinRoom}>Join Room</button>
+            <Link to='/rooms'>Manage rooms</Link>
+=======
           <div className='h-[1px] bg-background-200 w-full'></div>
 
             <div className='flex gap-2 items-center justify-center '>
@@ -96,6 +105,7 @@ const handleOpen=()=>{
           <div className='h-[1px] bg-background-200 w-full'></div>
  
             <Link to='/manage-rooms' className='text-blue-600 text-center' onClick={handleOpen}>Manage rooms</Link>
+>>>>>>> c6cf66db0f7732a3482e46a270174422cfae3796
         </div>
 
     </DropDown>
