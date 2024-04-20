@@ -14,8 +14,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { ProfileSkeleton } from "../loaders";
 import { useNavigate } from "react-router-dom";
 import { Payments } from "./Payments";
-import { Popover } from "../utils";
-import { Modal } from "../utils/Modal";
+import { Popover } from "../components/UIComponents";
+import { Modal } from "../components/UIComponents"
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';

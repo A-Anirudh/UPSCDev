@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import BugReportIcon from '@mui/icons-material/BugReport';
 import { useDispatch, useSelector } from 'react-redux';
 import { setbugopen } from '../../slices/bugSlice';
-import { Modal } from '../../utils/Modal';
+import { Modal } from '../UIComponents';
 import { ReportBug } from './ReportBug';
 export const Bug = () => {
 

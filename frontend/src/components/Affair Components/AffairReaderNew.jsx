@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useGetOneAffairQuery } from "../../slices/affairSlice";
 import { Accordion, AudioPlayer, Quiz } from "..";
 import { Helmet } from "react-helmet";
-import { Modal } from "../../utils/Modal";
+import { Modal } from "../UIComponents";
 import { AddClip } from "../Clips/AddClip";
 import { convert } from "html-to-text";
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ArrowUpward, DeleteIcon } from "../../utils/icons";
-import { Modal } from "../../utils/Modal";
+import { Modal } from "../UIComponents";
 import { useDeleteClipMutation } from "../../slices/clipSlice";
 import { toastSuccess } from "../../utils/myToast";
 import toast from "react-hot-toast";

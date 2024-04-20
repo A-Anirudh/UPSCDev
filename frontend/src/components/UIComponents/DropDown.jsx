@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
-export const DropDown = ({ isOpen, setIsOpen, children }) => {
+export const DropDown = ({ isOpen, setIsOpen, width,onMouseLeave, children }) => {
   const dropdownRef = useRef(null);
 
   const handleClickOutside = (event) => {
@@ -17,7 +17,8 @@ export const DropDown = ({ isOpen, setIsOpen, children }) => {
   }, []);
 
   return (
-    <div className="r elative" ref={dropdownRef}>
+    
+    <div className="  " ref={dropdownRef} onMouseLeave={onMouseLeave}>
       {isOpen ? (
         <div
           className={`fixed top-[75px] left-0 w-full h-full  bg-black/5  justify-center   ${
@@ -27,11 +28,19 @@ export const DropDown = ({ isOpen, setIsOpen, children }) => {
         >
         </div>
       ) : null}
-      {isOpen ? (
-        <div className="absolute z-10 mt-2 rounded-md p-3 w-full origin-top-right left-0  bg-background-1000 border border-background-100">
-          {isOpen && children}
-        </div>
-      ) : null}
+      <div
+        className={`${
+          isOpen ? "absolute" : "hidden" 
+        } z-[1000] shadow-md mt-2 left-0 min-w-max  overflow-hidden   bg-background-1000 border border-background-100 rounded-lg `}
+        role="menu"
+        aria-orientation="vertical"
+        aria-labelledby="menu-button"
+        tabIndex="-1"
+      >
+        {children}
+      </div>
     </div>
   );
 };
+
+

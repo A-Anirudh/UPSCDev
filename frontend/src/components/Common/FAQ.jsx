@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { faqData } from "../../data";
 import { AccordionContent, AccordionTitle, FaqAccordion } from "./FaqAccordion";
 import { DisableAccount } from "..";
-import { Modal } from "../../utils/Modal";
+import { Modal } from "../UIComponents";
 
 export const FAQ = () => {
   const data = faqData();

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FinalCancel } from "..";
-import { Modal } from "../../utils/Modal";
+import { Modal } from "../UIComponents";
 
 export const CancelSubscription = ({ open, handleOpen }) => {
     const features = [
