@@ -53,7 +53,7 @@ const favCheck=useCheckFavQuery(id)
 
   const handleBack = async () => {
     localStorage.setItem("selected", "Affair");
-    navigate("/affair?all=true");
+    navigate("/");
   };
 
   const handleReadAffair = () => {

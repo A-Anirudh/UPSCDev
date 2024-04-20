@@ -46,6 +46,12 @@ export const roomSlice = apiSlice.injectEndpoints({
               method: "GET",
             }),
           }),
+		  allMyRooms: builder.query({
+            query: () => ({
+              url: `${ROOM_URL}/get-all-my-meetings`,
+              method: "GET",
+            }),
+          }),
 
 	}),
 });
@@ -59,5 +65,6 @@ useLazyValidRoomQuery,
 useValidRoomQuery,
 useAllUsersOfRoomQuery,
 useLazyAllUsersOfRoomQuery,
+useAllMyRoomsQuery
 
 } = roomSlice;

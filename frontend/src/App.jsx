@@ -30,7 +30,7 @@ import {
   Reader,
   UnloggedUserBar,
 } from "./components";
-import { ReportBug } from "./components";
+import { MyRooms } from "./screens/MyRooms";
 
 const App = () => {
   const logged = localStorage.getItem("userInfo");
@@ -69,6 +69,7 @@ const App = () => {
           <Route path="/search-results/:searchItem" element={<SearchResults />} />
           <Route path="/search-results/" element={<SearchResults />} />
           <Route path="/room/:roomId" element={<Room />} />
+          <Route path="/manage-rooms" element={<MyRooms />} />
 
 
         </Route>
