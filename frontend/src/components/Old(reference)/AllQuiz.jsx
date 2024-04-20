@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Popover } from "../../utils";
+import { Popover } from "../UIComponents";
 
 import { useDispatch, useSelector } from "react-redux";
 import SchoolIcon from "@mui/icons-material/School";

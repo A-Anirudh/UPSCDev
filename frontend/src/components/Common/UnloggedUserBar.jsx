@@ -1,7 +1,7 @@
 import React from "react";
 import { Login } from "../../screens/Login";
 import logo from "../../assets/logo.png";
-import { Modal } from "../../utils/Modal";
+import { Modal } from "../UIComponents";
 import { Link } from "react-router-dom";
 
 export const UnloggedUserBar = () => {
@@ -9,8 +9,8 @@ export const UnloggedUserBar = () => {
   const handleOpen = () => setOpen((cur) => !cur);
 
   return (
-    <div className="">
-      <nav className="flex md:mx-9 items-center justify-between p-3 top-0 sticky z-[99999] bg-background-50">
+    <div className="sticky top-0 z-[9999] shadow">
+      <nav className="flex md:mx-9 items-center justify-between p-3 top-0 sticky  bg-background-50">
       <Link to='/' className="flex gap-1 items-center font-bold text-2xl cursor-pointer">
           <img src={logo} alt="UpscMax logo" className="w-10" />
           <p className="text-black">

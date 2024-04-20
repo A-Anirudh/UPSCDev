@@ -7,10 +7,11 @@ import { useUserProfileQuery } from "../../slices/usersApiSlice";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useSelector } from "react-redux";
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
-import{CloseIcon} from '../../utils/icons'
+import{CloseIcon, SearchIcon} from '../../utils/icons'
 import { SearchComponent } from "../Search/SearchComponent";
 import CreateRoomButton from "../room/CreateRoomButton";
 import { MeetingDropdown } from "../room/MeetingDropdown";
+import { SearchContainer } from "../Search/SearchContainer";
 
 export const LoggedUserBar = () => {
   const navigate = useNavigate();
@@ -60,8 +61,8 @@ setopen(!open)
 
 
   return (
-    <nav className="w-full font-jakarta text-text-25 p-4  flex items-center  bg-background-50 justify-between z-[9999999] lg:px-10 border-b border-background-100 sticky top-0 ">
-      <div className="w-full">
+    <nav className="w-full  font-jakarta text-text-25 p-4  grid grid-cols-1 lg:grid-cols-2 items-center  bg-background-50 justify-between z-[9999999] lg:px-10 border-b border-background-100 sticky top-0 ">
+      <div className="bg -blue-800">
         {/* For mobile */}
         <div className="flex items-center justify-between lg:hidden">
           
@@ -73,6 +74,8 @@ setopen(!open)
           <Link to='/home'className="font-bold text-xl text-text-25 hover:text-text-25 cursor-pointer ">UpscMax</Link>
         }
           <div className=" items-center justify-center gap-5 flex">
+          <SearchContainer/>
+
             <button
               className={`   rounded-full p-2 bg-background-100 flex gap-6    items-center transition-all  `}
               onClick={() => toggleDarkMode()}
@@ -87,7 +90,7 @@ setopen(!open)
             </button>
           </div>
         </div>
-        <ul className={` ${open?'flex':'hidden'} lg:flex items-center gap-10 list-none  flex-col lg:flex-row  z-[9999999]`}>
+        <ul className={` ${open?'flex':'hidden'} lg:flex items-center  w-full  gap-10 list-none  flex-col lg:flex-row  z-[9999999] `}>
 
           {/* Conditional rendering of navbar */}
           {
@@ -113,12 +116,17 @@ setopen(!open)
               }`} onClick={()=>{navigate('/buy-subscription');setopen(false)}}>Subscription</li>
           <li className="block lg:hidden font-semibold" onClick={()=>{navigate('/profile');setopen(false)}}>Profile</li>
           <MeetingDropdown />
-          <SearchComponent/> 
         </ul>
         
       </div>
       <div>
-        <div className=" items-center justify-center gap-5 lg:flex hidden">
+        <div className=" items-center justify-end gap-1 lg:flex hidden w-full ">
+        <span className=" hidden xl:block w-3/4"><SearchComponent/></span>
+          <span className="hidden lg:block xl:hidden"><SearchContainer/></span>
+          
+
+          
+
           <button
             className={`   rounded-full p-2 bg-background-100 flex gap-6    items-center transition-all  `}
             onClick={() => toggleDarkMode()}
