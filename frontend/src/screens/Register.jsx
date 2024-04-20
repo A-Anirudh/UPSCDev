@@ -5,14 +5,10 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Logo from '../assets/logo.png'
 import toast from 'react-hot-toast'
-import { setUserCredentials } from '../slices/authSlice';
-import { useDispatch } from 'react-redux';
-import { UnloggedUserBar } from '../components';
 
 export const Register = () => {
     const [register] = useUserRegisterMutation()
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const dispatch = useDispatch();
     const [visible, setVisible] = useState(false)
     const [confirmvisible, setconfirmVisible] = useState(false)
 

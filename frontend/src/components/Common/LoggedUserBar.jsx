@@ -90,7 +90,7 @@ setopen(!open)
             </button>
           </div>
         </div>
-        <ul className={` ${open?'flex':'hidden'} lg:flex items-center  gap-10 list-none  flex-col lg:flex-row  z-[9999999]`}>
+        <ul className={` ${open?'flex':'hidden'} lg:flex items-center  w-full  gap-10 list-none  flex-col lg:flex-row  z-[9999999] `}>
 
           {/* Conditional rendering of navbar */}
           {
@@ -120,7 +120,7 @@ setopen(!open)
         
       </div>
       <div>
-        <div className=" items-center justify-end gap-1 lg:flex hidden bg-re d-900 w-full ">
+        <div className=" items-center justify-end gap-1 lg:flex hidden w-full ">
         <span className=" hidden xl:block w-3/4"><SearchComponent/></span>
           <span className="hidden lg:block xl:hidden"><SearchContainer/></span>
           

@@ -41,7 +41,7 @@ dotenv.config();
 connectDB();
 const port = process.env.PORT || 8080;
 const app = express()
-app.use(cors({ origin: '*', credentials: true }));
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 app.set('trust proxy', 1);
 // Limit 250 requests per minute per IP address
@@ -99,3 +99,5 @@ export const instance = new RazorPay({
     key_id:process.env.RAZORPAY_ID_KEY,
     key_secret:process.env.RAZORPAY_SECRET_KEY
 })
+
+
