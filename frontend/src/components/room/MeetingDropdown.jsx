@@ -1,7 +1,7 @@
 import React, {useEffect,useMemo,useState} from 'react'
 import {io} from 'socket.io-client'
 import { DropDown } from '../Common/DropDown'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLazyValidRoomQuery } from '../../slices/roomSlice';
 import toast from "react-hot-toast";
 
@@ -79,7 +79,7 @@ export const MeetingDropdown = () => {
 
             <input placeholder='roomId' type="text" name="roomName" id="roomName" onChange={(e) => setRoomId(e.target.value)} />
             <button onClick={handleJoinRoom}>Join Room</button>
-            <button>Manage rooms</button>
+            <Link to='/rooms'>Manage rooms</Link>
         </div>
 
     </DropDown>
