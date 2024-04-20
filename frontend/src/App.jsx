@@ -19,8 +19,7 @@ import {
   VerifyEmail,
   ViewContainer,
   WeeklyQuiz,
-  Room,
-  MyRooms
+  Room
 } from "./screens";
 
 import { LoggedOutRoutes, PrivateRoutes } from "./utils";
@@ -31,6 +30,7 @@ import {
   Reader,
   UnloggedUserBar,
 } from "./components";
+import { ReportBug } from "./components";
 
 const App = () => {
   const logged = localStorage.getItem("userInfo");
@@ -69,7 +69,6 @@ const App = () => {
           <Route path="/search-results/:searchItem" element={<SearchResults />} />
           <Route path="/search-results/" element={<SearchResults />} />
           <Route path="/room/:roomId" element={<Room />} />
-          <Route path="/rooms" element={<MyRooms />} />
 
 
         </Route>
