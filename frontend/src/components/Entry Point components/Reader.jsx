@@ -7,7 +7,7 @@ import { EventReaderNew } from "../Events/EventReaderNew";
 import { AddIcon, FavoriteBorderOutlinedIcon, FavoriteIcon, ShareIcon } from "../../utils/icons";
 import { toastSuccess } from "../../utils/myToast";
 import toast from "react-hot-toast";
-import { Modal } from "../../utils/Modal";
+import { Modal } from "../UIComponents";
 import { AddCollection } from "../Collections/AddCollection";
 import { useGetAllCollectionsQuery } from "../../slices/CollectionSlice";
 import { useAddContinueReadingMutation, useGetContinueReadingQuery } from "../../slices/usersApiSlice";
@@ -189,7 +189,6 @@ const favCheck=useCheckFavQuery(id)
   // }, [,id]);
 
   useEffect(() => {
-    console.log(favCheck)
     if(favCheck.data){
       setisFav(favCheck?.data?.message)
     }

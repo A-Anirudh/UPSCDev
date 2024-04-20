@@ -1,14 +1,66 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar, UnloggedUserBar } from "../components";
 import HeroImg from "../assets/heroImg.svg";
 import { Login } from "./Login";
 import DoneOutlineOutlinedIcon from "@mui/icons-material/DoneOutlineOutlined";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "../utils/Modal";
+import { ImageCarousel, Modal } from "../components/UIComponents";
+import { imageExport } from "../data";
+import { CloseIcon } from "../utils/icons";
+import { SubscriptionCard } from "./cards/SubscriptionCard";
 
 export const Homepage = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const sampleImages = imageExport();
 
+  const showOff = [
+    {
+      icon: <CloseIcon />,
+      title: "Dummy Data 123",
+      extra: "small dummy",
+    },
+    {
+      icon: <CloseIcon />,
+      title: "Dummy Data 123",
+      extra: "small dummy",
+    },
+    {
+      icon: <CloseIcon />,
+      title: "Dummy Data 123",
+      extra: "small dummy",
+    },
+    {
+      icon: <CloseIcon />,
+      title: "Dummy Data 123",
+      extra: "small dummy",
+    },
+  ];
+  console.log(sampleImages);
+  const features = [
+    {
+      title: "Lorem Ipsum",
+      feature: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      image: sampleImages[0],
+    },
+    {
+      title: "Dolor Sit Amet",
+      feature:
+        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      image: sampleImages[1],
+    },
+    {
+      title: "Consectetur Adipiscing",
+      feature:
+        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      image: sampleImages[2],
+    },
+    {
+      title: "Sed Do Eiusmod",
+      feature:
+        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      image: sampleImages[0],
+    },
+  ];
   const handleOpen = () => {
     setOpen((cur) => !cur);
   };
@@ -22,131 +74,123 @@ export const Homepage = () => {
   }, []);
 
   return (
-    <div
-      className={` w-[100%]  ${open ? " overflow-hidden" : " overflow-auto"} `}
-    >
-      {/* <UnloggedUserBar/> */}
-
-      <div className="heroSection  flex flex-col justify-center items-center flex-wrap relative">
-        <div className="flex flex-wrap  w-full items-center justify-center p-5 lg:gap-[5rem] ">
-          <div className="flex flex-col text-6xl md:text-[5rem] p-2 gap-2 md:h-[12rem]  ">
-            <p className="font-bold ">Welcome</p>
-            <p className="font-bold ">Aspirants</p>
-          </div>
-
-          <div className="flex flex-col p-8 md:h-[12rem]  justify-between gap-2">
-            <p className="font-medium text-2xl w-[16rem]">
-              Stay upto date with current affairs{" "}
-              <span className="font-bold text-accent-500">Easily</span>
+    <section className="">
+      {/* Top section */}
+      <section className="hero p-1 md:p-9  mx-auto md:mb-28  ">
+        <div className=" lg:grid lg:grid-cols-2 place-content-center w-full  2xl:w-3/4 mx-auto  ">
+          <div className="text-placeholder flex-col flex w-full justify-center gap-5 md:p-10 p-5">
+            <p className=" w-full font-bold text-5xl xl:text-7xl">
+              Unlock the power of the Mind
             </p>
-
-            <button
-              className="w-[10rem] font-[poppins] capitalize text-[1.1rem] font-bold bg-accent-500 py-3 px-6 rounded hover:shadow-lg hover:shadow-accent-300 text-white"
-              onClick={handleOpen}
-            >
-              Get Started
-            </button>
-          </div>
-        </div>
-
-        <div className={` w-[100%]  bg-center  bg-no-repeat box-border`}>
-          <img src={HeroImg} />
-        </div>
-      </div>
-
-      <section className="text-center font-medium">
-        <p className="font-bold text-[2rem] md:text-[3rem]">Plans & Pricing</p>
-        <p className="font-light text-[0.9rem] leading-[2rem]  ">
-          Make sure to use everything we gotta provide
-        </p>
-
-        <div className="card-container flex flex-col lg:flex-row p-5 justify-center gap-10">
-          <div className="flex flex-col justify-between gap-5 bg-primary-50 p-5 pt-10  md:p-[5rem] rounded-lg  xl-max:w-[30%] relative hover:scale-[1.03] transition-all  hover:shadow-xl">
-            <div className="flex gap-8 flex-col    ">
-              <p className="font-bold text-[1.5rem]">Basic Plan</p>
-              <p className="text-[1.2rem] font-light">Free</p>
-              <div className="flex flex-col gap-6 items-start ">
-                <div className="feautures flex items-center gap-3 justify-center">
-                  <DoneOutlineOutlinedIcon className="text-primary-500" />
-                  <p className="text-[0.9rem] md:text-[1.2rem]">
-                    Access to all current affairs
-                  </p>
-                </div>
-                <div className="feautures flex items-center gap-3 justify-center">
-                  <DoneOutlineOutlinedIcon className="text-primary-500" />
-                  <p className="text-[0.9rem] md:text-[1.2rem]">
-                    Access to all current affairs details
-                  </p>
-                </div>
-              </div>
+            <p className="font-medium text-xl">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet
+              sint nesciunt ut eaque, odit necessitatibus repudiandae{" "}
+            </p>
+            <div className="flex flex-col md:flex-row">
+              <button
+                className="px-10 py-2  rounded-full capitalize font-[poppins] font-medium text-lg bg-primary-500 text-white hover:bg-primary-600 duration hover:outline hover:outline-black hover:outline-1 hover:outline-offset-1"
+                onClick={handleOpen}
+              >
+                Get Started
+              </button>
             </div>
-            <button
-              className="py-3 rounded-md capitalize font-[poppins] font-medium text-sm bg-primary-200 text-black "
-              onClick={handleOpen}
-            >
-              Get Started
-            </button>
           </div>
 
-          <div className="flex gap-8 flex-col justify-between  bg-primary-100 p-5 pt-10 md:p-[5rem] rounded-lg min-h-[500px] xl:w-[30%] relative hover:scale-[1.03] transition-all  hover:shadow-xl">
-            <p className="font-bold text-[1.5rem]">Pro Plan</p>
-            <p className="text-[1.2rem] font-medium">Rs 199/month</p>
-            <div className="flex flex-col gap-6 items-start ">
-              <div className="feautures flex items-center gap-3 justify-center">
-                <DoneOutlineOutlinedIcon className="text-primary-500" />
-                <p className="text-[0.9rem] md:text-[1.2rem]">
-                  Access to all current affairs
-                </p>
-              </div>
-
-              <div className="feautures flex items-center gap-3 justify-center">
-                <DoneOutlineOutlinedIcon className="text-primary-500" />
-                <p className="text-[0.9rem] md:text-[1.2rem]">Search affairs</p>
-              </div>
-              <div className="feautures flex items-center gap-3 justify-center">
-                <DoneOutlineOutlinedIcon className="text-primary-500" />
-                <p className="text-[0.9rem] md:text-[1.2rem]">Search events</p>
-              </div>
-              <div className="feautures flex items-center gap-3 justify-center">
-                <DoneOutlineOutlinedIcon className="text-primary-500" />
-                <p className="text-[0.9rem] md:text-[1.2rem]">
-                  Summerize events
-                </p>
-              </div>
-              <div className="feautures flex items-center gap-3 justify-center">
-                <DoneOutlineOutlinedIcon className="text-primary-500" />
-                <p className="text-[0.9rem] md:text-[1.2rem]">No Ads</p>
-              </div>
-
-              <div className="feautures flex items-center gap-3 justify-center">
-                <DoneOutlineOutlinedIcon className="text-primary-500" />
-                <p className="text-[0.9rem] md:text-[1.2rem]">
-                  Daily news update
-                </p>
-              </div>
-              <div className="feautures flex items-center gap-3 justify-center">
-                <DoneOutlineOutlinedIcon className="text-primary-500" />
-                <p className="text-[0.9rem] md:text-[1.2rem]">
-                  Recite the article
-                </p>
-              </div>
-            </div>
-            <button
-              className="py-3 rounded-md capitalize font-[poppins] font-medium text-sm bg-primary-500 text-white "
-              onClick={handleOpen}
-            >
-              Get Started
-            </button>
+          <div className="  h-full">
+            <ImageCarousel images={sampleImages} />
           </div>
-
-          <div className="flex gap-2 flex-col"></div>
         </div>
-        <Modal open={open} setOpen={handleOpen}>
-         
-            <Login handleOpen={handleOpen} />
-          
-        </Modal>
       </section>
-    </div>
+      {/* Mid section */}
+
+      <section className="w-full   flex flex-col">
+        <div>
+          <div className="p-5 mx-auto flex flex-col md:flex-row gap-4 items-center justify-center ">
+            {showOff.map((item) => (
+              <div className="p-4 bg-re d-900 w-fit flex flex-col items-center justify-center">
+                <span className="flex text-2xl">{item.icon}</span>
+                <p className="text-xl font-extrabold text-accent-800">
+                  {item.title}
+                </p>
+                <p className="font-medium text-gray-700">{item.extra}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <span className="bg-gradient-to-r from-gray-100 via-slate-400 to-gray-100 text-white font-semibold rounded p-[0.5px]"></span>
+      </section>
+
+      {/* Features section */}
+      <section className=" p-5 flex flex-col items-center justify-center">
+        {features.map((item, idx) => (
+          <div
+            className={`  md:gap-2 flex ${
+              idx % 2 ? "" : " lg:flex-row-reverse "
+            } p-4 items-center  md:justify-around flex-col lg:flex-row  mx-auto xl:w-3/4`}
+          >
+            <div className="lg:w-1/2 md:space-y-1 ">
+              <p className="font-bold text-3xl lg:text-6xl ">{item.title}</p>
+              <p className="text-md md:text-xl ">{item.feature}</p>
+              <img
+                src={item.image}
+                alt="image"
+                className="lg:hidden rounded-xl hover:scale-[1.01] duration-200 w-full"
+              />
+            </div>
+            <div>
+              <img
+                src={item.image}
+                alt="image"
+                className="hidden lg:block rounded-xl hover:scale-[1.01] duration-200 w-full"
+              />
+            </div>
+          </div>
+        ))}
+      </section>
+
+      {/* Features section */}
+      <section className="p-5 md:p-10">
+        <p className="text-6xl font-bold text-center p-6 ">Pricing </p>
+        <div className="flex lg:flex-row flex-col items-center justify-center gap-3">
+          <SubscriptionCard
+            featureConfig={[1,1,1]}
+            isPro={false}
+            title={"Basic Plan"}
+            price={"Free"}
+            description={"Enjoy all the features"}
+            key={'1'}
+            open={open}
+            setOpen={setOpen}
+            
+          />
+                    <SubscriptionCard
+            featureConfig={[1,1,0,1,0,1]}
+            isPro={true}
+            title={"Pro Plan"}
+            price={"1999"}
+            description={"Enjoy all the features"}
+            time={'/yr'}
+            open={open}
+            setOpen={setOpen}
+          />
+              <SubscriptionCard
+            featureConfig={[1,1,0,1,0,1,1]}
+            isPro={false}
+            title={"Basic Plan"}
+            price={"199"}
+            description={"Enjoy all the features"}
+            time={'/mo'}
+            open={open}
+            setOpen={setOpen}
+          />
+        </div>
+
+
+      </section>
+
+      <Modal open={open} setOpen={handleOpen}>
+        <Login handleOpen={handleOpen} />
+      </Modal>
+    </section>
   );
 };

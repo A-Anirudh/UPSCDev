@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useGetClipsQuery } from "../slices/clipSlice";
 import { ClipCard } from "../components";
-import { Modal } from "../utils/Modal";
+import { Modal } from "../components/UIComponents"
 import { CloseIcon, LeftIcon } from "../utils/icons";
 
 export const AllClips = () => {

@@ -14,7 +14,7 @@ import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import BugReportIcon from "@mui/icons-material/BugReport";
 import { setbugopen } from "../../slices/bugSlice";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
-import { Popover } from "../../utils/Popover";
+import { Popover } from "../UIComponents";
 import { AllQuiz } from "./AllQuiz";
 
 export const Sidebar = () => {

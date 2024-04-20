@@ -72,19 +72,6 @@ export const Mainpage = () => {
       <div className="flex flex-col lg:flex-row   w-[100%] bg-background-25 overflow-y-auto  ">
         <div className=" lg:w-[35%] xl:w-[30%]  2xl:w-[20%]  ">
           <div className=" flex font-jakarta  w-full items-center gap-4  text-text-25 bg-pin-800 px-10  md:px-5 flex-wrap  text-left">
-            <div>
-              <p className=" font-semibold   text-lg   ">
-                Welcome {userData?.data?.user?.username}
-              </p>
-            </div>
-            {/* <button
-              className="w-10 cursor-pointer   hidden"
-              onClick={() => {
-                navigate("/profile");
-              }}
-            >
-              <img src={userData?.data?.user?.avatar?.url} />
-            </button> */}
           </div>
           <div className="p-3">
             <DailyQuiz />

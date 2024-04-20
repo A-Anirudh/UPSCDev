@@ -50,11 +50,23 @@ export const AddIcon = ({ className }) => (
   <span className={"material-icons-outlined " + className}>add</span>
 );
 
-
 export const SearchIcon = ({ className }) => (
   <span className={"material-icons-outlined " + className}>search</span>
 );
-
-
-
-
+export const LoginIcon = ({ className }) => (
+  <span className={"material-icons-outlined " + className}>login</span>
+);
+export const ManageIcon = ({ className }) => (
+  <span className={"material-icons-outlined " + className}>
+    manage_accounts
+  </span>
+);
+export const RupeeIcon = ({ className }) => (
+  <span className={"material-icons-outlined " + className}>currency_rupee</span>
+);
+export const DoneIcon = ({ className }) => (
+  <span className={"material-icons-outlined " + className}>done</span>
+);
+export const DoneSmallIcon = ({ className }) => (
+  <span className={"material-icons-outlined " + className}>check_small</span>
+);

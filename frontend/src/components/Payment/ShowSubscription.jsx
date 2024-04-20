@@ -5,7 +5,7 @@ import {
 } from "../../slices/subscriptionSclice";
 import { CancelSubscription } from "..";
 import toast from "react-hot-toast";
-import { Modal } from "../../utils/Modal";
+import { Modal } from "../UIComponents";
 
 
 export const ShowSubscription = () => {

@@ -164,29 +164,3 @@ export const Login = ({ open, handleOpen }) => {
     // </section>
   );
 };
-{
-  /* <div className='flex items-center justify-center h-screen font-jakarta '>
-    //   <div className='p-[2rem] md:p-8 flex w-[350px] flex-col gap-6 border-2 border-gray-900 rounded-lg '>
-    //     <p className='text-3xl font-semibold '>Login</p>
-    //     <div className='mb-1 flex flex-col gap-2'>
-          
-    //       <label>Your Email</label>
-    //       <Input className=" !border-t-blue-gray-200 focus:!border-t-gray-900" */
-}
-//       type='email'
-//       placeholder="name@mail.com"
-//         labelProps={{
-//           className: "before:content-none after:content-none",
-//         }} />
-//     </div>
-//     <div className='mb-1 flex flex-col gap-2'>
-//       <label>Your Password</label>
-//       <Input className=" !border-t-blue-gray-200 focus:!border-t-gray-900" type='password' placeholder="********"/>
-
-//     </div>
-//     <div className='w-full '>
-//     <Button className='bg-secondary-500 font-jakarta w-full '>Login</Button>
-//     <p className='text-center mt-2 font-medium'>New User?<a  className='text-secondary-500'href='/register'>Signup</a></p>
-//     </div>
-//   </div>
-// </div>
