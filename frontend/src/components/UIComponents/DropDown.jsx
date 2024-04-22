@@ -10,7 +10,10 @@ export const DropDown = ({ isOpen, setIsOpen, width,onMouseLeave, children }) =>
   };
 
   useEffect(() => {
+    console.log(isOpen)
     document.addEventListener("mousedown", handleClickOutside);
+    if(!isOpen)
+    document.removeEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
