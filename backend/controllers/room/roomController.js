@@ -340,6 +340,7 @@ const leaveRoom = asyncHandler(async (req, res) => {
 // Because, we need summary of the audio too later
 const endRoom = asyncHandler(async (req, res) => {
     const { roomId } = req.body;
+    console.log(roomId)
 
     const roomOwner = req.user.id
 

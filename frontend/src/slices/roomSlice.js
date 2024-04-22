@@ -29,7 +29,7 @@ export const roomSlice = apiSlice.injectEndpoints({
 		}),
         endRoom: builder.mutation({ 
 			query: (data) => ({
-				url: `${ROOM_URL}/end-room`,
+				url: `${ROOM_URL}/delete-room`,
 				method: "PUT",
 				body: data,
 			}),

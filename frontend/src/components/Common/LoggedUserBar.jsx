@@ -32,7 +32,7 @@ const loc=window.location.pathname
 
   const handleClick = (name, link) => {
     setselected(name);
-    navigate(link);
+    // navigate(link);
     localStorage.setItem("selected", name);
     setopen(false)
   };
@@ -103,18 +103,21 @@ setopen(!open)
           {navbarData?.map((item) => (
             <li 
               key={item.name}
-              className={`font-semibold cursor-pointer hover:text-accent-500  ${
-                loc == item?.link ? "text-accent-500" : ""
-              }`}
               onClick={() => handleClick(item?.name, item?.link)}
             >
-              <span className="line-clamp-1">{item.name}</span>
+              <Link to={item?.link}               className={`line-clamp-1 font-semibold cursor-pointer hover:text-accent-500  ${
+                loc == item?.link ? "text-accent-500" : "text-text-25"
+              }`}>{item.name}</Link>
             </li>
           ))}
           <li className={`${isActive?.status!='active'?"block font-semibold cursor-pointer ":"hidden"} ${
-                loc == '/buy-subscription' ? "text-accent-500" : ""
-              }`} onClick={()=>{navigate('/buy-subscription');setopen(false)}}>Subscription</li>
-          <li className="block lg:hidden font-semibold" onClick={()=>{navigate('/profile');setopen(false)}}>Profile</li>
+                loc == '/buy-subscription' ? "text-accent-500" : "text-text-25"
+              }`} onClick={()=>{setopen(false)}}><Link to='/buy-subscription'> Subscription</Link></li>
+
+
+          <li ><Link className={`block lg:hidden font-semibold hover:text-primary-500 ${
+                loc == '/profile' ? "text-accent-500" : "text-text-25"
+              }`} to='/profile' onClick={()=>{setopen(false)}}>Profile</Link></li>
           <MeetingDropdown />
         </ul>
         

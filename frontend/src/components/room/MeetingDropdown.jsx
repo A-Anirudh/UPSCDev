@@ -75,7 +75,7 @@ const handleOpen=()=>{
 }
 
   return (
-    <div className='z-[1000] relative ' >
+    <div className='z-[1000] relative mx-[-40px] ' >
     <button onClick={handleOpen} className='font-semibold hover:text-accent-500 flex items-center'>Meetings 
     <span className={`${isOpen?"rotate-180":"rotate-0"} flex duration-300`}> 
      <KeyboardArrowDownIcon/></span> </button>

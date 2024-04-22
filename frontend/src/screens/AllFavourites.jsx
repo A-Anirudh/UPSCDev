@@ -36,6 +36,7 @@ export const AllFavourites = () => {
   if(!allFav){
     return 'loading'
   }
+  console.log(allFav)
 
 
   return (
@@ -59,7 +60,7 @@ export const AllFavourites = () => {
             {allFav?.map((item, i) => (
               <FavAffairCard
                 key={item?.pid}
-                affairName={item?.affairName}
+                affairName={item?.name}
                 fav_pid={data?.data[i]?.pid}
                 article={item?.article}
                 tags={item?.tags}

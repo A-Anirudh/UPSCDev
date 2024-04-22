@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useGetLatestCAQuery } from "../../slices/affairSlice";
 import { CategoryCardsContainer } from "./CategoryCardsContainer";
 import { RightIcon } from "../../utils/icons";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const CAContainer = ({}) => {
   const { data, isLoading, error, refetch } = useGetLatestCAQuery();
@@ -20,14 +20,12 @@ export const CAContainer = ({}) => {
         <p className="text-lg md:text-3xl pb-1 font-semibold">
           Current Affairs
         </p>
-        <button className="flex items-center text-background-500 hover:text-background-700"
-        onClick={()=>navigate("/affair")}
-        >
+        <Link to='/affair' className="flex items-center text-background-500 hover:text-background-700">
           View all{" "}
           <span className="flex">
             <RightIcon />
           </span>
-        </button>
+        </Link>
       </div>
       <CategoryCardsContainer
         cards={allAffairs}
