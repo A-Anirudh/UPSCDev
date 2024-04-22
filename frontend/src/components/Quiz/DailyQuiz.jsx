@@ -31,7 +31,7 @@ const handleClose = () => {
 
   setCorrect(false);
   // setfinish(false)
-  setSelected(""); // Clear the selected radio button
+ // Clear the selected radio button
 
   // dispatch(setdailyquizopen(false));
 };
