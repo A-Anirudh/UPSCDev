@@ -1,24 +1,17 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 import {
-  AffairCardNew,
   Banner,
   CAContainer,
-  CategoryCardsContainer,
   DailyQuiz,
   NonCAContainer,
   Quotes,
-  Sidebar,
 } from "../components";
-import { useGetSubjectWiseDataQuery } from "../slices/affairSlice";
 import { useUserProfileQuery } from "../slices/usersApiSlice";
 import { useSelector } from "react-redux";
 import {
   useAddFavMutation,
   useDeleteFavMutation,
 } from "../slices/favouriteSlice";
-import { MainpageSkeletion } from "../loaders";
-import { toastSuccess } from "../utils/myToast";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export const Mainpage = () => {

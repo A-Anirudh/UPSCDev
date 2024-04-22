@@ -41,8 +41,8 @@ export const MyRooms = () => {
                             {room.isActive ? <li><button onClick={() => handleEndMeeting(room.roomId)}>End meeting</button></li> : '' }
                             
                         </ul>
-                        <br />
-                    </div>
+                    <br />
+            </div>
 
                     
                     
