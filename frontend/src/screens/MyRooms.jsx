@@ -1,38 +1,42 @@
-import React, { useEffect, useState } from 'react'
-import { useAllMyRoomsQuery } from '../slices/roomSlice'
+import React, { useEffect, useState } from "react";
+import { useAllMyRoomsQuery } from "../slices/roomSlice";
+import { RoomDetailsCard } from "../components";
 
 export const MyRooms = () => {
-    const [rooms, setRooms] = useState([])
-    const [success, setSuccess] = useState(false)
-    const { data, error, refetch } = useAllMyRoomsQuery()
+  const [rooms, setRooms] = useState([]);
+  const [success, setSuccess] = useState(false);
+  const { data, error, refetch } = useAllMyRoomsQuery();
 
-    useEffect(() => {
-        if (data) {
-            setRooms(data.data)
-            setSuccess(data.success)
-        }
+  useEffect(() => {
+    if (data) {
+      setRooms(data.data);
+      setSuccess(data.success);
+    }
+  }, [data]);
 
-    }, [data])
-
-    return (
-        <>
-            <div>My rooms</div>
-            <br />
-            <br />
-            <div>
-                {success ? rooms.map((room, i) => (
-                    <div key={i}>
-                        <ul  className='mx-10 border w-[250px]'>
-                            <li>Room name: {room.roomName}</li>
-                            <li>Room ID: {room.roomId}</li>
-                        </ul>
-                        <br />
-                    </div>
-
-                    
-                    
-                )) : <p>No rooms found!</p>}
-            </div>
-        </>
-    );
-}
+  return (
+    <>
+      <section className=" lg:w-3/4 2xl:w-1/2 mx-auto p-1 md:p-5">
+        <p className="md:text-3xl text-2xl font-semibold my-5 pb-5 px-5 md:px-0">
+          My Rooms
+        </p>
+        <section className="flex flex-col justify-center gap-3">
+          {success ? (
+            rooms?.map((item, i) => (
+              <div key={i}>
+                <RoomDetailsCard
+                  roomId={item?.roomId}
+                  roomName={item?.roomName}
+                  isActive={item?.isActive}
+                  refetch={refetch}
+                />
+              </div>
+            ))
+          ) : (
+            <p>No rooms found!</p>
+          )}
+        </section>
+      </section>
+    </>
+  );
+};

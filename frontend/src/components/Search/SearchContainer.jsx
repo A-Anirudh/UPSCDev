@@ -14,7 +14,7 @@ export const SearchContainer = () => {
         <SearchIcon />
       </button>
       <Modal open={open} setOpen={setopen} direction={"items-start justify-center"}>
-        <div className="bg-backgro und-50     flex-col items-start pt-10 w-[100vw] xl:w-[50vw]"><SearchComponent/></div>
+        <div className="bg-backgro und-50     flex-col items-start pt-10 w-[100vw] xl:w-[50vw]"><SearchComponent setOpen={setopen}/></div>
         
       </Modal>
     </>

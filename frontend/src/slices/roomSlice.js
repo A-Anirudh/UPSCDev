@@ -53,6 +53,14 @@ export const roomSlice = apiSlice.injectEndpoints({
             }),
           }),
 
+		  deleteRooms: builder.mutation({
+            query: (body) => ({
+              url: `${ROOM_URL}/delete-room`,
+              method: "PUT",
+			  body:body
+            }),
+          }),
+
 	}),
 });
 
@@ -65,6 +73,7 @@ useLazyValidRoomQuery,
 useValidRoomQuery,
 useAllUsersOfRoomQuery,
 useLazyAllUsersOfRoomQuery,
-useAllMyRoomsQuery
+useAllMyRoomsQuery,
+useDeleteRoomsMutation
 
 } = roomSlice;

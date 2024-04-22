@@ -6,7 +6,7 @@ import { useDebounce } from "../../hooks";
 import { SuggestionCard } from "./SuggestionCard";
 import { useNavigate } from "react-router-dom";
 
-export const SearchComponent = () => {
+export const SearchComponent = ({setOpen}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchItem, setsearchItem] = useState("");
   const debouncedSearch = useDebounce(searchItem, 200);
@@ -55,7 +55,11 @@ export const SearchComponent = () => {
 const handleSubmit=(event)=>{
     event.preventDefault(); // Prevent form submission from refreshing the page
     setIsOpen(false)
-
+    try {
+      setOpen(false)
+    } catch (error) {
+      null;
+    }
     if(searchItem)
     navigate(`search-results/${searchItem}`)
   setsearchItem('')
