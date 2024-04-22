@@ -29,14 +29,14 @@ export const MeetingDropdown = () => {
 
 
     function handleCreateRoom() {
-      handleOpen()
+      // handleOpen()
       socket.emit('create-room',roomName);
       // console.log('room create request was sent to backend socket, with room name',roomName)
       setRoomName("")
     }
                       
     async function handleJoinRoom() {
-      handleOpen()
+      // handleOpen()
       const {data, error} = await checkValidRoom(roomId)
       try{
         if (data) {
@@ -79,6 +79,7 @@ const handleOpen=()=>{
     <button onClick={handleOpen} className='font-semibold hover:text-accent-500 flex items-center'>Meetings 
     <span className={`${isOpen?"rotate-180":"rotate-0"} flex duration-300`}> 
      <KeyboardArrowDownIcon/></span> </button>
+     
     <DropDown isOpen={isOpen} setIsOpen={setIsOpen}> 
         <div className='hidden lg:flex flex-col  gap-2 p-3 rounded-lg bg-background-50 border border-background-200   ' >
           <div className='flex  gap-2 items-center justify-center '>
@@ -100,9 +101,9 @@ const handleOpen=()=>{
 
     </DropDown>
 
-    <div className={`lg:hidden `}>
+    <div className={`lg:hidden relative`}>
     <Modal open={isOpen} setOpen={setIsOpen}>
-    <div className='flex flex-col  gap-2 p-3 rounded-lg bg-background-50 border border-background-200   ' >
+    <div className='flex flex-col  gap-2 p-3 rounded-lg bg-background-1000 border border-background-200  ' >
           <div className='flex  gap-2 items-center justify-center '>
             <input placeholder='Room name...' className='px-4 py-2 rounded-md bg-background-1000 border border-background-200 outline-0' type="text" name="roomName" id="roomName" onChange={(e) => setRoomName(e.target.value)} />
             <button onClick={handleCreateRoom} className='bg-accent-500 hover:bg-accent-400 text-white px-4 py-2 rounded-md duration-200 flex items-center gap-1'>Create</button>
@@ -117,7 +118,7 @@ const handleOpen=()=>{
             </div>
           <div className='h-[1px] bg-background-200 w-full'></div>
 
-            <button className='text-blue-600'>Manage rooms</button>
+          <Link to='/manage-rooms' className='text-blue-600 text-center' onClick={handleOpen}>Manage rooms</Link>
         </div>
     </Modal>
 </div>

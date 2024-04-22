@@ -70,3 +70,6 @@ export const DoneIcon = ({ className }) => (
 export const DoneSmallIcon = ({ className }) => (
   <span className={"material-icons-outlined " + className}>check_small</span>
 );
+export const CopyIcon = ({ className }) => (
+  <span className={"material-icons-outlined " + className}>copy_content</span>
+);

@@ -65,7 +65,7 @@ export const AllClips = () => {
         </section>
       </div>
       <Modal open={open} setOpen={setOpen}>
-        <div className="flex flex-col overflow-auto  p-5   max-h-[90vh] mt-[8vh] min-w-[350px] md:w-auto bg-background-1000 rounded-md">
+        <div className="flex flex-col overflow-auto  p-5   max-h-[90vh] mt-[8vh] max-w-[350px] md:w-auto bg-background-1000 rounded-md">
           <div className="w-full flex items-center justify-between mb-5">
             <p className=" text-xl font-bold ">Clip details</p>
             <button className="text-gray-500" onClick={() => setOpen(false)}>
