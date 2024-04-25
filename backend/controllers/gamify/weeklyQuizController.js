@@ -7,31 +7,37 @@ import {Badge} from '../../models/gamify/badgesModel.js'
 
 const nodeCache = new NodeCache();
 
-const addQuestion = asyncHandler(async (req,res) => {
-    if(req.user.role!='admin'){
-        res.status(403)
-        throw new Error('permission denied')
-    } else{
-        const {question, options, solution,subject} = req.body;
+const addQuestion = asyncHandler(async (req, res) => {
 
-        const dailyQuizQuestion = await WeeklyQuiz.create({
+        const questionsData = req.body;
+        // Validate if questionsData is an array
+        if (!Array.isArray(questionsData)) {
+            res.status(400);
+            throw new Error('Questions data must be an array');
+        }
+        // Create an array of WeeklyQuiz documents from questionsData
+        const questions = questionsData.map(({ question, options, solution, subject }) => ({
             question,
             options,
             solution,
             subject
-        })
+        }));
+        // Insert all questions at once
+        const insertedQuestions = await WeeklyQuiz.insertMany(questions);
 
-        if(dailyQuizQuestion){
+        if (insertedQuestions.length > 0) {
             nodeCache.del('allQuestionsWeekly');
             res.status(201).json({
-                message:"Question added successfully"
-            })
-        } else{
-            res.status(503)
-            throw new Error('Could not add question right now, please try again later')
+                message: "Questions added successfully",
+                questions: insertedQuestions
+            });
+        } else {
+            res.status(503);
+            throw new Error('Could not add questions right now, please try again later');
         }
-    }
-})
+});
+
+
 
 const getQuestion = asyncHandler(async (req,res) => {
         let questions

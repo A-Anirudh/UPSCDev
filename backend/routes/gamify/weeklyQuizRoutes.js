@@ -1,6 +1,8 @@
 import express from "express";
 import { protect } from "../../middleware/authMiddleware.js";
 import { addQuestion, addSolution, checkAttempted, deleteQuestion, getQuestion, getSolution, leaderboard } from "../../controllers/gamify/weeklyQuizController.js";
+import isAdmin from "../../middleware/adminMiddleware.js";
+
 
 const weeklyQuestionsRoute = express.Router();
 
@@ -11,7 +13,7 @@ weeklyQuestionsRoute.get('/questions/solutions', protect, getSolution);
 weeklyQuestionsRoute.get('/questions/leaderboard', protect, leaderboard);
 weeklyQuestionsRoute.get('/questions/checkAttempted', protect, checkAttempted);
 
-weeklyQuestionsRoute.post('/solutions/new', protect,addSolution);
+weeklyQuestionsRoute.post('/solutions/new', protect,isAdmin,addSolution);
 
 
 export default weeklyQuestionsRoute;
