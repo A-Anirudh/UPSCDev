@@ -22,6 +22,7 @@ const [isFav, setisFav] = useState(false);
 const [collectionData, setcollectionData] = useState();
 const [continueReading, setcontinueReading] = useState();
 const [scrollPosition, setscrollPosition] = useState();
+const [language, setLanguage] = useState('English');
 
 // Ref variables
 const scrollPositionRef = useRef();
@@ -166,28 +167,6 @@ const favCheck=useCheckFavQuery(id)
     }
   };
 
-  // useEffect(() => {
-  //   const fav = async () => {
-  //     try {
-  //       const { data, error } = await check(id, { refetchOnMountOrArgChange: true });
-
-  //       if (data) {
-  //         setisFav(data.message);
-  //       } else if (error) {
-  //         setisFav(false);
-  //       }
-  //     } catch (error) {
-  //       console.log("Error checking favorite:", error);
-  //     }
-  //   };
-
-  //   fav();
-
-  //   return () => {
-  //     console.log('Reader unmounted');
-  //   };
-  // }, [,id]);
-
   useEffect(() => {
     if(favCheck.data){
       setisFav(favCheck?.data?.message)
@@ -198,12 +177,14 @@ const favCheck=useCheckFavQuery(id)
 
   return (
     <section className=" main-container w-full overflow-y-auto overflow-x-hidden  h-[87vh]  md:h-[90vh] lg:h-[85vh] xl:h-[88vh] 2xl:h-[90vh] sidebar">
+      <button className="bg-red-800 sticky top-0" onClick={() => language==='English'?setLanguage('Hindi'):setLanguage('English')}>{language === 'English' ? 'Hindi' : 'English'}</button>
     <section className="w-full   md:w-3/4 lg:w-1/2 flex flex-col   main-container  text-text-25 font-jakarta mx-auto    ">
       <div className="flex items-center w md:gap-5 px-3 md:px-5  bg-background-50 sticky top-0 z-[100] justify-between">
         <button className=" flex  p-2  items-center gap-4" onClick={handleBack}>
           <ArrowBackIcon />
           <span className="hidden md:block">Go Back</span>
         </button>
+        
 
         <div className="flex gap-2 items-center ">
           <button className="flex" onClick={handleFav}>{isFav?<FavoriteIcon/>:<FavoriteBorderOutlinedIcon/>}</button>
@@ -226,7 +207,9 @@ const favCheck=useCheckFavQuery(id)
           <AddCollection id={id} setOpen={setaddToOpen} collectionData={collectionData} refetch={refetch} error={error}/>
       </Modal>
     </section>
+
     </section>
+    
   );
 };
 

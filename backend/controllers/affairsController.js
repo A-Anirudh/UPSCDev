@@ -250,6 +250,7 @@ const getOneAffair = asyncHandler(async (req,res) => {
 
 const addAffair = asyncHandler(async (req, res) => {
     const {
+      folderId,
       affairName,
       summary,
       article,
@@ -270,6 +271,7 @@ const addAffair = asyncHandler(async (req, res) => {
     let audio;
 
     const affair = await Affair.create({
+      folderId,
       pid: uuidv4(),
       affairName,
       summary,

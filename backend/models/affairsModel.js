@@ -6,6 +6,10 @@ const affairSchema = mongoose.Schema({
         required:true,
         unique: true
     },
+    folderId:{
+        type:String,
+        required:true
+    },
     thumbnail: {
         type: String,
         required:true

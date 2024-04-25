@@ -98,19 +98,19 @@ io.on('connection', (socket) => {
     
     socket.on('join-room', async (roomId, username, callback) => {
 
-            console.log('join-room has been called by frontend')
+            
             socket.roomId = roomId
             socket.username = username
     
             const userId = socket.request.user.id
-            console.log('before finding room!!')
+            
             // Find the room by roomId
             const room = await StudyRoom.findOne({ roomId, isActive:true });
     
-            console.log('room found successfully')
+            
     
             if (!room) {
-                console.log('room not found bruh!')
+                console.log('room not found')
                 return socket.emit("send-message-to-self", 'room not found!');
             }
             
@@ -124,14 +124,13 @@ io.on('connection', (socket) => {
                 }
             }
     
-            console.log('Checked if part of another room or not!')
+            
     
     
             const currentRoomUsers = room.users
     
             const index = currentRoomUsers.indexOf(userId)
     
-            console.log('About to push and save')
             
             if(index == -1){
             // Add the user to the room
@@ -140,10 +139,10 @@ io.on('connection', (socket) => {
             }
     
             // adding the person to room
-            console.log('Before socket join.........')
+            
             socket.join(roomId)
             callback()
-            console.log(username, 'joineed the room', roomId)
+            
             
             socket.emit('redirect', roomId)
             socket.to(roomId).emit('notify-everyone', {roomId, username});
@@ -161,8 +160,6 @@ io.on('connection', (socket) => {
         const roomDetails = await StudyRoom.findOne({roomId}).select('roomOwner users roomName')
         if(roomDetails){
             const usersList = await User.find({_id:{$in: roomDetails.users}}).select('username').sort({username:1})
-            console.log("room is:", roomDetails)
-            console.log("usernames are:", usersList)
             io.to(roomId).emit('get-room-details-response', {roomDetails, usersList})
         } else{
             console.log('room Id not found!')
@@ -184,7 +181,6 @@ io.on('connection', (socket) => {
                 return socket.emit("send-message-to-self", 'User is not in the room or room not found');
             }
     
-            console.log('Room left successfully');
             
             socket.to(roomId).emit('notify-everyone-leave', {roomId, username});
         } catch (error) {
@@ -340,7 +336,6 @@ const leaveRoom = asyncHandler(async (req, res) => {
 // Because, we need summary of the audio too later
 const endRoom = asyncHandler(async (req, res) => {
     const { roomId } = req.body;
-    console.log(roomId)
 
     const roomOwner = req.user.id
 
@@ -378,7 +373,7 @@ const getAllUsersOfARoom = asyncHandler(async (req,res) => {
 const allMyMeetings = asyncHandler(async (req,res) => {
     const allMeetings = await StudyRoom.find({roomOwner:req.user.id})
 
-    console.log(allMeetings)
+    
     if(allMeetings.length > 0){
         res.status(200).json({
             success:true,
