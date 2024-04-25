@@ -13,7 +13,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET_KEY,
 });
 
-  const TextToSpeechConvert = (text) => {
+  const TextToSpeechConvert = (text, folderId) => {
     return new Promise(async (resolve, reject) => {
       try {
         const plainText = convert(text, {
@@ -36,6 +36,7 @@ cloudinary.config({
             // console.log(`MP3 file saved at: ${mp3FilePath}`);
             try {
               const uploadResult = await cloudinary.uploader.upload(mp3FilePath, {
+                folder:folderId,
                 resource_type: 'auto',
                 public_id: `audio/${Date.now()}`,
               });

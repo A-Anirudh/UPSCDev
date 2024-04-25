@@ -266,16 +266,25 @@ const addAffair = asyncHandler(async (req, res) => {
     const window = new JSDOM("").window;
     const DOMPurify = dompurify(window);
 
+    console.log("article is",article)
+
     // Sanitize HTML content before storing it
-    const sanitizedHTML = DOMPurify.sanitize(article);
+    const sanitizedHTMLEnglish = DOMPurify.sanitize(article.en);
+    const sanitizedHTMLHindi = DOMPurify.sanitize(article.hi);
     let audio;
+    
+    console.log(sanitizedHTMLEnglish)
+    console.log(sanitizedHTMLHindi)
 
     const affair = await Affair.create({
       folderId,
       pid: uuidv4(),
       affairName,
       summary,
-      article: sanitizedHTML,
+      article: {
+        en: sanitizedHTMLEnglish,
+        hi:sanitizedHTMLHindi
+      },
       tags,
       startDate,
       endDate,
@@ -285,7 +294,7 @@ const addAffair = asyncHandler(async (req, res) => {
       isCurrentAffair,
     });
     if (affair) {
-      await TextToSpeechConvert(sanitizedHTML)
+      await TextToSpeechConvert(sanitizedHTMLEnglish, folderId)
         .then((uploadResult) => {
           audio = uploadResult.secure_url;
           affair.audio = audio;

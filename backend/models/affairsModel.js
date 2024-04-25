@@ -19,16 +19,34 @@ const affairSchema = mongoose.Schema({
         // required:true
       },
     affairName: {
-        type: String,
-        required: true,
+        en:{
+            type: String,
+            required: true,    
+        },
+        hi:{
+            type: String,
+            required: true,
+        }
     },
     summary: {
-        type: String,
-        required: true,
+        en:{
+            type: String,
+            required: true,    
+        },
+        hi:{
+            type: String,
+            required: true,
+        }    
     },
     article: {
-        type: String,
-        required: true,
+        en:{
+            type: String,
+            required: true,    
+        },
+        hi:{
+            type: String,
+            required: true,
+        }
     },
     tags: {
         type: [String],
@@ -67,12 +85,24 @@ const eventSchema = mongoose.Schema({
         required:true,
     },
     eventName: {
-        type: String,
-        required: true,
+        en:{
+            type: String,
+            required: true,    
+        },
+        hi:{
+            type: String,
+            required: true,
+        }
     },
     desc: {
-        type: String,
-        required: true,
+        en:{
+            type: String,
+            required: true,    
+        },
+        hi:{
+            type: String,
+            required: true,
+        }
     },
     startDate: {
         type: Date,
