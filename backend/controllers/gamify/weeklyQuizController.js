@@ -8,13 +8,18 @@ import {Badge} from '../../models/gamify/badgesModel.js'
 const nodeCache = new NodeCache();
 
 const addQuestion = asyncHandler(async (req, res) => {
+    const questionsData = req.body;
 
-        const questionsData = req.body;
-        // Validate if questionsData is an array
-        if (!Array.isArray(questionsData)) {
-            res.status(400);
-            throw new Error('Questions data must be an array');
-        }
+    // Validate if questionsData is an array
+    if (!Array.isArray(questionsData)) {
+        res.status(400);
+        throw new Error('Questions data must be an array');
+    }
+
+    try {
+        // Delete all existing documents from the WeeklyQuiz collection
+        await WeeklyQuiz.deleteMany({});
+
         // Create an array of WeeklyQuiz documents from questionsData
         const questions = questionsData.map(({ question, options, solution, subject }) => ({
             question,
@@ -22,6 +27,7 @@ const addQuestion = asyncHandler(async (req, res) => {
             solution,
             subject
         }));
+
         // Insert all questions at once
         const insertedQuestions = await WeeklyQuiz.insertMany(questions);
 
@@ -35,7 +41,12 @@ const addQuestion = asyncHandler(async (req, res) => {
             res.status(503);
             throw new Error('Could not add questions right now, please try again later');
         }
+    } catch (error) {
+        res.status(500);
+        throw new Error('Error adding questions: ' + error.message);
+    }
 });
+
 
 
 
