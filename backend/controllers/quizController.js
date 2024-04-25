@@ -36,32 +36,28 @@ const addQuestion = asyncHandler(async (req,res) => {
         })
 })
 
-const getQuestion = asyncHandler(async (req,res) => {
-    if(req.user.subscription.status!='active' ){
-        res.status(403)
-        throw new Error('Available only for premium users!')
+const getQuestion = asyncHandler(async (req, res) => {
+    const { role, subscription } = req.user;
+    const isAdmin = role === 'admin';
+    const isActiveSubscription = subscription.status === 'active';
+    const affairId = req.params.affairId;
+    let questions;
 
-    } else{
-        const affairId = req.params.affairId;
-        let questions
-        if(req.user.role==='admin'){
-            questions = await Question.find({affairId : affairId});
-
-        } else{
-            questions = await Question.find({affairId : affairId}).select('-solution');
-        }
-        if(questions){
-
-            res.status(200).json({
-                questions
-            })
-        } else{
-            res.status(404).json({
-                message:"Quiz not found for this article"
-            })
-        }
+    if (!isAdmin && !isActiveSubscription) {
+        res.status(403);
+        throw new Error('Available only for premium users!');
     }
-})
+
+    questions = await Question.find({ affairId }).select(isAdmin ? '' : '-solution');
+
+    if (questions.length === 0) {
+        res.status(404).json({ message: "Quiz not found for this article" });
+        return;
+    }
+
+    res.status(200).json({ questions });
+});
+
 
 
 const deleteQuestion = asyncHandler(async(req, res) => {

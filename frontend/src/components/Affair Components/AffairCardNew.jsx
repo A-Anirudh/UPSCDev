@@ -26,7 +26,7 @@ export const AffairCardNew = ({
         <Link to={`/affair/${_id}`}
           className="text-text-25 font- text-[1.2rem]  line-clamp-1 cursor-pointer "
         >
-          {affairName}
+          {affairName.en? affairName.en : affairName}
         </Link>
         <p className="font-jakarta font-medium text-[0.79rem] text-background-700">
           {tags.join(",")}
