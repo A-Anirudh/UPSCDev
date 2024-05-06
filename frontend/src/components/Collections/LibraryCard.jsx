@@ -4,7 +4,7 @@ import { CloseIcon } from "../../utils/icons";
 import { useDeleteAffairFromCollectionMutation } from "../../slices/CollectionSlice";
 import { toastSuccess } from "../../utils/myToast";
 
-export const LibraryCard = ({ item ,refetch,playlistId}) => {
+export const LibraryCard = ({ item ,refetch,playlistId,language}) => {
   const { articleId, _id, articleName, thumbnail } = item;
   const navigate = useNavigate();
   const [remove]=useDeleteAffairFromCollectionMutation()
@@ -45,7 +45,7 @@ const handleRemove=async()=>{
           className="text-text-25 font- text-[1.2rem]  line-clamp-1 "
           onClick={handleClick}
         >
-          {articleName}
+          {language==='English' ? articleName.en : articleName.hi}
         </p>
       </div>
       <div className="absolute top-0  right-0  rounded-lg z-[999] "  style={{backdropFilter: "blur(5px)",backgroundColor:(0,0,0,0.5)}}>

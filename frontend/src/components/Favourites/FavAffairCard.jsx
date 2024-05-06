@@ -16,6 +16,7 @@ export const FavAffairCard = ({
   tags,
   thumbnail,
   refetch,
+  language
 }) => {
   const navigate = useNavigate();
   const [delFav] = useDeleteFavMutation();
@@ -49,7 +50,7 @@ export const FavAffairCard = ({
           className="text-text-25 font- text-[1.2rem]  line-clamp-1 "
             onClick={handleClick}
         >
-          {affairName}
+          {language==='English' ? affairName.en : affairName.hi}
         </p>
         <p className="font-jakarta font-medium text-[0.79rem] text-background-700">
           {tags?.join(",")}

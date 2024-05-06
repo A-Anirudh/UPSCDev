@@ -6,7 +6,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useSearchParams } from "react-router-dom";
 ;
 
-export const Timeline = ({ id }) => {
+export const Timeline = ({ id, language }) => {
   const [eventData, seteventData] = useState([]);
   const { data, error, refetch, isLoading } = useGetEventsQuery(id);
   const [isOpen, setIsOpen] = useState(false);
@@ -76,6 +76,7 @@ export const Timeline = ({ id }) => {
                     endDate={items.endDate}
                     _id={items._id}
                     onClick={()=>handleClick(items.pid)}
+                    language={language}
                   />
                 ))}
               </div>

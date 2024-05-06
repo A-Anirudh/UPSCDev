@@ -1,0 +1,38 @@
+{
+    "navbar":{
+        "home":"Home",
+        "meetings" : "Meetings",
+        "affairs" : "Affairs",
+        "library" : "Library",
+        "myClips" : "My Clips",
+        "weeklyQuiz" : "Weekly Quiz",
+        "profile" : "Profile",
+        "createMeeting": "Create",
+        "joinMeeting": "Join",
+        "manageMeeting" : "Manage Meetings"
+
+    },
+    "weeklyQuiz":{
+        "title" : "Weekly Quiz",
+        "leaderboard" : "leaderboard",
+        "attemptedMessage" : "Quiz already attempted",
+        "submit" : "Submit",
+        "viewLeaderboard" : "view leaderboard"
+    },
+    "clips" : {
+        "title" : "My Notes"
+    },
+    "library" : {
+        "title" : "My Collections",
+        "liked" : "Liked"
+    },
+    "dailyQuiz" : {
+        "title" : "Daily Quiz"
+    },
+    "meetings" : {
+        "meetings" : "My Meetings",
+        "meetingNameText" : "Meeting name",
+        "roomName" : "Room name",
+        "meetingDetails" : "Meeting details"
+    }
+}

@@ -7,6 +7,7 @@ export const TimelineCard = ({
   startDate,
   endDate,
   onClick,
+  language
 }) => {
   const handleClick = async () => {
     localStorage.setItem("event-id", _id);
@@ -25,7 +26,7 @@ export const TimelineCard = ({
       <div className="absolute -bottom-2 left-1/2  bg-primary-500 rounded-full h-4 w-4 " />
       <div className="mb-3 p-4 mr-2  rounded-md w-full">
         <p className=" text-md font-semibold line-clamp-1">
-          {eventName}
+          {language === 'English' ? eventName.en : eventName.hi}
         </p>
         <p className=" text-sm text-text-800">
           {startDate.slice(0, 10)}

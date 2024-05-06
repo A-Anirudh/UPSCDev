@@ -1,0 +1,39 @@
+{
+    "navbar":{
+        "home":"होम",
+        "meetings" : "मीटिंग्स",
+        "affairs" : "करंट अफेयर्स",
+        "library" : "संग्रह",
+        "myClips" : "मेरे नोट्स",
+        "weeklyQuiz" : "साप्ताहिक क्विज़",
+        "profile" : "प्रोफ़ाइल",
+        "createMeeting": "बनाएं",
+        "joinMeeting": "मिलें",
+        "manageMeeting" : "मीटिंग प्रबंधित करें"
+    },
+    "weeklyQuiz": {
+        "title": "साप्ताहिक क्विज़",
+        "leaderboard": "लीडरबोर्ड",
+        "attemptedMessage": "क्विज़ पहले से ही प्रयास किया गया है",
+        "submit": "सबमिट",
+        "viewLeaderboard" : "लीडरबोर्ड देखें"
+    },
+    "clips": {
+        "title": "मेरे नोट्स"
+    },
+    "library": {
+        "title": "मेरे संग्रह",
+        "liked": "पसंदीदा"
+    },
+    "dailyQuiz": {
+        "title": "रोजाना क्विज़"
+    },
+    "meetings" : {
+        "meetings" : "मेरी मीटिंगें",
+        "meetingNameText" : "मीटिंग का नाम",
+        "roomName" : "रूम का नाम",
+        "meetingDetails": "मीटिंग विवरण"
+
+
+    }
+}

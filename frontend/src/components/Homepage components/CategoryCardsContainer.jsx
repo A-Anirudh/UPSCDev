@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { AffairCardNew } from '../Affair Components/AffairCardNew';
 import { LeftIcon, RightIcon } from '../../utils/icons';
 
@@ -18,6 +18,14 @@ const scrollRight = () => {
     }
   };
 
+  const [language, setLanguage] = useState()
+
+  useEffect(() => {
+    const languageFromLocalStorage = JSON.parse(localStorage.getItem('language'));
+    console.log('language fetched from localstorage is',languageFromLocalStorage)
+    setLanguage(languageFromLocalStorage)
+  }, [])
+
     return (
 <div className=" flex flex-col   relative  w-full ">
       <section className='flex gap-2  overflow-x-auto overflow-y-hidden snap-x w-full scroll-smooth sidebar ' ref={sliderRef}             onMouseEnter={()=>setvisible(true)}
@@ -34,6 +42,7 @@ const scrollRight = () => {
                 affairName={affairName}
                 tags={tags}
                 thumbnail={thumbnail}
+                language = {language}
               />
             )
           })

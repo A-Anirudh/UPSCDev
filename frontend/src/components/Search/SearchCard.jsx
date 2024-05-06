@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { FavoriteBorderOutlinedIcon, FavoriteIcon } from "../../utils/icons";
 import {useNavigate} from 'react-router-dom'
 export const SearchCard = ({ item }) => {
@@ -8,6 +8,14 @@ export const SearchCard = ({ item }) => {
   const handleClick=()=>{
     navigate(`/affair/${_id}`)
   }
+
+  const [language, setLanguage] = useState('')
+
+  useEffect(() => {
+    const languageFromLocalStorage = JSON.parse(localStorage.getItem('language'));
+    setLanguage(languageFromLocalStorage)
+  }, [])
+
   
 
   return (
@@ -26,7 +34,7 @@ export const SearchCard = ({ item }) => {
             className="text-text-25 font- text-[1.2rem]  line-clamp-1 cursor-pointer "
             onClick={handleClick}
           >
-            {affairName}
+            {language === 'English' ? affairName.en : affairName.hi}
           </p>
 
 

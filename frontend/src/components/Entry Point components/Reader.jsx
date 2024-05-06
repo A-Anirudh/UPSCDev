@@ -12,6 +12,7 @@ import { AddCollection } from "../Collections/AddCollection";
 import { useGetAllCollectionsQuery } from "../../slices/CollectionSlice";
 import { useAddContinueReadingMutation, useGetContinueReadingQuery } from "../../slices/usersApiSlice";
 import { useAddFavMutation, useCheckFavQuery, useDeleteFavMutation, useLazyCheckFavQuery } from "../../slices/favouriteSlice";
+import { ArticleSuggestions } from "../Affair Components/ArticleSuggestions";
 
 export const Reader = () => {
 
@@ -22,7 +23,6 @@ const [isFav, setisFav] = useState(false);
 const [collectionData, setcollectionData] = useState();
 const [continueReading, setcontinueReading] = useState();
 const [scrollPosition, setscrollPosition] = useState();
-const [language, setLanguage] = useState('English');
 
 // Ref variables
 const scrollPositionRef = useRef();
@@ -42,7 +42,12 @@ const [check] = useLazyCheckFavQuery({}, { refetchOnMountOrArgChange: true });
 const [addContinue] = useAddContinueReadingMutation();
 const getContinue = useGetContinueReadingQuery({}, { refetchOnMountOrArgChange: true });
 const favCheck=useCheckFavQuery(id)
+const [language, setLanguage] = useState('')
 
+useEffect(() => {
+  const languageFromLocalStorage = JSON.parse(localStorage.getItem('language'));
+  setLanguage(languageFromLocalStorage)
+}, [])
 
 
   let clipPosition=localStorage.getItem('clip')
@@ -171,13 +176,11 @@ const favCheck=useCheckFavQuery(id)
     if(favCheck.data){
       setisFav(favCheck?.data?.message)
     }
-    
     }, [,id,favCheck,isFav])
 
 
   return (
     <section className=" main-container w-full overflow-y-auto overflow-x-hidden  h-[87vh]  md:h-[90vh] lg:h-[85vh] xl:h-[88vh] 2xl:h-[90vh] sidebar">
-      <button className="bg-red-800 sticky top-0" onClick={() => language==='English'?setLanguage('Hindi'):setLanguage('English')}>{language === 'English' ? 'Hindi' : 'English'}</button>
     <section className="w-full   md:w-3/4 lg:w-1/2 flex flex-col   main-container  text-text-25 font-jakarta mx-auto    ">
       <div className="flex items-center w md:gap-5 px-3 md:px-5  bg-background-50 sticky top-0 z-[100] justify-between">
         <button className=" flex  p-2  items-center gap-4" onClick={handleBack}>
@@ -199,17 +202,16 @@ const favCheck=useCheckFavQuery(id)
           </button>
         </div>
       </div>
-      <Timeline id={id} />
+      <Timeline id={id} language={language}/>
       <div className="">
-        {isAffair ? <AffairReaderNew  id={id} /> : <EventReaderNew />}
+        {isAffair ? <AffairReaderNew  id={id} language={language}/> : <EventReaderNew language={language} />}
       </div>
       <Modal open={addToOpen} setOpen={setaddToOpen}>
           <AddCollection id={id} setOpen={setaddToOpen} collectionData={collectionData} refetch={refetch} error={error}/>
       </Modal>
     </section>
-
+    <ArticleSuggestions articleId={id} language={language}/>
     </section>
-    
   );
 };
 

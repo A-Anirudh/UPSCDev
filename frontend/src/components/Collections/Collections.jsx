@@ -3,10 +3,13 @@ import { useSelector } from "react-redux";
 import { LibraryCard } from "./LibraryCard";
 import { CollectionCardContainer } from "./CollectionCardContainer";
 import { useGetAllCollectionsQuery } from "../../slices/CollectionSlice";
+import { useTranslation } from "react-i18next";
 
-export const Collections = () => {
+export const Collections = ({language}) => {
   const { data, error, isLoading,refetch } = useGetAllCollectionsQuery();
   const [collectionData, setcollectionData] = useState([]);
+  const [t,i18n] = useTranslation("global");
+
   useEffect(() => {
     if (data) {
       // console.log("collection adta in collection",data?.data);
@@ -36,7 +39,7 @@ export const Collections = () => {
   return (
     <div className="p-4 md:px-10 md:py-5 rounded my-2 text-text-25 w-full">
       <p className="md:text-3xl text-2xl font-semibold my-5 mb-10">
-        My Collection
+        {t('library.title')}
       </p>
       <p className={`${collectionData.length==0?"block":'hidden'}   text-gray-300`}>No collections yet</p>
       <div className="flex  flex-col w-full gap-5">
@@ -47,6 +50,7 @@ export const Collections = () => {
             key={idx}
             refetch={refetch}
             playlistId={item._id}
+            language={language}
           />
         ))}
       </div>

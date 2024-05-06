@@ -7,9 +7,9 @@ export const AffairCardNew = ({
   affairName,
   tags,
   thumbnail,
+  language
 
 }) => {
-
   return (
     <div className="w-[240px] md:w-[250px] lg:w-[200px]  hover:scale-[1.01] ">
        <div className="relative flex flex-col ">
@@ -26,7 +26,7 @@ export const AffairCardNew = ({
         <Link to={`/affair/${_id}`}
           className="text-text-25 font- text-[1.2rem]  line-clamp-1 cursor-pointer "
         >
-          {affairName.en? affairName.en : affairName}
+          {language==='Hindi'? affairName.hi : affairName.en}
         </Link>
         <p className="font-jakarta font-medium text-[0.79rem] text-background-700">
           {tags.join(",")}

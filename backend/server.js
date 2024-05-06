@@ -33,6 +33,7 @@ import deleteReportBugsFromDatabase from './utils/cron/deleteBugsCron.js';
 import deleteSupportQueryFromDatabase from './utils/cron/deleteCustomerSupportCron.js';
 import deleteUserFromDatabase from './utils/cron/deleteUserCron.js';
 import deleteWeeklyQuizPrevData from './utils/cron/deleteWeeklyQuizResultsCron.js';
+import suggestionRoute from './routes/suggestions/suggestionRoutes.js';
 
 
 
@@ -78,9 +79,10 @@ app.use('/api/gamify',weeklyQuestionsRoute)
 app.use('/api/playlist',PlaylistRoute)
 app.use('/api/clip',ClipRoute)
 app.use('/api/room',roomRoute)
+app.use('/api/suggestions', suggestionRoute)
 
 // Middleware
-app.use(notFound);
+app.use(notFound); 
 app.use(errorHandler);
 app.listen(port, () =>{
     console.log(`server is ready and running on port ${port}`)

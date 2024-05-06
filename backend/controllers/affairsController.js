@@ -11,41 +11,43 @@ const nodeCache = new NodeCache();
 // Search affair
 
 const searchAffairs = asyncHandler(async (req, res) => {
-  const {  subject } = req.query;
+  const { subject } = req.query;
   const query = {};
   let results = [];
   if (subject) {
     query.$or = [
-      { affairName: { $regex: subject, $options: 'i' } }, // Match partial words in affairName
-      { summary: { $regex: subject, $options: 'i' } },     // Match partial words in summary
-      { subject: { $regex: subject, $options: 'i' }}
+      { 'affairName.en': { $regex: subject, $options: 'i' } }, // Match partial words in affairName (English)
+      { 'affairName.hi': { $regex: subject, $options: 'i' } }, // Match partial words in affairName (Hindi)
+      { 'summary.en': { $regex: subject, $options: 'i' } },    // Match partial words in summary (English)
+      { 'summary.hi': { $regex: subject, $options: 'i' } },    // Match partial words in summary (Hindi)
+      { subject: { $regex: subject, $options: 'i' } }
     ];
   }
 
-  if(Object.keys(query).length) {
+  if (Object.keys(query).length) {
     results = await Affair.find(query).select('affairName id subject').exec();
   }
 
-
-  if(results.length>0){
+  if (results.length > 0) {
     res.status(200).json(results);
-  } else{
-    res.status(404)
-    throw new Error('No results!')
+  } else {
+    res.status(404);
+    throw new Error('No results!');
   }
 });
 
-const searchAffairsAll = asyncHandler(async (req, res) => {
-  const {  subject } = req.query;
 
+const searchAffairsAll = asyncHandler(async (req, res) => {
+  const { subject } = req.query;
   const query = {};
   let results = [];
-
   if (subject) {
     query.$or = [
-      { affairName: { $regex: subject, $options: 'i' } }, // Match partial words in affairName
-      { summary: { $regex: subject, $options: 'i' } },     // Match partial words in summary
-      { subject: { $regex: subject, $options: 'i' }}
+      { 'affairName.en': { $regex: subject, $options: 'i' } }, // Match partial words in affairName (English)
+      { 'affairName.hi': { $regex: subject, $options: 'i' } }, // Match partial words in affairName (Hindi)
+      { 'summary.en': { $regex: subject, $options: 'i' } },    // Match partial words in summary (English)
+      { 'summary.hi': { $regex: subject, $options: 'i' } },    // Match partial words in summary (Hindi)
+      { subject: { $regex: subject, $options: 'i' } }
     ];
   }
 
@@ -53,11 +55,11 @@ const searchAffairsAll = asyncHandler(async (req, res) => {
     results = await Affair.find(query).select('affairName id thumbnail pid subject').exec();
   }
 
-  if(results.length>0){
+  if (results.length > 0) {
     res.status(200).json(results);
-  } else{
-    res.status(404)
-    throw new Error('No results!')
+  } else {
+    res.status(404);
+    throw new Error('No results!');
   }
 });
 
@@ -238,6 +240,7 @@ const getOneAffair = asyncHandler(async (req,res) => {
         }
     
     if(aff.length!=0){
+      // Emit socket here to let other users know what article a particular user is reading.
         res.status(200).json({
             "data":aff
         })
@@ -320,6 +323,7 @@ const addAffair = asyncHandler(async (req, res) => {
 const updateAffair = asyncHandler(async (req, res) => {
 
     const { pid } = req.body;
+    console.log('pid is',pid)
     const affair = await Affair.findOne({ pid: pid });
 
     if (affair) {
@@ -335,6 +339,7 @@ const updateAffair = asyncHandler(async (req, res) => {
       affair.subject = req.body.subject || affair.subject;
       affair.isCurrentAffair =
         req.body.isCurrentAffair || affair.isCurrentAffair;
+      affair.folderId = req.body.folderId || affair.folderId
 
       const updatedAffair = await affair.save();
       // nodeCache.del('latestAffairs');

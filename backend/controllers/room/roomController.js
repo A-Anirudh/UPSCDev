@@ -123,10 +123,7 @@ io.on('connection', (socket) => {
                     return socket.emit("send-message-to-self", 'already in another room, please quit to continue');    
                 }
             }
-    
-            
-    
-    
+
             const currentRoomUsers = room.users
     
             const index = currentRoomUsers.indexOf(userId)

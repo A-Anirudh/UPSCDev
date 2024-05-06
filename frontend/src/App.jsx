@@ -1,4 +1,4 @@
-import React from "react";
+import React  from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {
   Affair,
@@ -28,15 +28,44 @@ import {
   LeaderBoard,
   LoggedUserBar,
   Reader,
+  Test,
   UnloggedUserBar,
 } from "./components";
 import { MyRooms } from "./screens/MyRooms";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const App = () => {
   const logged = localStorage.getItem("userInfo");
+  // const [meetingExists, setMeetingExists] = useState(localStorage.getItem('meeting') === 'true');
+
+  const meetingExists = useSelector((state) => state.quizOpen.meetingExists)
+
+  // const oldLocalStorageValue  = localStorage.getItem('meeting');
+  // if(localStorage.getItem('meeting') != oldLocalStorageValue){
+  //   const meetingData = localStorage.getItem('meeting');
+  //   setMeetingExists(meetingData === 'true');
+  // }
+
+
+  // useEffect(() => {
+  //   // Check if meeting data exists in localStorage
+  //   const meetingData = localStorage.getItem('meeting');
+  //   setMeetingExists(meetingData === 'true');
+  // }, [localStorage.getItem('meeting')]);
+
+  const handleLeaveMeeting = () => {
+    // Update state to hide ChatComponent
+    setMeetingExists(false);
+  };
+
+
   const loc = window.location.pathname;
   return (
+    <>
+   
     <BrowserRouter>
+    
       {JSON.parse(logged)?.data?.pid ? <LoggedUserBar /> : <UnloggedUserBar />}
 
       <Routes>
@@ -68,14 +97,17 @@ const App = () => {
           <Route path={`/affairs/all`} element={<ViewContainer />} />
           <Route path="/search-results/:searchItem" element={<SearchResults />} />
           <Route path="/search-results/" element={<SearchResults />} />
-          <Route path="/room/:roomId" element={<Room />} />
+          {/* <Route path="/room/:roomId" element={<Room />} /> */}
           <Route path="/manage-rooms" element={<MyRooms />} />
+          
 
 
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
+    {meetingExists && <Test onLeaveMeeting={handleLeaveMeeting} />}
+    </>
   );
 };
 

@@ -13,6 +13,7 @@ import CreateRoomButton from "../room/CreateRoomButton";
 import { MeetingDropdown } from "../room/MeetingDropdown";
 import { SearchContainer } from "../Search/SearchContainer";
 import { Helmet } from "react-helmet";
+import {useTranslation} from 'react-i18next'
 
 export const LoggedUserBar = () => {
   const navigate = useNavigate();
@@ -20,6 +21,18 @@ export const LoggedUserBar = () => {
   const [isDark, setisDark] = useState(localStorage.getItem("dark-mode"));
   const { data, error } = useUserProfileQuery();
   const [open, setopen] = useState(false);
+
+
+  const [t,i18n] = useTranslation('global');
+
+  const navbarData = [
+    { name: t('navbar.home'), link: '/home' },
+    { name: t('navbar.affairs'), link: '/affair' },
+    { name: t('navbar.library'), link: '/library' },
+    { name: t('navbar.myClips'), link: '/clips' },
+    { name: t('navbar.weeklyQuiz'), link: '/weekly-quiz' },
+];
+
 
   const isActive = useSelector(
     (state) =>
@@ -156,7 +169,7 @@ export const LoggedUserBar = () => {
                   setopen(false);
                 }}
               >
-                Profile
+                {t('navbar.profile')}
               </Link>
             </li>
             <MeetingDropdown />

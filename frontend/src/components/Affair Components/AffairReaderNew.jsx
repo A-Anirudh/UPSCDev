@@ -6,7 +6,7 @@ import { Modal } from "../UIComponents";
 import { AddClip } from "../Clips/AddClip";
 import { convert } from "html-to-text";
 
-export const AffairReaderNew = ({ pid, id }) => {
+export const AffairReaderNew = ({ pid, id, language }) => {
   const { data, isLoading } = useGetOneAffairQuery(id);
   const [affairData, setAffairData] = useState();
   const [selectedText, setSelectedText] = useState("");
@@ -14,6 +14,7 @@ export const AffairReaderNew = ({ pid, id }) => {
   const [open, setopen] = useState(false);
   const scrollPositionRef = useRef();
   const [scroll, setscroll] = useState(0);
+  
 
   useEffect(() => {
     if (data) {
@@ -51,7 +52,7 @@ export const AffairReaderNew = ({ pid, id }) => {
   return (
     <>
       <Helmet>
-        <title>{affairData?.affairName}</title>
+        <title>{language==='English' ? affairData?.affairName.en : affairData?.affairName.hi}</title>
       </Helmet>
       <Helmet>
         <meta
@@ -69,7 +70,7 @@ export const AffairReaderNew = ({ pid, id }) => {
       </Helmet>
       <section className="main-container p-2 md:p-5 pb-10 h-full">
         <p className="font-[Montserrat]ont-[Montserrat] text-center font-semibold text-[2rem] md:text-[3rem]">
-          {affairData?.affairName}
+          {language==='English' ? affairData?.affairName.en : affairData?.affairName.hi}
         </p>
         <p className="font-[Montserrat] text-center font-semibold text-sm md:text-[1rem] flex justify-center gap-6 text-primary-800    ">
           <span>{affairData?.startDate.slice(0, 10)}</span>to
@@ -85,7 +86,7 @@ export const AffairReaderNew = ({ pid, id }) => {
             </div>
           ))}
         </div>
-        <Accordion title={"Summary"} content={affairData?.summary} />
+        <Accordion title={"Summary"} content={language==='English' ? affairData?.summary.en : affairData?.summary.hi } />
         <Quiz id={id} />
         <AudioPlayer audioLink={affairData?.audio} />
         <p
@@ -96,7 +97,7 @@ export const AffairReaderNew = ({ pid, id }) => {
             window.getSelection().removeAllRanges();
           }}
           dangerouslySetInnerHTML={{
-            __html: affairData?.article,
+            __html: language==='English' ? affairData?.article.en : affairData?.article.hi,
           }}
         ></p>
         {selectedText && (

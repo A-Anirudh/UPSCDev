@@ -5,6 +5,7 @@ import { useGetDailyQuizQuery, useGetDailyQuizSolutionQuery } from "../../slices
 import { DailyQuizSkeleton } from "../../loaders";
 import { useDispatch, useSelector } from "react-redux";
 import { setdailyquizopen } from "../../slices/quizOpenSlice";
+import { useTranslation } from "react-i18next";
 
 export const DailyQuiz = () => {
   const getDailyQuizQuestions=useGetDailyQuizQuery()
@@ -15,6 +16,7 @@ export const DailyQuiz = () => {
   // const [finish, setfinish] = useState(false)
   const [correct, setCorrect] = useState(false);
   const [selected, setSelected] = useState();
+  const [t,i18n] = useTranslation("global");
 
 
 
@@ -49,7 +51,7 @@ if(!questions || !answer){
       // <div className="bg-red-500 w-full h-full flex items-center justify-center text-text-25">
         <div className={` bg-background-1000  w-full  font-jakarta text-text-25 rounded-lg drop-shadow  `}>
           <div className="w-full border-b flex items-center justify-between border-gray-500">
-            <p className="px-5 py-3 text-2xl font-semibold  "> Daily quiz</p>
+            <p className="px-5 py-3 text-2xl font-semibold  "> {t('dailyQuiz.title')}</p>
           </div>
 
           <div className="p-5 pt-0 ">

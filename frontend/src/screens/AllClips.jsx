@@ -3,6 +3,7 @@ import { useGetClipsQuery } from "../slices/clipSlice";
 import { ClipCard } from "../components";
 import { Modal } from "../components/UIComponents"
 import { CloseIcon, LeftIcon } from "../utils/icons";
+import { useTranslation } from "react-i18next";
 
 export const AllClips = () => {
   const { data, error, isLoading, refetch } = useGetClipsQuery(
@@ -13,6 +14,7 @@ export const AllClips = () => {
   const [clip, setClip] = useState("");
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [t,i18n] = useTranslation("global");
 
   useEffect(() => {
     if (data) {
@@ -36,7 +38,7 @@ export const AllClips = () => {
       <div className="p-4 md:px-10 md:py-5 rounded my-2 text-text-25 w-full">
         <div className="flex justify-between md:items-center mb-5 flex-col md:flex-row ">
           <p className="md:text-3xl text-2xl font-semibold my-5">
-            My Clips
+            {t('clips.title')}
           </p>
           <input
             type="text"

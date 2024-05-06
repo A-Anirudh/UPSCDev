@@ -13,6 +13,7 @@ export const CollectionCardContainer = ({
   cards,
   refetch,
   playlistId,
+  language
 }) => {
   const [newCollectionName, setnewCollectionName] = useState(category);
   const [isEdit, setisEdit] = useState(false);
@@ -135,6 +136,7 @@ export const CollectionCardContainer = ({
               key={idx}
               refetch={refetch}
               playlistId={playlistId}
+              language={language}
             />
           ))}
         </div>

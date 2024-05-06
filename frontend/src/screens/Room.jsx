@@ -4,10 +4,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toastSuccess } from '../utils/myToast';
 import toast from 'react-hot-toast';
 import { useLazyAllUsersOfRoomQuery } from '../slices/roomSlice';
-  
-export const Room = () => {
+import { meetingExists } from '../slices/quizOpenSlice';
+import { useDispatch } from 'react-redux';
+import { redirect } from "react-router-dom";
 
-  const navigate = useNavigate()
+  
+export const Room = ({roomId}) => {
+
+  // const navigate = useNavigate()
   const socket = useMemo(
     () =>
       io(import.meta.env.VITE_SOCKET_URL, {
@@ -20,7 +24,7 @@ export const Room = () => {
   const username = userInfo.data.username
   const userId = userInfo.data.id;
 
-  const { roomId } = useParams();
+  // const { roomId } = useParams();
   const [room, setRoom] = useState(roomId);
   const [message, setMessage] = useState('')
   const [messages, setMessages] = useState([])
@@ -30,6 +34,7 @@ export const Room = () => {
 
   const [roomOwnerId, setRoomOwnerId] = useState('')
   const [roomName, setRoomName] = useState('')
+  const dispatch = useDispatch();
 
   const [allUsers] = useLazyAllUsersOfRoomQuery()
 
@@ -47,13 +52,15 @@ export const Room = () => {
 
   const handleLeaveMeet = () => {
     console.log('leeave room button clicked!!!!')
+    dispatch(meetingExists(false))
     // Because component changes, automatically leave-meet is being called
     setUserLeft(true)
-    navigate('/home')
+    return redirect('/home')
   }
 
   const handleEndMeet = () => {
     socket.emit('end-meet',roomId, roomOwnerId)
+    dispatch(meetingExists(false))
     console.log('End meet!')
   } 
 
@@ -98,12 +105,12 @@ export const Room = () => {
 
     socket.on('send-message-to-self', (message) => {
       toast.error(message)
-      navigate('/')
+      return redirect('/')
     })
 
     socket.on('redirect-home', () => {
       console.log('redirect home called!')
-      navigate('/')
+      return redirect('/')
     })
 
 
@@ -117,41 +124,79 @@ export const Room = () => {
   }, [])
 
   return (
-    <div>
-      Room Id: {roomId}
-      <br /><br />
-      Room name : {roomName}
+    <div className="container mx-auto p-6">
+      <h2 className="text-2xl font-bold mb-4">Room Details</h2>
+      <p>
+        <span className="font-semibold">Room Id:</span> {roomId}
+        <br />
+        <span className="font-semibold">Room name:</span> {roomName}
+      </p>
 
-      <br /><br />
-        <div>
-          <form onSubmit={handleSubmit}>
-          <input type="text" name="message" id="message" value={message} onChange={e=>setMessage(e.target.value)} style={{ border: '1px solid red' }} />
-          <button style={{ border: '1px solid green' }} type='submit'>SEND</button>
-          </form>
+      <div className="mt-6">
+        <form onSubmit={handleSubmit} className="flex items-center">
+          <input
+            type="text"
+            name="message"
+            id="message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            className="border border-gray-300 p-2 rounded mr-2 w-full"
+            placeholder="Type your message here..."
+          />
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-2 rounded"
+          >
+            Send
+          </button>
+        </form>
+      </div>
+
+      <div className="mt-6">
+        <h3 className="text-lg font-bold">Chat Messages:</h3>
+        <div className="mt-4">
+          {messages.map((m, index) => (
+            <div
+              key={index}
+              className={`py-2 px-4 mb-2 rounded-lg ${
+                index % 2 === 0 ? 'bg-blue-200' : 'bg-gray-200'
+              }`}
+            >
+              <span className="font-bold">{m.username}: </span>
+              {m.message}
+            </div>
+          ))}
         </div>
+      </div>
 
-        {messages.map((m, i) => (
-          <div key={i}>
-            {m.username} :
-            {m.message}
-          </div>
-        ))}
+      <div className="mt-6">
+        <button
+          onClick={handleLeaveMeet}
+          className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+        >
+          Leave meet
+        </button>
+        {roomOwnerId === userId && (
+          <button
+            onClick={handleEndMeet}
+            className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-2"
+          >
+            End meet
+          </button>
+        )}
+      </div>
 
-        <button onClick={handleLeaveMeet} className='bg-red-800 border'>Leave meet</button>
-        {/* Show only if owner of room!! */}
-        { roomOwnerId === userId ? <button onClick={handleEndMeet} className='bg-red-800 border'>End meet</button> : ''}
-
-        <br />
-        Users list: 
-        <br />
-        <ol>
-          {usersList.map((user, index) => {
-            
-            return <li key={index}>{user.username}</li>
-          })}
-        </ol>
-
-
+      <div className="mt-6">
+        <h3 className="text-lg font-bold">Users List:</h3>
+        <div className="pl-4 mt-2">
+          {usersList.map((user, index) => (
+            <div key={index} className="mt-1">
+              {user.username}
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
-  )
+  );
+
 }

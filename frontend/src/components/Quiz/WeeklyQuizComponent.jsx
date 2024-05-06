@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import DoneIcon from "@mui/icons-material/Done";
 import { LoadingIcon } from "../../loaders";
+import { useTranslation } from "react-i18next";
 
 
 
@@ -33,6 +34,7 @@ export const WeeklyQuizComponent = ({ isAttempted, refetch, prevAnswer }) => {
   const [loading, setloading] = useState(false);
   const navigate = useNavigate();
   const [attempted, setattempted] = useState(isAttempted || false);
+  const [t,i18n] = useTranslation("global");
 
   useEffect(() => {
     if (data && !isLoading) {
@@ -152,7 +154,7 @@ export const WeeklyQuizComponent = ({ isAttempted, refetch, prevAnswer }) => {
   };
 
   if (error) {
-    return <div>Error occured</div>;
+    return <div>{{error}}</div>;
   }
   if (isLoading) {
     return <div>Loading...</div>;
@@ -168,7 +170,7 @@ export const WeeklyQuizComponent = ({ isAttempted, refetch, prevAnswer }) => {
             attempted || isAttempted ? "block" : "hidden"
           }`}
         >
-          Quiz already attempted
+          {t('weeklyQuiz.attemptedMessage')}
         </p>
         <button
           className={`  text-center bg-primary-500 font-medium  mx-auto px-3 py-1 rounded text-white hover:bg-primary-600 ${
@@ -176,11 +178,11 @@ export const WeeklyQuizComponent = ({ isAttempted, refetch, prevAnswer }) => {
           }`}
           onClick={() => navigate("/leaderboard")}
         >
-          View leaderboard
+          {t('weeklyQuiz.leaderboard')}
         </button>
       </div>
 
-      <h1 className="text-3xl font-bold mb-4">Weekly Quiz</h1>
+      <h1 className="text-3xl font-bold mb-4">{t('weeklyQuiz.title')}</h1>
       {questions?.map((question, idx) => (
         <div key={question?._id} className="mb-6">
           <h2 className="text-lg font-semibold">
@@ -254,7 +256,7 @@ export const WeeklyQuizComponent = ({ isAttempted, refetch, prevAnswer }) => {
           onClick={handleSubmit}
         >
           {loading ? <LoadingIcon /> : null}
-          <p className="text-center w-full">{loading ? "Loading..." : "Submit"}</p>
+          <p className="text-center w-full">{loading ? "Loading..." : t('weeklyQuiz.submit')}</p>
         </button>
         <button
           className={`  text-center    px-3 py-1 rounded w-full md:w-fit  ${
@@ -262,7 +264,7 @@ export const WeeklyQuizComponent = ({ isAttempted, refetch, prevAnswer }) => {
           }`}
           onClick={() => navigate("/leaderboard")}
         >
-          View leaderboard
+          {t('weeklyQuiz.viewLeaderboard')}
         </button>
       </div>
     </div>

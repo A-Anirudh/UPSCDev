@@ -21,7 +21,11 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
 import { toastSuccess } from "../utils/myToast";
 
+import { useTranslation } from "react-i18next";
+
 export const Profile = () => {
+  const [language, setLanguage] = useState('English');
+
   const [userData, setUserData] = useState(null);
   const [update] = useUserUpdateProfileMutation();
   // const { refetch } = useUserProfileQuery();
@@ -39,7 +43,12 @@ export const Profile = () => {
   const [avOpen, setavOpen] = useState(false);
   const [settingOpen, setsettingOpen] = useState(false);
   const [openDisable, setopenDisable] = useState(false)
+  const [t,i18n] = useTranslation("global");
   useEffect(() => {
+    
+    const languageFromLocalStorage = JSON.parse(localStorage.getItem('language'));
+    setLanguage(languageFromLocalStorage)
+
     // On component mount
     fetchData();
 
@@ -55,6 +64,21 @@ export const Profile = () => {
       profile().refetch();
     }
   }, [userData]);
+
+  const handleLanguageClick = () => {
+    setLanguage((prevLanguage) => {
+      const newLanguage = prevLanguage === 'English' ? 'Hindi' : 'English';
+      localStorage.setItem('language', JSON.stringify(newLanguage));
+      return newLanguage;
+    });
+  
+    // Defer the language change operation using Promise.resolve().then()
+    Promise.resolve().then(() => {
+      i18n.changeLanguage(language === 'English' ? 'hi' : 'en');
+    });
+  };
+  
+  
 
   const fetchData = async () => {
     try {
@@ -132,7 +156,7 @@ export const Profile = () => {
       
       <div className=" w-full md:w-3/4 lg:w-1/2 mx-auto  ">
         <div className="flex items-center justify-between w-full ">
-          <p className=" font-semibold  text-3xl md:text-[3rem]">Profile</p>
+          <p className=" font-semibold  text-3xl md:text-[3rem]">{t('navbar.profile')}</p>
           <div className="bg-red -500  flex items-center relative">
             <button
               className="  font-jakarta px-6 py-2 rounded-full hover:shadow-md bg-green-500 text-white disabled:bg-green-600"
@@ -232,8 +256,10 @@ export const Profile = () => {
 
           Logout
         </button>
-          
-        
+        <p>
+        Current Language: <button className={`m-2 display-inline px-2 py-1 rounded-md pb-[0.3rem] bg-green-600 text-white hover:bg-green-800`} onClick={handleLanguageClick}>{language ? language : 'English'}</button>
+
+        </p>
         </div>
       </Modal>
 

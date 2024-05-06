@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     dailyQuiz:false,
     weeklyQuiz:false,
+    meetingExists: (localStorage.getItem('meeting')) ? true : false
   };
 
 const quizOpenSlice = createSlice({
@@ -15,8 +16,11 @@ const quizOpenSlice = createSlice({
       setweeklyquizopen: (state, action) => {
         state.weeklyQuiz = action.payload;
       },
+      meetingExists : (state,action) => {
+        state.meetingExists = action.payload
+      }
     },
   });
 
-  export const { setdailyquizopen,setweeklyquizopen } = quizOpenSlice.actions;
+  export const { setdailyquizopen,setweeklyquizopen,meetingExists } = quizOpenSlice.actions;
 export default quizOpenSlice.reducer;
