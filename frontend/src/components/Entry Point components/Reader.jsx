@@ -47,7 +47,7 @@ const [language, setLanguage] = useState('')
 useEffect(() => {
   const languageFromLocalStorage = JSON.parse(localStorage.getItem('language'));
   setLanguage(languageFromLocalStorage)
-}, [])
+}, [language])
 
 
   let clipPosition=localStorage.getItem('clip')

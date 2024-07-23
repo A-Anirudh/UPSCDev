@@ -1,7 +1,6 @@
 export{Homepage} from './Homepage'
 export{Login} from './Login'
 export{Mainpage} from './Mainpage'
-// export{Allaffairs} from './Allaffairs'
 export{Profile} from './Profile'
 export{Register} from './Register'
 export{AllFavourites} from './AllFavourites'
@@ -19,7 +18,6 @@ export{AllClips} from './AllClips'
 export{ViewContainer} from './ViewContainer'
 export{NotFound} from './NotFound'
 export{SearchResults} from './SearchResults'
-export{Room} from './Room'
 
 
 

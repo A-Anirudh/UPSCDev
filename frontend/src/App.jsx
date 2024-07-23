@@ -19,7 +19,6 @@ import {
   VerifyEmail,
   ViewContainer,
   WeeklyQuiz,
-  Room
 } from "./screens";
 
 import { LoggedOutRoutes, PrivateRoutes } from "./utils";
@@ -28,10 +27,8 @@ import {
   LeaderBoard,
   LoggedUserBar,
   Reader,
-  Test,
   UnloggedUserBar,
 } from "./components";
-import { MyRooms } from "./screens/MyRooms";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -39,7 +36,7 @@ const App = () => {
   const logged = localStorage.getItem("userInfo");
   // const [meetingExists, setMeetingExists] = useState(localStorage.getItem('meeting') === 'true');
 
-  const meetingExists = useSelector((state) => state.quizOpen.meetingExists)
+  // const meetingExists = useSelector((state) => state.quizOpen.meetingExists)
 
   // const oldLocalStorageValue  = localStorage.getItem('meeting');
   // if(localStorage.getItem('meeting') != oldLocalStorageValue){
@@ -53,11 +50,6 @@ const App = () => {
   //   const meetingData = localStorage.getItem('meeting');
   //   setMeetingExists(meetingData === 'true');
   // }, [localStorage.getItem('meeting')]);
-
-  const handleLeaveMeeting = () => {
-    // Update state to hide ChatComponent
-    setMeetingExists(false);
-  };
 
 
   const loc = window.location.pathname;
@@ -96,17 +88,13 @@ const App = () => {
           <Route path="/clips" element={<AllClips />} />
           <Route path={`/affairs/all`} element={<ViewContainer />} />
           <Route path="/search-results/:searchItem" element={<SearchResults />} />
-          <Route path="/search-results/" element={<SearchResults />} />
-          {/* <Route path="/room/:roomId" element={<Room />} /> */}
-          <Route path="/manage-rooms" element={<MyRooms />} />
-          
+          <Route path="/search-results/" element={<SearchResults />} />         
 
 
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
-    {meetingExists && <Test onLeaveMeeting={handleLeaveMeeting} />}
     </>
   );
 };

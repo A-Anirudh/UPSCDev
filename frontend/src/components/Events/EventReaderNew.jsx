@@ -18,13 +18,13 @@ export const EventReaderNew = ({language}) => {
   return (
     <>
     <Helmet>
-    <title>{language === 'English' ? eventData?.eventName.en :eventData?.eventName.hi}</title>
+    <title>{language === 'Hindi' ? eventData?.eventName.hi :eventData?.eventName.en}</title>
   </Helmet>
     <section className='p-2 md:p-12 overflow-y-auto  h-full sidebar'>
-        <p className=' text-center font-semibold text-[2rem] md:text-[3rem]'>{language === 'English' ? eventData?.eventName.en :eventData?.eventName.hi }</p>
+        <p className=' text-center font-semibold text-[2rem] md:text-[3rem]'>{language === 'Hindi' ? eventData?.eventName.hi :eventData?.eventName.en }</p>
         <p className=' text-center font-semibold text-sm md:text-[1rem] flex justify-center gap-6 text-primary-600    '><span>{eventData?.startDate.slice(0,10)}</span>{eventData?.endDate ? <span > <span className="pr-5">to</span> {eventData?.endDate?.slice(0,10)}</span>  : ''}</p>
         <article className='h-full p-4 font-jakarta'>
-          {language === 'English' ? eventData?.desc.en :eventData?.desc.hi}
+          {language === 'Hindi' ? eventData?.desc.hi :eventData?.desc.en}
         </article>
 
     </section>

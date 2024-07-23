@@ -26,7 +26,7 @@ export const TimelineCard = ({
       <div className="absolute -bottom-2 left-1/2  bg-primary-500 rounded-full h-4 w-4 " />
       <div className="mb-3 p-4 mr-2  rounded-md w-full">
         <p className=" text-md font-semibold line-clamp-1">
-          {language === 'English' ? eventName.en : eventName.hi}
+          {language === 'Hindi' ? eventName.hi : eventName.en}
         </p>
         <p className=" text-sm text-text-800">
           {startDate.slice(0, 10)}

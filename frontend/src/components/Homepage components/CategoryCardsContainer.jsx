@@ -24,7 +24,7 @@ const scrollRight = () => {
     const languageFromLocalStorage = JSON.parse(localStorage.getItem('language'));
     console.log('language fetched from localstorage is',languageFromLocalStorage)
     setLanguage(languageFromLocalStorage)
-  }, [])
+  }, [language])
 
     return (
 <div className=" flex flex-col   relative  w-full ">

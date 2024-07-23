@@ -23,7 +23,6 @@ import badgeRoute from './routes/gamify/badgesRoutes.js';
 import weeklyQuestionsRoute from './routes/gamify/weeklyQuizRoutes.js';
 import PlaylistRoute from './routes/playlist/playlistRoutes.js';
 import ClipRoute from './routes/clips/clipsRoute.js';
-import roomRoute from './routes/room/roomRoutes.js';
 
 // payment
 import RazorPay from 'razorpay';
@@ -78,7 +77,6 @@ app.use('/api/gamify',badgeRoute)
 app.use('/api/gamify',weeklyQuestionsRoute)
 app.use('/api/playlist',PlaylistRoute)
 app.use('/api/clip',ClipRoute)
-app.use('/api/room',roomRoute)
 app.use('/api/suggestions', suggestionRoute)
 
 // Middleware

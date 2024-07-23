@@ -45,7 +45,7 @@ const handleRemove=async()=>{
           className="text-text-25 font- text-[1.2rem]  line-clamp-1 "
           onClick={handleClick}
         >
-          {language==='English' ? articleName.en : articleName.hi}
+          {language==='Hindi' ? articleName.hi : articleName.en}
         </p>
       </div>
       <div className="absolute top-0  right-0  rounded-lg z-[999] "  style={{backdropFilter: "blur(5px)",backgroundColor:(0,0,0,0.5)}}>

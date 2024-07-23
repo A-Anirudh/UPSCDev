@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card } from "./Card";
 import { AffairCardNew } from "../Affair Components/AffairCardNew";
+import { useEffect } from "react";
 
 export const CardsContainer = ({ data }) => {
+  const [language, setLanguage] = useState('English');
 
+  useEffect(() => {
+    const languageFromLocalStorage = JSON.parse(localStorage.getItem('language'));
+    setLanguage(languageFromLocalStorage)  
+  }, [language])
 
 
 
@@ -26,6 +32,7 @@ export const CardsContainer = ({ data }) => {
                 affairName={affairName}
                 tags={tags}
                 thumbnail={thumbnail}
+                language={language}
                 />
             )
         })

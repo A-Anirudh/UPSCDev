@@ -14,7 +14,7 @@ export const SearchCard = ({ item }) => {
   useEffect(() => {
     const languageFromLocalStorage = JSON.parse(localStorage.getItem('language'));
     setLanguage(languageFromLocalStorage)
-  }, [])
+  }, [language])
 
   
 
@@ -34,7 +34,7 @@ export const SearchCard = ({ item }) => {
             className="text-text-25 font- text-[1.2rem]  line-clamp-1 cursor-pointer "
             onClick={handleClick}
           >
-            {language === 'English' ? affairName.en : affairName.hi}
+            {language === 'Hindi' ? affairName.hi : affairName.en}
           </p>
 
 

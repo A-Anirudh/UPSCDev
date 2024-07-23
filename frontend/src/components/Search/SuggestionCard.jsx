@@ -15,12 +15,12 @@ export const SuggestionCard = ({item,setIsOpen,setsearchItem}) => {
     useEffect(() => {
       const languageFromLocalStorage = JSON.parse(localStorage.getItem('language'));
       setLanguage(languageFromLocalStorage)
-    }, [])
+    }, [language])
 
   return (
     <div  onClick={handleClick} className=" p-3 cursor-pointer  hover:bg-accent-100 hover:text-accent-800
      rounded-md  duration-200 text-text-25">
-    <p className=' border-background-100 font-medium '>{language === 'English' ? affairName.en : affairName.hi}</p>
+    <p className=' border-background-100 font-medium '>{language === 'Hindi' ? affairName.hi : affairName.en}</p>
   </div>
   )
 }

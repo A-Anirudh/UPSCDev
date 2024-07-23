@@ -18,7 +18,7 @@ export const AllFavourites = () => {
   useEffect(() => {
     const languageFromLocalStorage = JSON.parse(localStorage.getItem('language'));
     setLanguage(languageFromLocalStorage)
-  }, [])
+  }, [language])
 
   useEffect(() => {
     if (data) {

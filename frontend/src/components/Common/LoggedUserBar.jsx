@@ -9,8 +9,6 @@ import { useSelector } from "react-redux";
 import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
 import { CloseIcon, SearchIcon } from "../../utils/icons";
 import { SearchComponent } from "../Search/SearchComponent";
-import CreateRoomButton from "../room/CreateRoomButton";
-import { MeetingDropdown } from "../room/MeetingDropdown";
 import { SearchContainer } from "../Search/SearchContainer";
 import { Helmet } from "react-helmet";
 import {useTranslation} from 'react-i18next'
@@ -172,7 +170,6 @@ export const LoggedUserBar = () => {
                 {t('navbar.profile')}
               </Link>
             </li>
-            <MeetingDropdown />
           </ul>
         </div>
         <div>

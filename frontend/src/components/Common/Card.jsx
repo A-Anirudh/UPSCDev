@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FavoriteBorderOutlinedIcon, FavoriteIcon } from "../../utils/icons";
 
-export const Card = ({ _id, pid, affairName, tags, thumbnail }) => {
+export const Card = ({ _id, pid, affairName, tags, thumbnail, language }) => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(`/affair/${_id}`);
@@ -24,7 +24,7 @@ export const Card = ({ _id, pid, affairName, tags, thumbnail }) => {
             className="text-text-25 font- text-[1.2rem]  line-clamp-1 "
             onClick={handleClick}
           >
-            {affairName}
+            {language==='Hindi' ? affairName.hi : affairName.en}
           </p>
           <p className="font-jakarta font-medium text-[0.79rem] text-background-700">
             {tags.join(",")}

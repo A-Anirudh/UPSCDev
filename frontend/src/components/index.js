@@ -1,11 +1,6 @@
 export{Navbar} from './Common/Navbar'
 export{Sidebar} from './Old(reference)/Sidebar'
-// export{Affaircard} from './Affaircard'
-// export{AllaffairsContainer} from './AllaffairsContainer'
-// export{AEReaderContainer} from './AEReaderContainer' 
 export{TimelineCard} from './Events/TimelineCard'
-// export{AffairReader} from './AffairReader'
-// export{EventReader} from './EventReader'
 export{FavAffairCard} from './Favourites/FavAffairCard'
 export{BuySubscription} from './Payment/BuySubscription'
 export{ShowSubscription} from './Payment/ShowSubscription'
@@ -50,50 +45,3 @@ export{SearchComponent} from '../components/Search/SearchComponent'
 export{SuggestionCard} from '../components/Search/SuggestionCard'
 export{SearchCard} from '../components/Search/SearchCard'
 export{SearchContainer} from '../components/Search/SearchContainer'
-export{MeetingDropdown} from '../components/room/MeetingDropdown'
-export{RoomDetailsCard} from '../components/room/RoomDetailsCard'
-export {Test} from './Test'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

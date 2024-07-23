@@ -52,7 +52,7 @@ export const AffairReaderNew = ({ pid, id, language }) => {
   return (
     <>
       <Helmet>
-        <title>{language==='English' ? affairData?.affairName.en : affairData?.affairName.hi}</title>
+        <title>{language==='Hindi' ? affairData?.affairName.hi : affairData?.affairName?.en}</title>
       </Helmet>
       <Helmet>
         <meta
@@ -70,7 +70,7 @@ export const AffairReaderNew = ({ pid, id, language }) => {
       </Helmet>
       <section className="main-container p-2 md:p-5 pb-10 h-full">
         <p className="font-[Montserrat]ont-[Montserrat] text-center font-semibold text-[2rem] md:text-[3rem]">
-          {language==='English' ? affairData?.affairName.en : affairData?.affairName.hi}
+          {language==='Hindi' ? affairData?.affairName.hi : affairData?.affairName?.en}
         </p>
         <p className="font-[Montserrat] text-center font-semibold text-sm md:text-[1rem] flex justify-center gap-6 text-primary-800    ">
           <span>{affairData?.startDate.slice(0, 10)}</span>to
@@ -86,7 +86,7 @@ export const AffairReaderNew = ({ pid, id, language }) => {
             </div>
           ))}
         </div>
-        <Accordion title={"Summary"} content={language==='English' ? affairData?.summary.en : affairData?.summary.hi } />
+        <Accordion title={"Summary"} content={language==='Hindi' ? affairData?.summary.hi : affairData?.summary?.en } />
         <Quiz id={id} />
         <AudioPlayer audioLink={affairData?.audio} />
         <p
@@ -97,7 +97,7 @@ export const AffairReaderNew = ({ pid, id, language }) => {
             window.getSelection().removeAllRanges();
           }}
           dangerouslySetInnerHTML={{
-            __html: language==='English' ? affairData?.article.en : affairData?.article.hi,
+            __html: language==='Hindi' ? affairData?.article.hi : affairData?.article?.en,
           }}
         ></p>
         {selectedText && (
